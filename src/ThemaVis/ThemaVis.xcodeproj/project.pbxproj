@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A227A20162C8DE200B6A8BD /* ThemaMap.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A227A1E162C8DCA00B6A8BD /* ThemaMap.framework */; };
+		2A227A22162C8F1900B6A8BD /* ThemaMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A227A1E162C8DCA00B6A8BD /* ThemaMap.framework */; };
+		8208931A0DF1FD1D00AC23B6 /* TMColors.icns in Resources */ = {isa = PBXBuildFile; fileRef = 820893190DF1FD1D00AC23B6 /* TMColors.icns */; };
+		821EFD97104B0C0400EE2D2A /* NSString+Explode.m in Sources */ = {isa = PBXBuildFile; fileRef = 821EFD96104B0C0400EE2D2A /* NSString+Explode.m */; };
+		821EFE49104B205100EE2D2A /* ThemaVis.icns in Resources */ = {isa = PBXBuildFile; fileRef = 821EFE48104B205100EE2D2A /* ThemaVis.icns */; };
+		823DAD2F0E22784300772198 /* TMBezierPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DAD2E0E22784300772198 /* TMBezierPathView.m */; };
+		823DAD330E227B7700772198 /* TMUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DAD320E227B7700772198 /* TMUtilities.m */; };
+		824F1F6B0DF160E6008D5B69 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 824F1F690DF160E6008D5B69 /* up.png */; };
+		824F1F6C0DF160E6008D5B69 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 824F1F6A0DF160E6008D5B69 /* down.png */; };
+		824F1FE90DF1A1C8008D5B69 /* TMColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 824F1FE80DF1A1C8008D5B69 /* TMColorCell.m */; };
+		826BF7EB0DCCB41500F590B5 /* TMViewPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 826BF7EA0DCCB41500F590B5 /* TMViewPanelController.m */; };
+		826BF7ED0DCCB48900F590B5 /* ViewPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 826BF7EC0DCCB48900F590B5 /* ViewPanel.nib */; };
+		82B22AC10D980EC200A60D00 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B22AC00D980EC200A60D00 /* FScript.framework */; };
+		82B22B0F0D980F0A00A60D00 /* FScript.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82B22AC00D980EC200A60D00 /* FScript.framework */; };
+		82C1C15E0DCB7F08001327D3 /* TMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C1C15D0DCB7F08001327D3 /* TMScrollView.m */; };
+		82E4074E0E122441004054C0 /* circle-14.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E4074D0E122441004054C0 /* circle-14.png */; };
+		82F730BA1049E603008DF5EE /* TMMap.icns in Resources */ = {isa = PBXBuildFile; fileRef = 82F730B91049E603008DF5EE /* TMMap.icns */; };
+		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
+		8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
+		8D15AC2E0486D014006FF6A4 /* TMDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B4FDCFA73011CA2CEA /* TMDocument.nib */; };
+		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
+		8D15AC310486D014006FF6A4 /* TMDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* TMDocument.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		E744BFBC0E23A31900472995 /* rectangle-22.png in Resources */ = {isa = PBXBuildFile; fileRef = E744BFBA0E23A31900472995 /* rectangle-22.png */; };
+		E744BFBD0E23A31900472995 /* cercle-22.png in Resources */ = {isa = PBXBuildFile; fileRef = E744BFBB0E23A31900472995 /* cercle-22.png */; };
+		E744BFBF0E23A3D900472995 /* hexagone-22.png in Resources */ = {isa = PBXBuildFile; fileRef = E744BFBE0E23A3D900472995 /* hexagone-22.png */; };
+		E744BFC10E23A43400472995 /* triangle-22.png in Resources */ = {isa = PBXBuildFile; fileRef = E744BFC00E23A43400472995 /* triangle-22.png */; };
+		E7E1978B0DB36669002F9414 /* ClassificationPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = E7E1978A0DB36669002F9414 /* ClassificationPanel.nib */; };
+		E7E197AD0DB366E2002F9414 /* TMClassificationPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E197AC0DB366E2002F9414 /* TMClassificationPanelController.m */; };
+		E7E197B00DB367F9002F9414 /* TMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E197AF0DB367F9002F9414 /* TMAppDelegate.m */; };
+		E7E197EA0DB38313002F9414 /* TMLayerPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E197E90DB38313002F9414 /* TMLayerPanelController.m */; };
+		E7E197FA0DB383A6002F9414 /* LayerPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = E7E197F90DB383A6002F9414 /* LayerPanel.nib */; };
+		E7E198210DB384F2002F9414 /* TMColorTablePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E198200DB384F2002F9414 /* TMColorTablePanelController.m */; };
+		E7E198230DB38535002F9414 /* ColorTablePanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = E7E198220DB38535002F9414 /* ColorTablePanel.nib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		82B22B130D980F1A00A60D00 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				82B22B0F0D980F0A00A60D00 /* FScript.framework in CopyFiles */,
+				2A227A20162C8DE200B6A8BD /* ThemaMap.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		2A227A1E162C8DCA00B6A8BD /* ThemaMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ThemaMap.framework; path = ../ThemaMap/build/Release/ThemaMap.framework; sourceTree = "<group>"; };
+		2A37F4ACFDCFA73011CA2CEA /* TMDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDocument.m; sourceTree = "<group>"; };
+		2A37F4AEFDCFA73011CA2CEA /* TMDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDocument.h; sourceTree = "<group>"; };
+		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A37F4B5FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/TMDocument.nib; sourceTree = "<group>"; };
+		2A37F4B7FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32DBCF750370BD2300C91783 /* ThemaVis_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemaVis_Prefix.pch; sourceTree = "<group>"; };
+		820893190DF1FD1D00AC23B6 /* TMColors.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TMColors.icns; path = Resources/TMColors.icns; sourceTree = "<group>"; };
+		821EFD95104B0C0400EE2D2A /* NSString+Explode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Explode.h"; sourceTree = "<group>"; };
+		821EFD96104B0C0400EE2D2A /* NSString+Explode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Explode.m"; sourceTree = "<group>"; };
+		821EFE48104B205100EE2D2A /* ThemaVis.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ThemaVis.icns; path = Resources/ThemaVis.icns; sourceTree = "<group>"; };
+		823DAD2D0E22784300772198 /* TMBezierPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBezierPathView.h; sourceTree = "<group>"; };
+		823DAD2E0E22784300772198 /* TMBezierPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBezierPathView.m; sourceTree = "<group>"; };
+		823DAD310E227B7700772198 /* TMUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUtilities.h; sourceTree = "<group>"; };
+		823DAD320E227B7700772198 /* TMUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUtilities.m; sourceTree = "<group>"; };
+		824F1F690DF160E6008D5B69 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = up.png; path = Resources/up.png; sourceTree = "<group>"; };
+		824F1F6A0DF160E6008D5B69 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = down.png; path = Resources/down.png; sourceTree = "<group>"; };
+		824F1FE70DF1A1C8008D5B69 /* TMColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMColorCell.h; sourceTree = "<group>"; };
+		824F1FE80DF1A1C8008D5B69 /* TMColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMColorCell.m; sourceTree = "<group>"; };
+		826BF7E90DCCB41500F590B5 /* TMViewPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMViewPanelController.h; sourceTree = "<group>"; };
+		826BF7EA0DCCB41500F590B5 /* TMViewPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMViewPanelController.m; sourceTree = "<group>"; };
+		826BF7EC0DCCB48900F590B5 /* ViewPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ViewPanel.nib; sourceTree = "<group>"; };
+		82B22AC00D980EC200A60D00 /* FScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FScript.framework; sourceTree = "<group>"; };
+		82C1C15C0DCB7F08001327D3 /* TMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMScrollView.h; sourceTree = "<group>"; };
+		82C1C15D0DCB7F08001327D3 /* TMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMScrollView.m; sourceTree = "<group>"; };
+		82E4074D0E122441004054C0 /* circle-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-14.png"; path = "Resources/circle-14.png"; sourceTree = "<group>"; };
+		82F730B91049E603008DF5EE /* TMMap.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TMMap.icns; path = Resources/TMMap.icns; sourceTree = "<group>"; };
+		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* ThemaVis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThemaVis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E744BFBA0E23A31900472995 /* rectangle-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rectangle-22.png"; path = "Resources/rectangle-22.png"; sourceTree = "<group>"; };
+		E744BFBB0E23A31900472995 /* cercle-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cercle-22.png"; path = "Resources/cercle-22.png"; sourceTree = "<group>"; };
+		E744BFBE0E23A3D900472995 /* hexagone-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hexagone-22.png"; path = "Resources/hexagone-22.png"; sourceTree = "<group>"; };
+		E744BFC00E23A43400472995 /* triangle-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-22.png"; path = "Resources/triangle-22.png"; sourceTree = "<group>"; };
+		E7E1978A0DB36669002F9414 /* ClassificationPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ClassificationPanel.nib; sourceTree = "<group>"; };
+		E7E197AB0DB366E2002F9414 /* TMClassificationPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMClassificationPanelController.h; sourceTree = "<group>"; };
+		E7E197AC0DB366E2002F9414 /* TMClassificationPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMClassificationPanelController.m; sourceTree = "<group>"; };
+		E7E197AE0DB367F9002F9414 /* TMAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAppDelegate.h; sourceTree = "<group>"; };
+		E7E197AF0DB367F9002F9414 /* TMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAppDelegate.m; sourceTree = "<group>"; };
+		E7E197E80DB38313002F9414 /* TMLayerPanelController.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = TMLayerPanelController.h; sourceTree = "<group>"; };
+		E7E197E90DB38313002F9414 /* TMLayerPanelController.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = TMLayerPanelController.m; sourceTree = "<group>"; };
+		E7E197F90DB383A6002F9414 /* LayerPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LayerPanel.nib; sourceTree = "<group>"; };
+		E7E1981F0DB384F2002F9414 /* TMColorTablePanelController.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = TMColorTablePanelController.h; sourceTree = "<group>"; };
+		E7E198200DB384F2002F9414 /* TMColorTablePanelController.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = TMColorTablePanelController.m; sourceTree = "<group>"; };
+		E7E198220DB38535002F9414 /* ColorTablePanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ColorTablePanel.nib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				82B22AC10D980EC200A60D00 /* FScript.framework in Frameworks */,
+				2A227A22162C8F1900B6A8BD /* ThemaMap.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* ThemaVis.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* ThemaVis */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			name = ThemaVis;
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E7E197AE0DB367F9002F9414 /* TMAppDelegate.h */,
+				E7E197AF0DB367F9002F9414 /* TMAppDelegate.m */,
+				823DAD2D0E22784300772198 /* TMBezierPathView.h */,
+				823DAD2E0E22784300772198 /* TMBezierPathView.m */,
+				2A37F4AEFDCFA73011CA2CEA /* TMDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* TMDocument.m */,
+				E7E197AB0DB366E2002F9414 /* TMClassificationPanelController.h */,
+				E7E197AC0DB366E2002F9414 /* TMClassificationPanelController.m */,
+				824F1FE70DF1A1C8008D5B69 /* TMColorCell.h */,
+				824F1FE80DF1A1C8008D5B69 /* TMColorCell.m */,
+				E7E1981F0DB384F2002F9414 /* TMColorTablePanelController.h */,
+				E7E198200DB384F2002F9414 /* TMColorTablePanelController.m */,
+				E7E197E80DB38313002F9414 /* TMLayerPanelController.h */,
+				E7E197E90DB38313002F9414 /* TMLayerPanelController.m */,
+				82C1C15C0DCB7F08001327D3 /* TMScrollView.h */,
+				82C1C15D0DCB7F08001327D3 /* TMScrollView.m */,
+				826BF7E90DCCB41500F590B5 /* TMViewPanelController.h */,
+				826BF7EA0DCCB41500F590B5 /* TMViewPanelController.m */,
+				823DAD310E227B7700772198 /* TMUtilities.h */,
+				823DAD320E227B7700772198 /* TMUtilities.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				821EFD95104B0C0400EE2D2A /* NSString+Explode.h */,
+				821EFD96104B0C0400EE2D2A /* NSString+Explode.m */,
+				32DBCF750370BD2300C91783 /* ThemaVis_Prefix.pch */,
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				821EFE48104B205100EE2D2A /* ThemaVis.icns */,
+				820893190DF1FD1D00AC23B6 /* TMColors.icns */,
+				82F730B91049E603008DF5EE /* TMMap.icns */,
+				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
+				2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */,
+				2A37F4B4FDCFA73011CA2CEA /* TMDocument.nib */,
+				E7E1978A0DB36669002F9414 /* ClassificationPanel.nib */,
+				E7E198220DB38535002F9414 /* ColorTablePanel.nib */,
+				E7E197F90DB383A6002F9414 /* LayerPanel.nib */,
+				826BF7EC0DCCB48900F590B5 /* ViewPanel.nib */,
+				8D15AC360486D014006FF6A4 /* Info.plist */,
+				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				824F1F690DF160E6008D5B69 /* up.png */,
+				824F1F6A0DF160E6008D5B69 /* down.png */,
+				82E4074D0E122441004054C0 /* circle-14.png */,
+				E744BFBA0E23A31900472995 /* rectangle-22.png */,
+				E744BFBB0E23A31900472995 /* cercle-22.png */,
+				E744BFBE0E23A3D900472995 /* hexagone-22.png */,
+				E744BFC00E23A43400472995 /* triangle-22.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A227A1E162C8DCA00B6A8BD /* ThemaMap.framework */,
+				82B22AC00D980EC200A60D00 /* FScript.framework */,
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D15AC270486D014006FF6A4 /* ThemaVis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ThemaVis" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+				82B22B130D980F1A00A60D00 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThemaVis;
+			productInstallPath = "$(HOME)/Applications";
+			productName = ThemaVis;
+			productReference = 8D15AC370486D014006FF6A4 /* ThemaVis.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ThemaVis" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* ThemaVis */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* ThemaVis */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */,
+				8D15AC2E0486D014006FF6A4 /* TMDocument.nib in Resources */,
+				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
+				E7E1978B0DB36669002F9414 /* ClassificationPanel.nib in Resources */,
+				E7E197FA0DB383A6002F9414 /* LayerPanel.nib in Resources */,
+				E7E198230DB38535002F9414 /* ColorTablePanel.nib in Resources */,
+				826BF7ED0DCCB48900F590B5 /* ViewPanel.nib in Resources */,
+				824F1F6B0DF160E6008D5B69 /* up.png in Resources */,
+				824F1F6C0DF160E6008D5B69 /* down.png in Resources */,
+				8208931A0DF1FD1D00AC23B6 /* TMColors.icns in Resources */,
+				82E4074E0E122441004054C0 /* circle-14.png in Resources */,
+				E744BFBC0E23A31900472995 /* rectangle-22.png in Resources */,
+				E744BFBD0E23A31900472995 /* cercle-22.png in Resources */,
+				E744BFBF0E23A3D900472995 /* hexagone-22.png in Resources */,
+				E744BFC10E23A43400472995 /* triangle-22.png in Resources */,
+				82F730BA1049E603008DF5EE /* TMMap.icns in Resources */,
+				821EFE49104B205100EE2D2A /* ThemaVis.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC310486D014006FF6A4 /* TMDocument.m in Sources */,
+				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				E7E197AD0DB366E2002F9414 /* TMClassificationPanelController.m in Sources */,
+				E7E197B00DB367F9002F9414 /* TMAppDelegate.m in Sources */,
+				E7E197EA0DB38313002F9414 /* TMLayerPanelController.m in Sources */,
+				E7E198210DB384F2002F9414 /* TMColorTablePanelController.m in Sources */,
+				82C1C15E0DCB7F08001327D3 /* TMScrollView.m in Sources */,
+				826BF7EB0DCCB41500F590B5 /* TMViewPanelController.m in Sources */,
+				824F1FE90DF1A1C8008D5B69 /* TMColorCell.m in Sources */,
+				823DAD2F0E22784300772198 /* TMBezierPathView.m in Sources */,
+				823DAD330E227B7700772198 /* TMUtilities.m in Sources */,
+				821EFD97104B0C0400EE2D2A /* NSString+Explode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1660FE840EACC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2A37F4B4FDCFA73011CA2CEA /* TMDocument.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4B5FDCFA73011CA2CEA /* English */,
+			);
+			name = TMDocument.nib;
+			sourceTree = "<group>";
+		};
+		2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4B7FDCFA73011CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4BAFDCFA73011CA2CEA /* English */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(inherited)",
+					"@executable_path/Contents/Frameworks",
+					"\"$(SRCROOT)/../ThemaMap/build/Release\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ThemaVis_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = ThemaVis;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../ThemaMap/build/Release\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ThemaVis_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = ThemaVis;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ThemaVis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ThemaVis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}

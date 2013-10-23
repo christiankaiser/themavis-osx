@@ -1,0 +1,207 @@
+<html>
+	<head>
+		<title>
+			System-wide Scripting with F-Script
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+
+	</head>
+	<body bgcolor="#FFFFFF">
+		<br>
+		<H1 align="center">
+			System-wide Scripting with F-Script
+		</H1>
+		<p>
+			<font color=#326fa3>Revised September 2009</font>
+		</p>
+
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+		<H2>
+			Introduction
+		</H2>
+<p>
+Like AppleScript, F-Script can communicate with scriptable application, making it possible to automate processes using these applications and to create workflows spanning multiple applications. This system-wide scripting capability relies on a standard Mac OS X technology called the <a href = "http://developer.apple.com/documentation/Cocoa/Conceptual/ScriptingBridgeConcepts/Introduction/Introduction.html"> Scripting Bridge:</a>
+
+<blockquote>
+Scripting Bridge is a framework and a technology that makes it much easier for Cocoa developers to control and communicate with scriptable applications. [...] The Scripting Bridge framework makes it possible to send and receive Apple events using Objective-C messages instead of AppleScript commands or Apple-event descriptors. For Cocoa programmers, Scripting Bridge provides a simple and clear model for controlling scriptable applications. It makes Cocoa programs that send and receive Apple events more efficient, and it doesn't require you to have detailed knowledge of the target application's Apple event model. Scripting Bridge integrates well with existing Objective-C code and works with standard Cocoa designs, such as key-value coding, target-action, and declared properties. 
+</blockquote>
+
+<p>
+Basically, the scripting bridge allows manipulating scriptable applications as if they were Cocoa objects, automatically taking care of the communication details (e.g. creating and sending Apple Events). This allows using F-Script to manipulate other applications through their standard scripting interface.
+</p>
+
+<p>
+Note: for a refresher about AppleScript, Apple Events and so on, one very good read, providing a unique historical perspective, is <a href="http://www.cs.utexas.edu/~wcook/Drafts/2006/ashopl.pdf">AppleScript</a>, written by William R. Cook for the <a href="http://research.ihost.com/hopl/HOPL-III.html">HOPL III conference</a>.</p>
+
+<H2>Connecting to applications</H2>
+
+So how does one use Scripting Bridge in F-Script? First, to connect to an application, we use the <a href="http://developer.apple.com/DOCUMENTATION/Cocoa/Reference/SBApplication_Class/SBApplication/SBApplication.html">SBApplication class</a> provided by Cocoa. For example, here is how we can connect to iTunes:
+
+<pre class="codebox"><code><span class="identifier">iTunes</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.iTunes'</span>
+</code></pre>
+
+The <code>applicationWithBundleIdentifier:</code> method automatically introspects the scripting interface of the target application, dynamically creates the classes and methods needed to interact with it and returns an object that represents the application. This is the object we then use to start manipulating the application from F-Script. In the example below, we assign it to a variable named "iTunes". This object will automaticaly take care of communicating with the application when needed.  
+
+<H2>Interacting with applications</H2>
+
+<p>Now that we have a connection to an application, we can interact with it from F-Script. For example, let's ask iTunes for the name of the current track:
+</p>
+
+<pre class="codebox"><code><span class="identifier">iTunes</span> <span class="selector">currentTrack</span> <span class="selector">name</span>
+</code></pre>
+
+<p>If there is no current track, an error is returned by the scripting bridge and displayed by F-Script. Otherwise, the name of the current track is returned.</p>
+
+<p>Now, ask iTunes to go to the next track:</p>
+
+<pre class="codebox"><code><span class="identifier">iTunes</span> <span class="selector">nextTrack</span>
+</code></pre>
+
+<p>Connect to the Finder and query it for the names of the files on the desktop:</p>
+
+<pre class="codebox"><code><span class="identifier">Finder</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.finder'</span>.
+<span class="identifier">Finder</span> <span class="selector">desktop</span> <span class="selector">files</span> <span class="selector">name</span>
+</code></pre>
+
+<p>Display these file names in the array inspector:</p>
+
+<pre class="codebox"><code><span class="identifier">Finder</span> <span class="selector">desktop</span> <span class="selector">files</span> <span class="selector">name</span> <span class="selector">inspect</span>
+</code></pre>
+
+<p>Ask the Finder for the names of the files on the desktop which have been modified today:
+</p>
+ 
+<pre class="codebox"><code><span class="identifier">files</span> := <span class="identifier">Finder</span> <span class="selector">desktop</span> <span class="selector">files</span>.
+<span class="identifier">files</span> <span class="selector">name</span> <span class="selector">where:</span><span class="identifier">files</span> <span class="selector">modificationDate</span> <span class="selector">>=</span> <span class="string">'today'</span> <span class="selector">asDate</span>
+</code></pre>
+
+<p>As you see, we can make use of F-Script&#39;s array programming model as usual. 
+
+<!--Actually, this programming model (in which you manipulate whole sets of objects at once) acts synergistically with Scripting Bridge as it allows F-Script to automatically perform behind-the-scene optimizations and minimize the number of remote calls. Since such remote interactions are very costly, these optimizations have a huge impact on performance.</p> -->
+
+<p>In the following example, we ask the Finder for the number of files in the Applications folder on the startup disk:</p>
+
+<pre class="codebox"><code>(<span class="identifier">Finder</span> <span class="selector">startupDisk</span> <span class="selector">folders</span> <span class="selector">objectWithName:</span><span class="string">'Applications'</span>) <span class="selector">files</span> <span class="selector">count</span>
+</code></pre>
+
+<p>In the following example, we connect to Mail and ask for the subjects of the messages that are currently in our inbox and to which we have already replied:</p>
+
+<pre class="codebox"><code><span class="identifier">Mail</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.mail'</span>.
+<span class="identifier">Mail</span> <span class="selector">inbox</span> <span class="selector">messages</span> <span class="selector">subject</span> <span class="selector">where:</span><span class="identifier">Mail</span> <span class="selector">inbox</span> <span class="selector">messages</span> <span class="selector">wasRepliedTo</span>
+</code></pre>
+
+<p>The following script is based on a example in the <a href=http://developer.apple.com/documentation/Cocoa/Conceptual/ScriptingBridgeConcepts/UsingScriptingBridge/UsingScriptingBridge.html>Scripting Bridge Programming Guide for Cocoa</a>. It plays the currently selected iTunes track (if the application is running) and then modulates the volume of the sound, eventually restoring it to the original level.
+
+<pre class="codebox"><code><span class="identifier">iTunes</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.iTunes'</span>.
+
+<span class="identifier">iTunes</span> <span class="selector">isRunning</span> <span class="selector">ifTrue:</span>
+[
+    |<span class="identifier">rampVolume</span> <span class="identifier">originalVolume</span>|
+  
+    <span class="identifier">originalVolume</span> := <span class="identifier">iTunes</span> <span class="selector">soundVolume</span>.
+    <span class="identifier">iTunes</span> <span class="selector">setSoundVolume:</span><span class="literal">0</span>; <span class="selector">pause</span>; <span class="selector">playpause</span>.
+    <span class="identifier">rampVolume</span> := <span class="literal">0</span>.
+
+    [<span class="identifier">rampVolume</span> <span class="selector">&lt;</span> <span class="identifier">originalVolume</span>] <span class="selector">whileTrue:</span>
+    [
+        <span class="identifier">iTunes</span> <span class="selector">setSoundVolume:</span><span class="identifier">rampVolume</span>.
+        <span class="comment">"Pause 1/10th of a second between adjustments"</span>
+        <span class="identifier">NSThread</span> <span class="selector">sleepUntilDate:</span>(<span class="identifier">NSDate</span> <span class="selector">dateWithTimeIntervalSinceNow:</span><span class="literal">0.1</span>).
+        <span class="identifier">rampVolume</span> := <span class="identifier">rampVolume</span> <span class="selector">+</span> (<span class="identifier">originalVolume</span> <span class="selector">/</span> <span class="literal">32</span>).
+    ].
+    
+    <span class="identifier">iTunes</span> <span class="selector">setSoundVolume:</span><span class="identifier">originalVolume</span>.
+]
+</code></pre>
+
+<p>The following script is also based on a example in the <a href=http://developer.apple.com/documentation/Cocoa/Conceptual/ScriptingBridgeConcepts/UsingScriptingBridge/UsingScriptingBridge.html>Scripting Bridge Programming Guide for Cocoa</a>. It copies the textual content of each selected Mail message to a TextEdit document.</p>
+
+<pre class="codebox"><code><span class="identifier">TextEdit</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.TextEdit'</span>.
+<span class="identifier">Mail</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.Mail'</span>.
+
+<span class="identifier">Mail</span> <span class="selector">messageViewers</span> <span class="selector">do:</span>[:<span class="identifier">viewer</span>| 
+    <span class="identifier">viewer</span> <span class="selector">selectedMessages</span> <span class="selector">do:</span>[:<span class="identifier">message</span>|  
+        <span class="identifier">doc</span> := (<span class="identifier">TextEdit</span> <span class="selector">classForScriptingClass:</span><span class="string">'document'</span>) <span class="selector">alloc</span> <span class="selector">init</span>.
+        <span class="identifier">TextEdit</span> <span class="selector">documents</span> <span class="selector">addObject:</span><span class="identifier">doc</span>.
+        <span class="identifier">doc</span> <span class="selector">setText:</span><span class="identifier">message</span> <span class="selector">content</span> <span class="selector">get</span>.
+    ] 
+]
+</code></pre>
+
+<H2>Exploring scripting interfaces</H2>
+
+<p>Each application has its own specific scripting interface. The F-Script object browser comes in handy for exploring and experimenting with the available methods for a particular application. If we have already established a connection with an application, we can open the object browser programmatically, passing it the object representing the application, as in the following example:</p>
+
+<pre class="codebox"><code><span class="identifier">sys</span> <span class="selector">browse:</span><span class="identifier">iTunes</span>
+</code></pre>
+
+<p>Alternatively, we can establish the connection right from the object browser itself, by following these steps:
+<ol>
+<li>If the object browser is not already on screen, select &quot;Open object browser&quot; in the Workspace menu.</li><br>
+<li>In the object browser, click on the Classes button. This lists all the classes currently linked.</li><br>
+<li>In the class list, click on the <code>SBApplication</code> class. This displays the class methods of <code>SBApplication</code>.</li><br>
+<li>In the method list, click on the <code>applicationWithBundleIdentifier:</code> method and provide the required argument (i.e., a string containing the identifier of the application you want to connect to); for example, enter <code>'com.apple.iTunes'</code>.</li>
+</ol>
+</p>
+
+<p>We can then use the object browser to explore and experiment with the scripting interface of the application.</p>
+
+<img src="artwork/fig1.png">
+
+<p>As shown in the screenshot, the browser displays the methods of the Cocoa object automatically created by the Scripting Bridge to represent the iTunes application. To invoke a particular method, all we have to do is to click on it (the browser will asks for arguments if needed). Once the method returns, the result is displayed in a new column in the browser and we can further manipulate it. The object browser provides a lot of features to help exploring and navigating objects. You'll find a detailed tutorial in <a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a>.</p>
+
+<p>To get more information about the scripting interface of an application, we can generate an Objective-C interface file (that is, a .h file) that describes the application scripting interface. This is done by using together the <code>sdef</code> (scripting definition extractor) and <code>sdp</code> (scripting definition processor) commands provided by Mac OS X . We first use <code>sdef</code> to asks an application for its scripting definition, and we then pass this definition to <code>sdp</code> to produce an Objectice-C interface file. For example, to get a detailed description of how iTunes can be controlled with the Scripting Bridge, we can execute the following command in a UNIX shell:</p>
+
+<pre class="codebox">
+sdef /Applications/iTunes.app | sdp -fh --basename "iTunes"
+</code></pre>
+
+<p>This will create a file named iTunes.h. Here is a short extract of this file, as displayed by Xcode:</p>
+
+<img src="artwork/fig2.png">
+
+<p>The <code>sdp</code> command might not work well with some applications. In such cases, looking at the output of <code>sdef</code> can still provide useful information about an application interface.</p>
+
+<p>Combining information we get using <code>sdef</code> and <code>sdp</code> with interactive exprimentation, we can learn how to control an application from F-Script (as well as from Objective-C) and hopefully write cool scripts.</p>
+
+<p>Happy scripting!</p>
+
+		<br>
+		<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2009 Philippe Mougin</font>
+		</p>
+		<br>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

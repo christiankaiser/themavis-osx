@@ -1,0 +1,177 @@
+<html>
+	<head>
+		<title>
+			Accessing Mac OS X Frameworks with F-Script
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+		<style type="text/css" media="all"> 
+
+</style>
+	</head>
+	<body bgcolor="#FFFFFF">
+		<br>
+		<H1 align="center">
+			Accessing Mac OS X Frameworks with F-Script
+		</H1>
+		<p>
+			<font color=#326fa3>
+			Revised April 2010</font>
+		</p>
+
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+
+
+<H2>Introduction</H2>
+	
+<p>F-Script.app, the standalone F-Script environment, is automatically linked with a number of Mac OS X frameworks. This is convenient for quickly exploring Mac OS X&#39;s capabilities and directly using the frameworks without any further configuration.</p> 
+
+<H2>A practical example: accessing the Image Kit framework</H2>
+
+<p>We will illustrate this by accessing the <a href="http://developer.apple.com/graphicsimaging/imagekit/">Image Kit</a>, a recent addition to the standard Mac OS X frameworks. We can launch F-Script.app and directly enter the following code:</p>    
+
+<pre class="codebox"><code><span class="identifier">IKPictureTaker</span> <span class="selector">pictureTaker</span> <span class="selector">orderFront:</span><span class="literal">nil</span>
+</code></pre>
+
+<p>It will activate the <code><a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/IKImagePicker_Class/index.html">IKPictureTaker</a></code> panel, a component of Image Kit with which users can, among other things, browse images in the file system and take snapshots with digital cameras (including the built-in iSight).</p>
+
+<img src="artwork/fig1.png"/>
+
+<p>Then, once we&#39;ve got the image we want, we can get the image objet (an <code><a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSImage_Class/index.html">NSImage</a></code> instance) from the picture taker by typing the following instruction in the F-Script console:</p>
+
+<pre class="codebox"><code><span class="identifier">myImage</span> := <span class="identifier">IKPictureTaker</span> <span class="selector">pictureTaker</span> <span class="selector">outputImage</span>
+</code></pre>
+
+<p>This F-Script code defines a variable named &quot;myImage&quot; and assigns it the NSImage object held by the picture taker.</p>
+
+<H2>Linked frameworks</H2>
+
+<p>The following table lists the frameworks that are automatically liked with F-Script.app:</p>
+
+<table>
+<tr align="center" bgcolor="#6ca6cd"><td style="padding:10px; color:FFFFFF;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Framework&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></td> <td style="color:FFFFFF;"><b>Description</b></td></tr>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Address Book </td><td style="padding:8px;">Access to the contacts database </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Application Kit </td><td style="padding:8px;">User interface </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Automator </td><td style="padding:8px;"> Automator plugin system</td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Calendar Store </td><td style="padding:8px;"> Access to the calendar database </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Collaboration </td><td style="padding:8px;"> Identity information management </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Core Animation </td><td style="padding:8px;"> Graphical animation </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Core Audio Kit </td><td style="padding:8px;"> Audio Units custom views </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Core Data </td><td style="padding:8px;"> Data model management (object persistence, etc.) </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Core Image </td><td style="padding:8px;"> Image processing </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Core Location </td><td style="padding:8px;"> Determining the geographical location of a computer </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Core Video </td><td style="padding:8px;"> Video processing </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Core WLAN </td><td style="padding:8px;"> Wireless networks access and management </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Disc Recording </td><td style="padding:8px;"> CD and DVD burning </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Disc Recording UI </td><td style="padding:8px;"> User interface components for CD and DVD burning</td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Disk Arbitration </td><td style="padding:8px;"> Hard disk events monitoring and management</td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Exception Handling </td><td style="padding:8px;"> Exception handling configuration</td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Foundation Kit </td><td style="padding:8px;"> Core services (root class, string handling, collections, networking, file management, threading, etc.) </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Image Capture Core </td><td style="padding:8px;"> Access to digital devices such as scanners and cameras </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Image Kit </td><td style="padding:8px;"> User interface components for image browsing and manipulation</td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Input Method Kit </td><td style="padding:8px;"> Input methods management</td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Instant Message </td><td style="padding:8px;"> Online status of instant messaging users </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> IOBluetooth </td><td style="padding:8px;"> Access to Bluetooth devices </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> IOBluetooth UI </td><td style="padding:8px;"> User interface components for access to Bluetooth devices </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> JavaVM </td><td style="padding:8px;"> Access to the Java environment </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Open Directory </td><td style="padding:8px;"> Management of Open Directory information </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> OSA Kit </td><td style="padding:8px;"> Management and execution of OSA-compliant scripts </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Preference Panes </td><td style="padding:8px;"> Implementing plugins for the System Preferences application </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> PDF Kit </td><td style="padding:8px;"> PDF handling </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> PubSub </td><td style="padding:8px;"> RSS and ATOM handling </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> QT Kit </td><td style="padding:8px;"> Rendering and manipulation of QuickTime content </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Quartz Composer </td><td style="padding:8px;"> Access to Quartz Composer compositions </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Quartz Filters </td><td style="padding:8px;"> Managing and applying filter effects to a graphics context </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Screen Saver </td><td style="padding:8px;"> Implementing screen savers </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Scripting Bridge </td><td style="padding:8px;"> Control of scriptable applications </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Security Foundation </td><td style="padding:8px;"> Users authorization </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Security Interface </td><td style="padding:8px;"> User interface components for users authorization </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> Server Notification </td><td style="padding:8px;"> Sending and receiving server-based notifications </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Sync Services </td><td style="padding:8px;">Data synchronization between multiples computers and devices </td>
+<tr align="left" bgcolor="#edf3fe"><td style="padding:8px;"> WebKit </td><td style="padding:8px;"> Web content rendering </td>
+<tr align="left" bgcolor="#FEFFFF"><td style="padding:8px;"> Xgrid Foundation </td><td style="padding:8px;"> Cluster management </td>
+</tr>
+</table>
+
+<H2>Loading other frameworks and bundles</H2>
+
+<p>You can dynamically load other frameworks and bundles, including some you might have created, using standards Cocoa techniques. The <a href=http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSBundle_Class/Reference/Reference.html>NSBundle</a> class comes in handy here. For example, the following code loads the SenTesting Kit, a framework installed along with the Mac OS X developer tools:</p>
+
+<pre class="codebox"><code>(<span class="identifier">NSBundle</span> <span class="selector">bundleWithPath:</span><span class="string">'/Developer/Library/Frameworks/SenTestingKit.framework'</span>) <span class="selector">load</span>
+</code></pre>
+
+<p>Frameworks and bundles requiring 64 bits execution must be loaded in F-Script running in 64 bit (the default). For 32 bit bundles, you must launch F-Script in 32 bit mode (you do that just like with other applications: open the Finder inspector on F-Script.app and check "open in 32 bit mode").</p>
+
+<p>If your bundle requires running with automatic garbage collection only or in reference counting mode only, you must make sure F-Script is the running in the correct mode, or your bundle won't load. You can configure F-Script's memory management mode from its preference panel.</p>
+
+<p>If you encounter problems loading a bundle, you can use the method <code>loadAndReturnError:</code> instead od <code>load</code> to get error information. The code below shows how you can use this method in F-Script. In this example, we try to load the TextEdit application, but since this is not a loadable bundle, we get an error:</p>
+
+<pre class="codebox"><code><span class="identifier">errorPointer</span> := <span class="identifier">FSObjectPointer</span> <span class="selector">objectPointer</span>.
+(<span class="identifier">NSBundle</span> <span class="selector">bundleWithPath:</span><span class="string">'/Applications/TextEdit.app'</span>) <span class="selector">loadAndReturnError:</span><span class="identifier">errorPointer</span>.
+<span class="identifier">errorPointer</span> <span class="selector">at:</span><span class="literal">0</span>.
+</code></pre>
+
+<p>
+The last instruction in the example above returns the NSError object and displays it when executed in the F-Script shell:<br>
+<br>
+<code>Error Domain=NSCocoaErrorDomain Code=3584 UserInfo=0x2004990e0 "The bundle "TextEdit" couldn't be loaded because its executable isn't loadable."</code>
+</p>
+
+<p>You can have F-Script automatically load additional frameworks or bundles at launch time by putting them in the F-Script repository. This repository is created by the F-Script.app application when launched for the first time. By default it will be at <code>&#126;/Library/Application Support/F-Script</code> (where <code>&#126;</code> stands for your home directory). You can put our bundles and frameworks in the <code>&#126;/Library/Application Support/F-Script/classes</code> directory to have them loaded automatically by F-Scrit.app.</p>
+
+<p>Alternatively, you can just create symbolic links, in the file system, pointing to the frameworks and bundles. For example, to create a link from the F-Script repository to the SenTesting Kit, you can execute the following F-Script code:</p>
+
+<pre class="codebox"><code><span class="identifier">NSFileManager</span> <span class="selector">defaultManager</span> <span class="selector">createSymbolicLinkAtPath:</span><span class="string">'~/Library/Application Support/F-Script/classes/SenTestingKit.framework'</span> <span class="selector">stringByExpandingTildeInPath</span>
+                             <span class="selector">withDestinationPath:</span><span class="string">'/Developer/Library/Frameworks/SenTestingKit.framework'</span>
+                             <span class="selector">error:</span><span class="literal">nil</span>
+</code></pre>
+
+<p>
+Another option is to add explicit loading code to the latent script. When F-Script is launched, a text file named &quot;fs_latent&quot; is searched for at the top level of the F-Script repository. If this file exists it must contain the textual representation of a block literal. This block, the latent script, is then instantiated and evaluated. You can use this script to do whatever you want before the interactive F-Script.app session begins. For example, to load the SenTesting Kit, and if nothing else is done in the latent script, the fs_latent file will just contain the loading code wrapped in a block:
+</p>
+
+<pre class="codebox"><code>[(<span class="identifier">NSBundle</span> <span class="selector">bundleWithPath:</span><span class="string">'/Developer/Library/Frameworks/SenTestingKit.framework'</span>) <span class="selector">load</span>]
+</code></pre>
+
+<H2>Constants</H2>
+
+<p>Most constants and enums defined in the Objective-C-based frameworks of Mac OS X are directly available in F-Script in their symbolic form. Currently, F-Script does not dynamically lookup new constants. Thus, if a constant we want to use (maybe defined in a framework you load dynamically) is not provided by F-Script in its symbolic form, you should fall back to directly using its raw value. You can usualy find constants definitions in the public header files of the frameworks.</p>
+
+		<br>
+		<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2009-2010 Philippe Mougin</font>
+		</p>
+		<br>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

@@ -1,0 +1,7 @@
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m: In function '-[TMEnvelope initWithCoder:]':
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m:33: warning: 'TMGeometry' may not respond to '-initWithCoder:'
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m:33: warning: (Messages without a matching method signature
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m:33: warning: will be assumed to return 'id' and accept
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m:33: warning: '...' as arguments.)
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m: In function '-[TMEnvelope encodeWithCoder:]':
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMEnvelope.m:45: warning: 'TMGeometry' may not respond to '-encodeWithCoder:'

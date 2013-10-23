@@ -1,0 +1,7 @@
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m: In function '-[TMFillStyle initWithCoder:]':
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m:37: warning: 'TMStyle' may not respond to '-initWithCoder:'
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m:37: warning: (Messages without a matching method signature
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m:37: warning: will be assumed to return 'id' and accept
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m:37: warning: '...' as arguments.)
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m: In function '-[TMFillStyle encodeWithCoder:]':
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMFillStyle.m:50: warning: 'TMStyle' may not respond to '-encodeWithCoder:'

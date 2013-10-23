@@ -1,0 +1,652 @@
+<html>
+<head>
+<title>Exploring Cocoa with F-Script</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<br>
+
+<H1 align="center"> Exploring Cocoa With F-Script </H1>
+
+<p><font color=#326fa3 >
+Revised January 2010</font></p>
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+<a name=""></a><H2>Table of Contents</h2>
+
+<ol>
+<li><a href=#Introduction>Introduction</a></li>
+<li><a href=#TheObjectBrowser>The object browser</a></li>
+<li><a href=#OpeningTheObjectBrowser>Opening the object browser</a></li>
+<li><a href=#VisualizingAndSelectingObjects>Visualizing and selecting objects</a></li>
+<li><a href=#VisualizingMethods>Visualizing methods</a></li>
+<li><a href=#InvokingAMethod>Invoking a method</a></li>
+<li><a href=#SelectingAViewOnScreenAndBrowsingIt>Selecting a view on screen and browsing it</a></li>
+<li><a href=#VisualizingAdditionalInformation>Visualizing additional information</a></li>
+<li><a href=#BrowsingCPointers>Browsing C pointers</a></li>
+<li><a href=#TheBottomBar>The bottom bar</a></li>
+<li><a href=#BrowsingTheWorkspace>Browsing the workspace </a></li>
+<li><a href=#AddingAnEntryToYourWorkspace >Adding an entry to your workspace </a></li>
+<li><a href=#BrowsingAllClasses>Browsing all classes </a></li>
+<li><a href=#FilteringBrowserEntries >Filtering browser entries  </a></li>
+<li><a href=#InspectingTheSelectedObject>Inspecting the selected object</a></li>
+<li><a href=#UpdatePolicy>Update policy</a></li>
+<li><a href=#CrashCourseOnF-ScriptSyntax >Crash course on F-Script syntax</a></li>
+<li><a href=#Blocks>Blocks</a></li>
+<li><a href=#BrowsingAndInspectingCollections >Browsing and inspecting collections </a></li>
+<li><a href=#CustomizingTheObjectBrowsersToolbar>Customizing the object browser&#39;s toolbar</a></li>
+<li><a href=#ExploringCoreData >Exploring Core Data</a></li>
+<li><a href=#InspectingCollectionsOfManagedObjects >Inspecting Collections of managed objects</a></li>
+<li><a href=#ExploringAndQueryingAManagedObjectContext  >Exploring and querying a managed object context</a></li>
+<li><a href=#AccessingCoreDataProgrammatically>Accessing Core Data Programmatically</a></li>
+<li><a href=#FinalThoughts>Final thoughts</a></li>
+</ol>
+
+
+<a name="Introduction"></a><a name=""></a><H2>Introduction</H2>
+
+<p>If you are a Cocoa developer, you already know that the dynamic nature of Objective-C and Cocoa is what makes them so flexible and powerful. In terms of development tools, the power of a dynamic object-oriented environment like Cocoa translates into original tools like Interface Builder or F-Script, an open source project that is presented in this article. F-Script is an integrated set of tools that makes it possible to interactively explore and manipulate Cocoa objects as well as script them using new high-level programming techniques. This article shows you how to use some of its most impressive features and demonstrates how it can be a useful addition to your developer toolkit. 
+</p>
+
+<p>F-Script can be downloaded at <a href=http://www.fscript.org>http://www.fscript.org</a>.</p>
+
+<a name="TheObjectBrowser"></a><H2>The object browser</H2>
+
+<p>The object browser is the central tool in F-Script for exploring and manipulating objects graphically. The general principle governing usage of the object browser is very simple:</p>
+<ol style="margin: 12px 60px 12px 60px;" }>
+<li>You select an object by clicking on it.</li>
+<li>The description of the object and a list of all the object&#39;s methods are displayed in a new column of the browser.</li>
+<li>You select the method you want to invoke by clicking on it. The browser asks you for parameters if needed, and invokes the method. The result (an object) is displayed in a new column.</li>
+<li>You can then manipulate the result in the same way.</li>
+</ol>
+<p>This provides unified graphical and interactive access to objects &#8212; a handy way to explore and play with frameworks, test the classes you are developing or interactively use objects in the context of your application.</p>
+<img src="artwork/fig1.png"/>
+<p class="legend">Fig. 1. The object browser in action</p>
+
+<a name="OpeningTheObjectBrowser"></a><a name=""></a><H2>Opening the object browser</H2>
+
+<p>If you are using the FScript.app application there is a menu item "Open object browser" that does just that, displaying all the objects defined in your F-Script workspace.</p>
+
+<p>In any case, you can also open the browser by executing a simple F-Script instruction:</p>
+<ul>
+<li>The F-Script instruction <code>sys browse</code> will open the browser in your current workspace.
+</li>
+<li>The F-Script instruction <code>sys browse:anObject</code>, in which <i>anObject</i> can be any F-Script expression, will open the browser on anObject.</li>
+</ul>
+
+<a name="VisualizingAndSelectingObjects"></a><H2>Visualizing and selecting objects</H2>
+
+<p>When the browser opens, it displays a textual description of an object or list of objects. To do this, the browser asks objects for their description by sending the message <code>printString</code>. If you are familiar with F-Script, you know that all objects respond to this message, whose default behavior is to call the <code>debugDescription</code> method if available or else to call the standard NSObject method <code>description</code>.
+</p>
+<p>
+When you are browsing your workspace, the name of each variable is displayed to the left of the corresponding object description. 
+</p>
+<p>
+Once you have identified the object you want further explore or manipulate, you just need to select it by clicking on it.
+</p>
+
+<a name="VisualizingMethods"></a><H2>Visualizing methods</H2>
+
+<p>
+When you select an object, the browser populates a new column with the description of the object and a list of methods implemented by this object. The methods are grouped according to the class hierarchy for the selected object: first, the methods for the object class, then the methods at superclass level, and so on... In each group, methods are displayed in alphabetical order. In the current version, it is possible for a method to be present in multiple groups, if it has been redefined in subclasses.
+</p>
+
+<a name="InvokingAMethod"></a><H2>Invoking a method</H2>
+
+<p>
+To invoke a method on the selected object, you just click on the method name. F-Script will then invoke the method and display the result in a new column of the browser.
+</p>
+<p>
+If the method takes arguments, F-Script will open a sheet into which you will be asked to enter arguments. You provide each argument by typing an F-Script expression (this can be an arbitrary complex expression).
+</p>
+
+<img src="artwork/fig2.png"/>
+<p class="legend">Fig. 2. The object browser asks for arguments.</p> 
+
+<p>
+If an error occurs during argument evaluation or method invocation, the browser will open an alert panel to inform you of the problem. 
+</p>
+<p>
+Method invocation follows the F-Script rules. For instance, if the result of the Objective-C method you&#39;ve called is not an object, it will be automatically mapped to an object in accordance with the standard F-Script rules (these rules, described in the F-Script manual, are roughly the same as the Cocoa KVC mapping rules). For instance, if a method returns a C numerical value (int, float, double, etc.), this value will be mapped to an NSNumber. If a method returns a C struct like an NSPoint or an NSRect, this struct will be mapped to an NSValue. This mapping has to occur because F-Script is a pure object language, whereas Objective-C has object and non-object types. It is bidirectional: it occurs when returning from an Objective-C method and also when calling an Objective-C method. 
+</p>
+
+<a name="SelectingAViewOnScreenAndBrowsingIt"></a><H2>Selecting a view on screen and browsing it</H2>
+
+<p>In a Cocoa application, each graphical component corresponds to an object (typicaly, an NSView). The object browser lets you select a graphical component and browse the relevant object. To do so, first click the <i><b>Select View</b></i> button. The cursor changes into a little cross and then all that is required is to click on the visual object that you want to browse. To provides you with immediate feedback and to show the surface covered by the views on screen, the color of the view that is under the cursor is temporarily modified as the cursor moves. A HUD near the cursor displays information about the view underneath. 
+
+<img src="artwork/fig3.jpg"/>
+<p class="legend">Fig. 3. Selecting a view on screen.</p>
+
+You can exit this graphical selection mode without actually performing a selection by pressing the ESCAPE key.<br>
+If you click on an object on screen, it becomes displayed in the browser and can then be manipulated as explained in the previous sections.</p>
+
+<a name="VisualizingAdditionalInformation"></a><H2>Visualizing additional information</H2>
+
+<p>
+For some often-used Cocoa objects such as NSViews or NSCells, the object browser is able to display additional information. This information is shown before the list of the object&#39;s methods, and can be directly selected in order to explore the object graph.
+</p>
+
+<img src="artwork/fig4.png"/>
+<p class="legend">Fig. 4. Browsing additional object information.</p>
+
+<p>
+Design patterns used by Cocoa, such as the view hierarchy and the responder chain, are recognized by the browser, enabling it to display the objects related to these patterns in a clear, accessible way. Thus, for a given NSView, you can view all its superviews at a glance and easily explore the view hierarchy. Likewise, for a given NSResponder, you can directly view the corresponding responder chain.
+</p>
+
+<img src="artwork/fig5.png"/>
+<p class="legend">Fig. 5. Browsing a view hierarchy.</p>
+
+<p>
+The browser also recognizes Cocoa bindings. Whenever you are browsing an object that exposes bindings, the object browser displays complete information about the bindings and lets you navigate the MVC object graph.
+</p>
+
+<img src="artwork/fig6.jpg"/>
+<p class="legend">Fig. 6. Browsing Cocoa bindings.</p>
+
+<p>
+Finally, declared properties (introduced in Objective-C 2.0) also get displayed in the browser. 
+</p>
+
+<img src="artwork/fig7.jpg"/>
+<p class="legend">Fig. 7. Browsing properties.</p>
+
+<p>While this almost always works well, automatically introspecting values of declared properties can be unssafe and can result in undefined behavior. Indeed, it requires calling properties accessors to get at the values, which might not always be a valid action (while most API avoid such brittleness, a class can, in principle, require as a precondition that a given property is read only when the object is in a given logical state). To cope with such situations, F-Script lets you suppress automatic property introspection, through an option in the preference panel.</p>
+
+<a name="BrowsingCPointers"></a><H2>Browsing C pointers</H2>
+<p>In F-Script, C pointers are represented by FSPointer instances: when we invoke a method that returns a C pointer, F-Script automaticaly boxes it into an instance of FSPointer (or one of its subclasses) before handing it to us. We can dereference pointers explicitely with the <code>at:</code> method in order to look at the content of the referenced memory. Beside, when possible, the object browser automatically displays the content of the memory.</p>
+
+<img src="artwork/fig8.png"/>
+<p class="legend">Fig. 8. Browsing pointers.</p>
+
+<p>For some pointers, the object browser internaly uses the <a href=http://developer.apple.com/documentation/Darwin/Reference/Manpages/man3/malloc_size.3.html>malloc_size()</a> function to determine the size of the memory block to display. Consequently, it might display memory contents that extend past the end of the memory block actually requested by the application at allocation time. In this case, some items at the end of the displayed content will just be the random values that happen to be there in memory.</p>
+
+<a name="TheBottomBar"></a><H2>The bottom bar</H2>
+
+<p>
+As you move the mouse pointer, the bottom bar of the browser shows you a more complete description of objects and methods than the one in the columns, which is sometimes limited by the column size. 
+</p>
+
+<a name="BrowsingTheWorkspace"></a><H2>Browsing the workspace</H2>
+
+<p>An F-Script object browser is always associated with an F-Script workspace (a workspace is simply a set of associations between names and objects). You can examine your current workspace and browse objects in it by clicking on the <i><b>Workspace</b></i> button.</p>
+
+<p>Even if you haven&#39;t assigned any objects to identifiers, you may find some predefined objects in your workspace. For instance, there is the <i>sys</i> object, which represents the workspace itself and can be used to manipulate it programmatically.</p>
+
+
+<a name="AddingAnEntryToYourWorkspace"></a><H2>Adding an entry to your workspace</H2>
+
+<p>You can assign the current selected object to a name in your workspace, by clicking on the <i><b>Name</b></i> button in the browser&#39;s toolbar, and typing the chosen name in the sheet. This operation is equivalent to the assignment instruction "<code>:=</code>" in the F-Script language.</p>
+
+<img src="artwork/fig9.png" />
+<p class="legend">Fig. 9. A sheet asks for the name of the object.</p>
+
+<a name="BrowsingAllClasses"></a><H2>Browsing all classes</H2>
+
+<p>You can browse the classes linked to the executable from which you are using the F-Script object browser (since F-Script is offered as an embeddable framework, you may want to use it from different applications). To start browsing the classes, just click on the <i><b>Classes</b></i> button. </p>
+
+<img src="artwork/fig10.png" />
+<p class="legend">Fig. 10. Browsing classes.</p>
+
+<p>The rightmost column displays the list of classes. When you select a class, the browser displays:
+<ul>
+<li>Its superclass</li>
+<li>Its direct subclasses</li>
+<li>Its class methods</li>
+</ul>
+</p>
+
+<p>This makes it easy to navigate the class hierarchy and to access class methods. In fact, you manipulate classes through the browser in the same way as other objects. This is because Cocoa classes are themselves regular objects. Indeed, each class is itself an instance of another class (called a meta-class) automatically created by the object system... and meta-classes are themselves objects. Since F-Script makes it so easy to browse these different levels, it can be useful to have a clear view of the topology of the Cocoa class system. We illustrate it below, using the Cocoa NSBox class as example.</p>
+
+<img src="artwork/fig11.png" width="510" />
+<p class="legend">Fig. 11. Topology of the Cocoa class system.</p>
+
+<p>A few remarks:
+<ul>
+<li>In this schema, the class of a class is denoted by adding "(meta)" to the class name. For instance, the class of the NSBox class is denoted by "NSBox (meta)".</li><br>
+<li>Each object (including classes) in the system is associated with another object (its class) by the "is instance of" relationship. Note that this relationship is not transitive. </li><br>
+<li>The "inherits from" relationship applies at the class level. For most practical purposes, this relationship can be seen as transitive. You can traverse it by sending an object the <code>superclass</code> message.</li><br>
+<li>NSObject, the root of the class hierarchy, does not inherit from another class. Sending it the <code>superclass</code> message returns nil.</li><br>
+<li>With Cocoa, the class methods of a class X are the instances methods of X (meta).</li><br>
+<li>The fact that meta-classes are organized in a hierarchy similar to the corresponding classes&#39; hierarchy explains why class methods are inherited.</li><br>
+<li>The fact that NSObject (meta) inherits from NSObject explains why instance methods defined for this root class are also class methods.</li><br>
+<li>NSObject (meta) is the class of all the meta-classes in this hierarchy: it is the meta-meta-class.</li><br>
+</ul>
+</p>
+
+<p>There are a few classes that you can&#39;t use with F-Script, and therefore can&#39;t browse. This includes classes not conforming to the NSObject protocol (likes those inheriting from the "old" Object class), and some special system classes like _NSZombie.</p>
+
+<a name="FilteringBrowserEntries"></a><H2>Filtering browser entries</H2>
+
+<p>The browser displays a great deal of information. For example, an object can have hundreds of methods, or a list of classes can have thousands of entries. The search field in the toolbar lets you filter all the elements displayed by the browser, so that you can easily find a method, class, specific information, etc. In the example below, we have asked the browser to display the elements containing the character string "layout".</p>
+
+<img src="artwork/fig12.png" />
+<p class="legend">Fig. 12. Using the search field.</p>
+
+<p>It is extremely easy to use the search field in the browser, and there is no need to click in the field to activate it before entering a search term. When the browser window is active, just enter the expression being searched for and it will automatically be applied. Hit the Escape key to delete the search expression.</p>
+
+<a name="InspectingTheSelectedObject"></a><H2>Inspecting the selected object</H2>
+
+<p>You can inspect an object by double-clicking on it or by selecting it and using the <i><b>Inspect</b></i> button. A generic inspector is provided, while some objects offer more specific inspectors. For example:
+<ul>
+<li>Inspecting a block opens a code editor for the block.</li>
+<li>Inspecting a collection (NSArray, NSDictionary, etc.) opens a specialized collection inspector enabling you to delve further into the collection.</li>
+<li>Inspecting an NSImage displays the image on screen.</li>
+<li>Inspecting an NSFont shows the font in the font panel.</li>
+<li>Inspecting an NSAttributedString opens an inspector that shows the interpreted attributed string and also displays its raw description.</li>
+<li>Inspecting a QTMovie opens an inspector that displays the movie using a QTMovieView.</li>
+<li>Etc.</li>
+</ul>
+</p>
+
+<p>You can easily provide an inspector for you own objects, by implementing a <code>-(void)inspect</code> method on your objects.</p>
+
+<p>It is also possible to open a new object browser for the selected object by clicking on the <i><b>Browse</b></i> button.</p>
+
+<a name="UpdatePolicy"></a><H2>Update policy</H2>
+
+<p>Objects displayed in the browser can be modified at any time in a number of ways: events, callbacks, sending a message with side effect from the object browser or from the F-Script shell, etc.<br>
+It is important to note that the browser doesn&#39;t automatically update its display when such modifications are made. However, the <i><b>Refresh</b></i> button will let you refresh all the information displayed in the object browser. Selecting an object and opening an inspector for it will also let you see an updated description of the object.</p>
+
+<a name="CrashCourseOnF-ScriptSyntax"></a><H2>Crash course on F-Script syntax</H2>
+
+<p>In the next sections we will introduce some features of the F-Script graphical environment that let you associate F-Script code with UI elements. So it is time for a quick introduction to the F-Script syntax. The good news is that, firstly, the F-Script syntax is extremely simple. This is because F-Script is a pure object language where everything is manipulated uniformly by sending messages. Secondly, it is well suited to Cocoa because is uses the same syntax as Objective-C for message sending. Thirdly, F-Script is a Smalltalk dialect. So when you learn it, you&#39;re also learning Smalltalk, which is something that, trust me, you will be eternally grateful for.</p>
+
+<p>You can interactively experiment with coding in F-Script using the F-Script console. For instance, you can copy/paste the examples in the console and modify/execute them. </p>
+
+<img src="artwork/fig13.png" />
+<p class="legend">Fig. 13. The F-Script console lets you evaluate F-Script code interactively.</p>
+
+<p>Take a look at this example, in Objective-C and in F-Script:</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="500">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>NSString *<span class="identifier">myString</span> = <span class="string">@"hello"</span>;</code></td> <td><code><span class="identifier">myString</span> := <span class="string">&#39;hello&#39;</span>.</code></td></tr>
+</table>
+</div>
+
+<p>As you can see, F-Script has no type declaration. Everything is an object and is latently typed. The assignment operation is denoted by <code>:= </code>rather than <code>=</code> as in Objective-C. String literals are in simple quotes. Finally, the instruction separator is a dot, like in English sentences. </p>
+
+<p>The following example shows how to send a message to an object:</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="500">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[<span class="identifier">myString</span> <span class="selector">class</span>]</code></td> <td><code><span class="identifier">myString</span> <span class="selector">class</span></code></td></tr>
+</table>
+</div>
+
+<p>The difference between Objective-C and F-Script is that the latter does not use brackets around message-sending expressions. Both expressions will return a subclass of NSString. FScript is based on Cocoa, and uses the standard Cocoa objects for representing its fundamental datatypes (i.e. strings are NSStrings, numbers are NSNumbers, arrays are NSArrays, etc.)</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="500">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[<span class="identifier">myString</span> <span class="selector">isEqual:</span><span class="identifier">otherString</span>]</code></td> <td><code><span class="identifier">myString</span> <span class="selector">isEqual:</span><span class="identifier">otherString</span></code><br><br>or<br><br><code><span class="identifier">myString</span> <span class="selector">=</span> <span class="identifier">otherString</span></code></td></tr>
+</table>
+</div>
+
+<p>The example above confirms that F-Script&#39;s message-sending syntax is the same as in Objective-C (minus the brackets). It also shows that F-Script supports binary operator syntax. In F-Script, binary operators are regular methods. They are automatically mapped to Objective-C keyword selectors at runtime.</p>
+
+<p>If you are not already familiar with the Objective-C message syntax, you will need some background information. Method names in Objective-C and F-Script are like sentences with gaps in them. Each gap is prefixed by a colon. When you invoke a method you fill the gaps with actual values, creating a meaningful sentence. For instance, the name of the method for inserting an object at a given index in an array is <code>insertObject:atIndex:</code>. In F-Script, to insert a given object at index three in an array you would write: <code>myArray insertObject:myObject atIndex:3</code> whereas in a language like C++ or Java the call would look like <code>myArray.insert(myObject,3)</code>. This way of denoting method names and method invocation comes from Smalltalk and is one of the most appreciated features of Objective-C, as it makes the code very expressive and less error prone. When you create your own methods, you should strive to name them in such a way that they form expressive sentences when invoked.</p>
+
+<p>In the following example we see that, as in Objective-C, messages can be strung together.</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="500">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[[<span class="identifier">myString</span> <span class="selector">class</span>] <span class="selector">superclass</span>]</code></td> <td><code><span class="identifier">myString</span> <span class="selector">class</span> <span class="selector">superclass</span></code></td></tr>
+</table>
+</div>
+
+<p>Expressions are evaluated from left to right, giving us the same semantics as in Objective-C. In addition, there is only one simple precedence rule to remember in the whole F-Script language: unary messages (i.e. messages with no argument) are executed first, then binary messages (i.e. things like +, *, etc.), then keyword messages. If you want to change the order of evaluation, you can use parentheses to delimit a message, as shown in the example below.</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="600">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[[<span class="identifier">myString</span> <span class="selector">substringFromIndex:</span><span class="literal">2</span>] <span class="selector">length</span>]</code></td> <td><code>(<span class="identifier">myString</span> <span class="selector">substringFromIndex:</span><span class="literal">2</span>) <span class="selector">length</span></code></td></tr>
+</table>
+</div>
+
+<p>F-Script lets you access the Cocoa framework (and your own Objective-C objects) directly. In  the following example we access the application kit:</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="990">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[[[<span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span>] <span class="selector">mainWindow</span>] <span class="selector">setAlphaValue:</span><span class="literal">0.5</span>]</code></td> <td><code><span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span> <span class="selector">mainWindow</span> <span class="selector">setAlphaValue:</span><span class="literal">0.5</span></code></td></tr>
+</table>
+</div>
+
+<p>If you enter it in the F-Script console, the console will become semi-translucent. To return to a standard display, execute it again using 1 as the alpha value argument.</p>
+
+<p>F-Script provides a handy literal notation for creating arrays. The folowing example also shows that double quotes are used to denote comments.</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="800">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code><span class="comment">/* Creating an NSMutableArray */</span><br>
+<br>
+[<span class="identifier">NSMutableArray</span> <span class="selector">arrayWithObjects:</span><span class="string">@"Hi"</span>, <span class="string">@"mom"</span>, <span class="literal">nil</span>]
+<br></code></td> <td><code><span class="comment">"Creating an NSMutableArray"</span><br>
+<br>
+{<span class="string">&#39;Hi&#39;</span>, <span class="string">&#39;mom&#39;</span>}</code></td></tr>
+</table>
+</div>
+
+<p>Speaking of arrays, it is worth noting that F-Script, unlike Objective-C or Smalltalk, is what is called an "array language". Combined with objects, array programming lets you manipulate whole collections of objects at once. This completely changes the way you think about your objects. Instead of thinking in OOAAT (One Object At A Time) mode, you can reason on whole sets of objects that you combine and manipulate using high-level operations. You are not required to use array programming with F-Script, but it is very handy in most situations.</p>
+
+<p>The following example, showing instructions entered in the F-Script console and their result, illustrates how array programming can be used in F-Script. The ">" character is the shell's prompt.</p>
+
+<pre class="codebox"><code>> <span class="identifier">strings</span> := {<span class="string">&#39;Hi&#39;</span>, <span class="string">&#39;mom&#39;</span>, <span class="string">&#39;I am playing&#39;</span>, <span class="string">&#39;with&#39;</span>, <span class="string">&#39;F-Script&#39;</span>}
+
+> <span class="identifier">strings</span> <span class="selector">length</span>
+
+<span class="result">{2, 3, 12, 4, 8}</span>
+</code></pre>
+
+<p>As you see, the <code>length</code> message is actually dispatched to each element of the array and the result is an array containing the length of each element. This is a simple example of what is called a "messaging pattern" in F-Script. In traditional object languages, the basic syntactic structure makes it possible to specify the sending of a simple message to a single object. F-Script adopts a new message-sending paradigm that enables you to send a complex group of messages.</p>
+
+<p>In the following example, we use a messaging pattern to send the <code>setAlphaValue:0.7</code> message to all the windows in the current application and consequently change their transparency:</p>
+
+<pre class="codebox"><code><span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span> <span class="selector">windows</span> <span class="selector">setAlphaValue:</span><span class="literal">0.7</span>
+</code></pre>
+
+<p>Messaging patterns are just half of the story of array programming in F-Script. Array programming is also based on high-level operations used for manipulating collections (compression, transposition, scan etc.). These operations are provided by F-Script in the form of methods implemented in categories of Cocoa classes like NSArray. For instance, F-Script adds the <code>at:</code> method to the NSArray class. This method, which can take an array of booleans as an argument, implements what is called <i>compression</i> in array programming terminology. It selects elements in the receiver for which the corresponding boolean in the argument is true. Compression requires an array of booleans which specify the selection that has to be made. messaging patterns mean that such arrays are easy to create, as you can see in this example:</p>
+
+<pre class="codebox"><code>> <span class="identifier">strings</span> <span class="selector">length</span> <span class="selector"><</span> <span class="literal">5</span>
+
+<span class="result">{true, true, false, true, false}</span>
+</code></pre>
+
+<p>In the example above, the evaluation of the expression is a two-step process:
+<ol style="margin: 12px 60px 12px 60px;" }>
+<li>The <code>length</code> message is sent to each string in the array, returning an array of numbers. </li>
+<li>The <code>< 5</code> message is sent to each number, returning an array of booleans (booleans are denoted by <code>true</code> and <code>false</code> but you can also use <code>YES</code> and <code>NO</code> as in Objective-C).</li>
+</ol>
+</p>
+
+<p>We can make use of the resulting boolean array for compression:</p>
+
+<pre class="codebox"><code>> <span class="identifier">strings</span> <span class="selector">where:</span> <span class="identifier">strings</span> <span class="selector">length</span> <span class="selector"><</span> <span class="literal">5</span>
+
+<span class="result">{'Hi', 'mom', 'with'}</span>
+</code></pre>
+
+<p>Here, we select the strings whose length is less than five.</p>
+
+<p>This high-level programming model provided by F-Script is named OOPAL. It combines object-oriented programming and array programming into a unique model that makes it possible to express complex object manipulations easily. An introduction to this model is provided in the OOPAL paper at <a href="http://www.fscript.org/documentation/OOPAL.pdf"> http://www.fscript.org/documentation/OOPAL.pdf</a>. Since F-Script is built directly on top of the Objective-C object model and runtime, it lets you directly manipulate Objective-C objects using OOPAL.</p>
+
+<a name="Blocks"></a><H2>Blocks</H2>
+
+<p>Earlier, we referred to blocks and their ability to provide an inspector. Blocks are important objects in F-Script. As you will see in the next section, they are used by several graphical components in order to provide a high degree of flexibility. Moreover, they are one of the few fundamental structures of the F-Script language itself. So before going any further, let&#39;s see what blocks are.</p>
+
+<p>Blocks, also known as "closures" or "lambda expressions", are objects that contain some F-Script code. Usually, you create a block by bracketing a segment of code. For example: <code>[x := x + 1]</code> is a block. You can execute the code inside this block by sending it a <code>value</code> message. The following example shows you how to experiment with blocks from the F-Script shell. The <code>></code> character is the shell&#39;s prompt. Text between double quotes is comment.</p>
+
+<pre class="codebox"><code>> <span class="identifier">x</span> := <span class="literal">1</span>                     <span class="comment">"assigning 1 to x"</span>
+
+> <span class="identifier">x</span>                          <span class="comment">"evaluating x"</span>
+
+<span class="result">1</span>                            <span class="comment">"x is 1"</span>
+
+> <span class="identifier">myBlock</span> := [<span class="identifier">x</span> := <span class="identifier">x</span> <span class="selector">+</span> <span class="literal">1</span>]    <span class="comment">"assigning the block [x := x + 1] to myBlock"</span>
+
+> <span class="identifier">x</span>                          <span class="comment">"evaluating x"</span>
+
+<span class="result">1</span>                            <span class="comment">"x is still 1"</span>
+
+> <span class="identifier">myBlock</span> <span class="selector">value</span>              <span class="comment">"executing the block"</span>
+
+> <span class="identifier">x</span>                          <span class="comment">"evaluating x"</span>
+
+<span class="result">2</span>                            <span class="comment">"x has been incremented"</span>
+</code></pre>
+
+<p>A block may have parameters. For example<code> [:a :b| a + b]</code> is a block with two parameters named <code>a</code> and <code>b</code>. When executing it, you have to supply the value for the arguments, using the relevant <code>value...</code> message. For example:</p>
+
+<pre class="codebox"><code>> <span class="identifier">myBlock</span> := [:<span class="identifier">a</span> :<span class="identifier">b</span>| <span class="identifier">a</span> <span class="selector">+</span> <span class="identifier">b</span>]
+
+> <span class="identifier">myBlock</span> <span class="selector">value:</span><span class="literal">3</span> <span class="selector">value:</span><span class="literal">4</span>
+
+<span class="result">7</span>
+</code></pre>
+
+<p>As you can see, blocks are regular objects. Because of that, they can be used as arguments to methods; they can be archived, inserted into collections, etc. This makes them a very powerful construct. One typical way of using them is to make a block the target of an NSControl (e.g. a button) and to configure the NSControl with the <code>value:</code> selector for its action message.</p>
+
+<p>You can open an inspector for a block by double-clicking on it in the object browser, or using the "inspect" button. You can also open the inspector programmatically by sending the block an <code>inspect</code> message.</p>
+
+<img src="artwork/fig14.png" />
+<p class="legend">Fig. 14. The block inspector.</p>
+
+<p>In the inspector you can edit the block. Some code-editing support is provided, such as a code completion system that you can invoke with the F5 key. Like Xcode, F-Script inserts placeholders for method arguments. You can move to the next argument placeholder by pressing Control-Slash.</p>
+
+<p>A button in the inspector toolbar lets you check for syntax errors in your block. If a syntax error is found, it is highlighted in the code and a description of the error is provided. The block inspector also has a <i><b>Run</b></i> button in its toolbar. This button makes it possible to evaluate the block from the inspector itself. The result of the evaluation is then shown in the object browser. If the block takes arguments, you will be asked to provide them.</p>
+
+<img src="artwork/fig15.png" />
+<p class="legend">Fig. 15. Providing arguments to the block.</p>
+
+<p>A block may also have local variables and bindings to other objects. The example below shows the evaluation of a block with two arguments and one local variable:</p>
+
+<pre class="codebox"><code>> [:<span class="identifier">a</span> :<span class="identifier">b</span>| |<span class="identifier">local</span>| <span class="identifier">local</span> := <span class="identifier">a</span> <span class="selector">+</span> <span class="identifier">b</span>. <span class="identifier">local</span> <span class="selector">*</span> <span class="literal">2</span>] <span class="selector">value:</span><span class="literal">3</span> <span class="selector">value:</span><span class="literal">4</span>
+
+<span class="result">14</span>
+</code></pre>
+
+<p>Sometimes, a block just sends a single message to its first argument with its other arguments as arguments to the message. Such a block may be represented using a compact notation. This notation represents a block with a <code>#</code> character immediately followed by the message selector the block should use when it is executed. For example, the block<code> [:a :b| a + b]</code> may be represented by the <code>#+</code> compact notation.</p>
+
+<pre class="codebox"><code>> #+ <span class="selector">value:</span><span class="literal">3</span> <span class="selector">value:</span><span class="literal">4</span>
+
+<span class="result">7</span>
+</code></pre>
+
+<p>Here are a few examples of compact blocks:</p>
+<table cellpadding="3">
+<tr><td><code>#class</code></td> <td>is functionally equivalent to</td> <td><code> [:<span class="identifier">a</span>| <span class="identifier">a</span> <span class="selector">class</span>]</code></td>
+<tr><td><code>#iskindOfClass:</code></td> <td>is functionally equivalent to</td> <td><code> [:<span class="identifier">a</span> :<span class="identifier">b</span>| <span class="identifier">a</span> <span class="selector">isKindOfClass:</span><span class="identifier">b</span>]</code></td>
+<tr><td><code>#insertObject:atIndex: </code></td> <td>is functionally equivalent to</td> <td><code> [:<span class="identifier">a</span> :<span class="identifier">b</span> :<span class="identifier">c</span>| <span class="identifier">a</span> <span class="selector">insertObject:</span><span class="identifier">b</span> <span class="selector">atIndex:</span><span class="identifier">c</span>]</code></td>
+</table>
+ 
+<a name="BrowsingAndInspectingCollections"></a><H2>Browsing and inspecting collections</H2>
+
+<p>The object browser provides a handy way to browse collections of objects like NSArray, NSSet or NSDictionary. When browsing a collection, the browser not only presents the collection as a whole, but also displays and makes selectable each of the elements, if the collection is not too large. Thus, you can act on the collection itself, or select one of its elements.</p>
+
+<img src="artwork/fig16.png" />
+<p class="legend">Fig. 16. Browsing an array of strings.</p>
+
+<p>However, there is much more to it than that...</p>
+
+<p>If you want to inspect a collection, you can double-click on it or use the <i><b>Inspect</b></i> button, and F-Script will open the collection inspector, a module which enables you to explore and browse collections of objects. The collection inspector presents the content in an NSTableView: each row corresponds to an element in the collection. There may be an additional column. If the collection is an NSArray, the additional column will contain the index of each element. If you are inspecting an NSDictionary, you will see the key for each element. If it is an NSCountedSet, then you will see the counter for each object. </p>
+
+<img src="artwork/fig17.png" />
+<p class="legend">Fig. 17. Inspecting a dictionary with the collection inspector.</p>
+
+<p>It is possible to add columns to a collection inspector. Clicking on the <i><b>Add</b></i> button will bring up a new column and a block inspector. Each column is associated with an F-Script code block, which can be edited. The simplest blocks are concerned with sending a simple message without arguments. For example, to add a column showing the class of each element in a collection, you enter the expression <code>#class</code> in the block inspector ("class" being the name of the method that returns an object&#39;s class). Another example: if you are inspecting a collection of numbers and want to have a column showing the square root of each element, you would enter <code>#sqrt</code> in the block inspector.<br>
+Naturally, it is possible to associate an arbitrarily complex expression with a column. For instance, if you want to have a column showing whether the element is an NSView, you would enter the block: <code>[:element| element isKindOfClass:NSView]</code>.</p>
+
+<p>A column can be selected by clicking its header. Once selected, the related block can be modified via the <i><b>Modify</b></i> button, which opens the block inspector. The selected column can also be deleted using the <i><b>Remove</b></i> button. </p>
+
+
+<img src="artwork/fig18.png" />
+<p class="legend">Fig. 18. Configuring columns to view different aspects of elements in the collection.</p>
+
+<p>The <i><b>Sort</b></i> button is used to sort elements in the collection in ascending order. This sorts the values in the selected column (it does not modify the collection itself, but only the way it is displayed in the inspector). Sorting uses the standard F-Script sort framework. The sorting process is "stable" and can be applied to several columns. For instance, if you have one column for first names and one for last names, you can sort the collection by last name and then sort it by first name for elements with identical last names (to do so, first sort by the first name column, then by the last name column).</p>
+
+<p>The search field in the toolbar lets you filter the elements in the collection that are displayed in the inspector. This field works like the one in iTunes: an element is selected if the character string entered in the search field is present somewhere in the row in the inspector that corresponds to the element.</p>
+
+<p>By combining sorting and filtering, you can easily select the elements in a collection that you want to examine more closely or manipulate, according to your own specific criteria. There appear to be some restrictions if you want to choose elements according to several successive filters and/or several primary sorting operations. Fortunately, the <i><b>Narrow</b></i> button gets around this problem, as it opens a new collection inspector containing only the elements currently selected. In this new inspector, you can then apply a new filter and/or sort.</p>
+
+<p>You can inspect an element in the collection by double-clicking on the corresponding row, or by selecting the row and clicking the <i><b>Inspect</b></i> button. Likewise, you can inspect all the objects in a particular column by double-clicking the column header or selecting the column and using the <i><b>Inspect</b></i> button.</p>
+
+<p>To open an object browser for an element in the collection, select the relevant row and use the <i><b>Browse</b></i> button. A browser can also be opened for the objects in a particular column by selecting the column and clicking the <i><b>Browse</b></i> button.</p>
+
+<p>Lastly, the <i><b>Refresh</b></i> button updates displayed data, in the event that it has been modified elsewhere.</p>
+
+<a name="CustomizingTheObjectBrowsersToolbar"></a><H2>Customizing the object browser&#39;s toolbar</H2>
+
+<p>The browser&#39;s toolbar can be customized using the standard toolbar customization system. You can also add your own buttons. A panel lets you assign a name and a custom F-Script block to each button. The block is executed when the button is pressed, thus giving you lots of freedom to define the button behavior.</p>
+
+<img src="artwork/fig19.png"/>
+<p class="legend">Fig. 19. Customizing the browser&#39;s toolbar.</p>
+
+<p>You can use three different kinds of block, depending on the purpose of your button:
+<ul>
+<li>A compact block: the selector corresponding to the block is selected in the object browser&#39;s rightmost column, thus initiating a message send to the selected object in the browser. If the message requires arguments, the user is interactively asked to provide them. The result is then displayed in a new column of the browser. For instance, if you want to create a shortcut for sending the <code>debugDescription</code> message to an object, you can associate the <code>#debugDescription</code> block with a new button in your toolbar.</li><br>
+<li>A block taking a single parameter: the block is passed the object currently selected in the object browser as its argument. The result of the evaluation of the block is displayed in a new column of the browser. For instance, if you want to create a shortcut for checking if an object inherits from the NSView class, you can associate the block <code>[:object| object isKindOfClass:NSView]</code> with a new button in your toolbar.</li><br>
+<li>A block with no argument: the block is evaluated. The result of this evaluation is not displayed in the object browser.</li>
+</ul>
+</p>
+
+<p>The customization tool provides examples illustrating these three kinds of blocks.</p>
+
+<p>The custom configuration (i.e. button names and associated blocks) is automatically persisted.</p>
+
+<a name="ExploringCoreData"></a><H2>Exploring Core Data</H2>
+
+<p><i>Core Data Explorer</i> is a technology in F-Script that extends the tools we have described so far and provides new tools for interactively exploring and manipulating the Mac OS X Core Data layer.</p>
+
+<p>In order to browse a Core Data managed object graph, you first need to get hold of a managed object. If you don&#39;t have one to hand, F-Script provides, with the FSCoreDataSample class, a built-in managed object graph sample that you can use. It is based on the "Employee & Department" object model used in Apple&#39;s Core Data Programming Guide. The figure below shows that this model is made up of two entities (representing employees and departments) and a number of properties associated with these entities.</p>
+
+<img src="artwork/fig20.png" width="510" />
+<p class="legend">Fig. 20. The sample Employee &amp; Department data model.</p>
+
+<p>To open the object browser for this sample, you can enter the following code in the F-Script shell:</p>
+
+<pre class="codebox"><code><span class="identifier">sys</span> <span class="selector">browse:</span><span class="identifier">FSCoreDataSample</span> <span class="selector">managedObject</span>
+</code></pre>
+
+<p>As you can see in figure 21, the object browser opens and displays information about your managed object.</p>
+
+<p>It is also possible to open the object browser from Objective-C, using the FSInterpreter class which is part of the F-Script framework. For example:</p>
+
+<pre class="codebox"><code>[[<span class="identifier">FSInterpreter</span> <span class="selector">interpreter</span>] <span class="selector">browse:</span>[<span class="identifier">FSCoreDataSample</span> <span class="selector">managedObject</span>]];
+</code></pre>
+
+<p>The object browser displays the attributes and relationships of your managed object. For instance, if your object represents an employee, the browser will display their name, address, email, department, etc. The browser also displays various additional information about the object, such as its associated entity, object context, unique ID, etc. Finally, the browser displays the list of all methods implemented by the managed object.</p>
+
+<img src="artwork/fig21.png"  />
+<p class="legend">Fig. 21. Browsing a managed object graph with the object browser.</p>
+
+<p>Interactively navigating an object graph is then easy. When you click on an attribute or a relationship, the browser displays a new column that contains the selected object, allowing you to further delve into the object graph. As you can see, the browser lets you explore a whole managed object graph easily. This makes it a useful tool for exploratory programming and debugging with Core Data.</p>
+
+<p>In addition to the properties of managed objects (i.e. attributes and relationships), the browser also lets you access and explore the whole Core Data stack. You can browse the object model, the object context, the persistent store coordinator, etc.</p>
+
+<img src="artwork/fig22.png" />
+<p class="legend">Fig. 22. Browsing the object model description</p>
+
+<p>As described at the beginning of this article, you can invoke methods as easily as you can browse the object graph. When you click on a method name, the method gets executed and the result is displayed in a new column of the browser.</p>
+
+<a name="InspectingCollectionsOfManagedObjects"></a><H2>Inspecting Collections of managed objects</H2>
+
+<p>The F-Script collection inspector described earlier in this article leverages the introspection features provided by Core Data. You can open it by double-clicking on a collection in the object browser, or programmatically with the <code>inspectWithSystem:</code> method (see the F-Script guide).</p>
+
+<img src="artwork/fig23.png" />
+<p class="legend">Fig. 23. Inspecting a collection of managed objects with the collection inspector.</p>
+
+<p>When the collection is made up of managed objects associated with the same entity, the collection inspector configures its columns automatically to display all the managed objects&#39; properties, as shown in the screenshot above. In this example, the collection inspector displays a collection of managed objects representing employees: the inspector is automatically configured with columns for name, address, email, department etc.</p>
+
+<a name="ExploringAndQueryingAManagedObjectContext"></a><H2>Exploring and querying a managed object context</H2>
+
+<p>The managed object context inspector lets you interactively query an NSManagedObjectContext using the predicate language introduced in Mac OS X 10.4. The easiest way to open a managed object context inspector is to double-click on it in the object browser; alternatively, you can open it programmatically. For instance, using the built-in Core Data sample of F-Script you can execute:.</p>
+
+<pre class="codebox"><code><span class="identifier">FSCoreDataSample</span> <span class="selector">managedObject</span> <span class="selector">managedObjectContext</span> <span class="selector">inspectWithSystem:</span><span class="identifier">sys</span>
+</code></pre>
+
+<p>The managed object context inspector enables you to explore a whole managed object context. You can interactively enter Core Data predicates and fetch objects from the persistent stores (the syntax of Core data predicates is described in Apple&#39;s documentation for Core Data). In the managed object context inspector shown in the figure below, we have checked the "Fetch automatically" box, selected the "employee" entity, and entered the predicate <code>salary > 2000 AND department.name = &#39;R&D&#39;</code>.  Thus, the fetched objects represent employees whose salary is greater than 2000 and who work for the R&D department. They are displayed in a collection inspector view. In this way, you can use the functions of the collection inspector to view and explore the fetched objects: </p>
+
+<img src="artwork/fig24.png"  />
+<p class="legend">Fig 24. Interactively querying a managed object context using predicates.</p> 
+
+<p>The managed object context inspector keeps its display up-to-date regarding the values of fetched objects. Furthermore, if "fetch automatically" is enabled, the inspector will automatically fetch objects as you type a predicate or select an entity from the pop-up menu, or as managed objects are added, modified or removed from the object context.</p>
+
+<a name="AccessingCoreDataProgrammatically"></a><H2>Accessing Core Data programmatically</H2>
+
+<p>F-Script lets you access all the Cocoa frameworks both graphically, using the object browser, and programmatically, using the F-Script language itself. Core Data is no exception. To illustrate this, we are going to fetch the employee objects programmatically. You can directly copy/paste the code provided below in the F-Script shell.</p>
+
+<p>First, we need to get a managed object context from the F-Script built-in sample.</p>
+
+<pre class="codebox"><code><span class="identifier">context</span> := <span class="identifier">FSCoreDataSample</span> <span class="selector">managedObject</span> <span class="selector">managedObjectContext</span>.
+</code></pre>
+
+<p>From this context, we get the entity object describing employees.</p>
+
+<pre class="codebox"><code><span class="identifier">employeeEntity</span> := <span class="identifier">context</span> <span class="selector">persistentStoreCoordinator</span> <span class="selector">managedObjectModel</span> <span class="selector">entitiesByName</span> <span class="selector">objectForKey:</span><span class="string">&#39;employee&#39;</span>.
+</code></pre>
+
+<p>Now we need to create a fetch request. This is done with the following code:</p>
+
+<pre class="codebox"><code><span class="identifier">request</span> := <span class="identifier">NSFetchRequest</span> <span class="selector">alloc</span> <span class="selector">init</span>.
+<span class="identifier">request</span> <span class="selector">setEntity:</span><span class="identifier">employeeEntity</span>.
+</code></pre>
+
+<p>Say we want to get the employee object sorted by last name. We can create a sort descriptor that will arrange the fetch results and add it to our fetch request.</p>
+
+<pre class="codebox"><code><span class="identifier">sortDescriptor</span> := <span class="identifier">NSSortDescriptor</span> <span class="selector">alloc</span> <span class="selector">initWithKey:</span><span class="string">&#39;lastName&#39;</span> <span class="selector">ascending:</span><span class="literal">YES</span>.
+<span class="identifier">request</span> <span class="selector">setSortDescriptors:</span>{<span class="identifier">sortDescriptor</span>}.
+</code></pre>
+
+<p>Now we are ready to issue the fetch request and display the result in a collection inspector:</p>
+
+<pre class="codebox"><code><span class="identifier">errorPtr</span> := <span class="identifier">FSPointer</span> <span class="selector">objectPointer</span>.
+
+<span class="identifier">fetchResult</span> := <span class="identifier">context</span> <span class="selector">executeFetchRequest:</span><span class="identifier">request</span> <span class="selector">error:</span><span class="identifier">errorPtr</span>.
+
+<span class="identifier">fetchResult</span> <span class="selector">==</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>
+[
+  <span class="identifier">stdout</span> print:<span class="string">&#39;Error while fetching: &#39;</span> <span class="selector">++</span> (<span class="identifier">errorPtr</span> <span class="selector">at:</span><span class="literal">0</span>) <span class="selector">localizedDescription</span>.
+]
+<span class="selector">ifFalse:</span>
+[
+  <span class="identifier">fetchResult</span> <span class="selector">inspectWithSystem:</span><span class="identifier">sys</span>.
+]
+</code></pre>
+
+<a name="FinalThoughts"></a><H2>Final thoughts</H2>
+
+<p>As this article has shown, F-Script provides an environment for easy exploring and handling of Objective-C objects. F-Script can be used as a standalone application, or integrated into your own application. This is done through an easy-to-use API and/or an Interface Builder palette provided by the F-Script framework. It is used in this way by various commercial and open source software. F-Script can also be dynamically injected into any Cocoa application at runtime. Thus, all the tools and techniques described in this article can be used with any Cocoa applications, be it your own or those of a third-party.</p>
+<br>
+<p style="text-align:center; font-size:x-small"><font COLOR="slategray">Copyright &copy; 2006-2010 Philippe Mougin</font></p>
+<br>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+</body>
+</html>
+<script language="javascript"><!--
+
+var wwOpenInstalled;
+if (wwOpenInstalled || parent.wwOpenInstalled) {
+	if (window.Event) {
+		document.captureEvents (Event.MOUSEUP);
+	}
+	document.onmouseup = (parent.wwOpenInstalled) ? parent.wwOnMouseUp : wwOnMouseUp;
+}
+//--></script>

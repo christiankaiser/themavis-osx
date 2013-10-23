@@ -1,0 +1,7 @@
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m: In function '-[TMColoredProportionalSymbolStyle initWithCoder:]':
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m:32: warning: 'TMStyle' may not respond to '-initWithCoder:'
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m:32: warning: (Messages without a matching method signature
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m:32: warning: will be assumed to return 'id' and accept
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m:32: warning: '...' as arguments.)
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m: In function '-[TMColoredProportionalSymbolStyle encodeWithCoder:]':
+/Users/christiankaiser/Desktop/work/ThemaMap/ThemaMap/Classes/TMColoredProportionalSymbolStyle.m:42: warning: 'TMStyle' may not respond to '-encodeWithCoder:'

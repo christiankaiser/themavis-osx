@@ -1,0 +1,730 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A49D1351622189B00D8F2B2 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A49D1341622189B00D8F2B2 /* FScript.framework */; };
+		2A49D1361622189B00D8F2B2 /* FScript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A49D1341622189B00D8F2B2 /* FScript.framework */; };
+		8273045310ADBEC50080F41C /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = 8273045210ADBEC50080F41C /* common.h */; };
+		82D01E080D97AFE200D85115 /* ThemaMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E070D97AFE200D85115 /* ThemaMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E3D0D97AFEF00D85115 /* TMSymbolStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E090D97AFEF00D85115 /* TMSymbolStyle.m */; };
+		82D01E3E0D97AFEF00D85115 /* TMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E0A0D97AFEF00D85115 /* TMView.m */; };
+		82D01E3F0D97AFEF00D85115 /* TMView.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E0B0D97AFEF00D85115 /* TMView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E400D97AFEF00D85115 /* TMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E0C0D97AFEF00D85115 /* TMTextView.m */; };
+		82D01E410D97AFEF00D85115 /* TMTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E0D0D97AFEF00D85115 /* TMTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E420D97AFEF00D85115 /* TMStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E0E0D97AFEF00D85115 /* TMStyle.m */; };
+		82D01E430D97AFEF00D85115 /* TMStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E0F0D97AFEF00D85115 /* TMStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E440D97AFEF00D85115 /* TMShapefile.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E100D97AFEF00D85115 /* TMShapefile.m */; };
+		82D01E450D97AFEF00D85115 /* TMShapefile.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E110D97AFEF00D85115 /* TMShapefile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E460D97AFEF00D85115 /* TMProportionalSymbolStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E120D97AFEF00D85115 /* TMProportionalSymbolStyle.m */; };
+		82D01E470D97AFEF00D85115 /* TMProportionalSymbolStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E130D97AFEF00D85115 /* TMProportionalSymbolStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E480D97AFEF00D85115 /* TMPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E140D97AFEF00D85115 /* TMPolygon.m */; };
+		82D01E490D97AFEF00D85115 /* TMPolygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E150D97AFEF00D85115 /* TMPolygon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E4A0D97AFEF00D85115 /* TMPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E160D97AFEF00D85115 /* TMPoint.m */; };
+		82D01E4B0D97AFEF00D85115 /* TMPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E170D97AFEF00D85115 /* TMPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E4C0D97AFEF00D85115 /* TMPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E180D97AFEF00D85115 /* TMPage.m */; };
+		82D01E4D0D97AFEF00D85115 /* TMPage.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E190D97AFEF00D85115 /* TMPage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E4E0D97AFEF00D85115 /* TMMultiPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E1A0D97AFEF00D85115 /* TMMultiPolygon.m */; };
+		82D01E4F0D97AFEF00D85115 /* TMMultiPolygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E1B0D97AFEF00D85115 /* TMMultiPolygon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E500D97AFEF00D85115 /* TMMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E1C0D97AFEF00D85115 /* TMMapView.m */; };
+		82D01E510D97AFEF00D85115 /* TMMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E1D0D97AFEF00D85115 /* TMMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E520D97AFEF00D85115 /* TMLinearRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E1E0D97AFEF00D85115 /* TMLinearRing.m */; };
+		82D01E530D97AFEF00D85115 /* TMLinearRing.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E1F0D97AFEF00D85115 /* TMLinearRing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E540D97AFEF00D85115 /* TMLineString.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E200D97AFEF00D85115 /* TMLineString.m */; };
+		82D01E550D97AFEF00D85115 /* TMLineString.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E210D97AFEF00D85115 /* TMLineString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E560D97AFEF00D85115 /* TMLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E220D97AFEF00D85115 /* TMLegendView.m */; };
+		82D01E570D97AFEF00D85115 /* TMLegendView.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E230D97AFEF00D85115 /* TMLegendView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E580D97AFEF00D85115 /* TMLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E240D97AFEF00D85115 /* TMLayer.m */; };
+		82D01E590D97AFEF00D85115 /* TMLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E250D97AFEF00D85115 /* TMLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E5A0D97AFEF00D85115 /* TMGeometryCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E260D97AFEF00D85115 /* TMGeometryCollection.m */; };
+		82D01E5B0D97AFEF00D85115 /* TMGeometryCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E270D97AFEF00D85115 /* TMGeometryCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E5C0D97AFEF00D85115 /* TMGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E280D97AFEF00D85115 /* TMGeometry.m */; };
+		82D01E5D0D97AFEF00D85115 /* TMContinuousClassification.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E290D97AFEF00D85115 /* TMContinuousClassification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E5E0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E2A0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.m */; };
+		82D01E5F0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E2B0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E600D97AFEF00D85115 /* TMColorTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E2C0D97AFEF00D85115 /* TMColorTable.m */; };
+		82D01E610D97AFEF00D85115 /* TMColorTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E2D0D97AFEF00D85115 /* TMColorTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E620D97AFEF00D85115 /* TMClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E2E0D97AFEF00D85115 /* TMClassification.m */; };
+		82D01E630D97AFEF00D85115 /* TMClassification.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E2F0D97AFEF00D85115 /* TMClassification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E640D97AFEF00D85115 /* TMChoroplethStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E300D97AFEF00D85115 /* TMChoroplethStyle.m */; };
+		82D01E650D97AFEF00D85115 /* TMChoroplethStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E310D97AFEF00D85115 /* TMChoroplethStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E660D97AFEF00D85115 /* TMSymbolStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E320D97AFEF00D85115 /* TMSymbolStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E670D97AFEF00D85115 /* TMDiscreteClassification.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E330D97AFEF00D85115 /* TMDiscreteClassification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E680D97AFEF00D85115 /* TMContinuousClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E340D97AFEF00D85115 /* TMContinuousClassification.m */; };
+		82D01E690D97AFEF00D85115 /* TMGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E350D97AFEF00D85115 /* TMGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E6A0D97AFEF00D85115 /* TMFillStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E360D97AFEF00D85115 /* TMFillStyle.m */; };
+		82D01E6B0D97AFEF00D85115 /* TMFillStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E370D97AFEF00D85115 /* TMFillStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E6C0D97AFEF00D85115 /* TMFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E380D97AFEF00D85115 /* TMFeature.m */; };
+		82D01E6D0D97AFEF00D85115 /* TMFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E390D97AFEF00D85115 /* TMFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E6E0D97AFEF00D85115 /* TMEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E3A0D97AFEF00D85115 /* TMEnvelope.m */; };
+		82D01E6F0D97AFEF00D85115 /* TMEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01E3B0D97AFEF00D85115 /* TMEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01E700D97AFEF00D85115 /* TMDiscreteClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01E3C0D97AFEF00D85115 /* TMDiscreteClassification.m */; };
+		82D01EB40D97ECF600D85115 /* dbf_api.html in Resources */ = {isa = PBXBuildFile; fileRef = 82D01EAE0D97ECF600D85115 /* dbf_api.html */; };
+		82D01EB50D97ECF600D85115 /* dbfopen.c in Sources */ = {isa = PBXBuildFile; fileRef = 82D01EAF0D97ECF600D85115 /* dbfopen.c */; };
+		82D01EB60D97ECF600D85115 /* shapefil.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D01EB00D97ECF600D85115 /* shapefil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82D01EB70D97ECF600D85115 /* shapelib.html in Resources */ = {isa = PBXBuildFile; fileRef = 82D01EB10D97ECF600D85115 /* shapelib.html */; };
+		82D01EB80D97ECF600D85115 /* shp_api.html in Resources */ = {isa = PBXBuildFile; fileRef = 82D01EB20D97ECF600D85115 /* shp_api.html */; };
+		82D01EB90D97ECF600D85115 /* shpopen.c in Sources */ = {isa = PBXBuildFile; fileRef = 82D01EB30D97ECF600D85115 /* shpopen.c */; };
+		82D01FC40D97F56A00D85115 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01FC10D97F56A00D85115 /* main.m */; };
+		82D01FDE0D97F63D00D85115 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 82D01FDD0D97F63D00D85115 /* MainMenu.nib */; };
+		82D01FE70D97F6B300D85115 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 82D01FDD0D97F63D00D85115 /* MainMenu.nib */; };
+		82D01FE80D97F6BA00D85115 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D01FC10D97F56A00D85115 /* main.m */; };
+		82D020900D97FA5A00D85115 /* ThemaMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ThemaMap.framework */; };
+		82F58217104A898D001AE9E3 /* TMScaleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F58215104A898D001AE9E3 /* TMScaleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82F58218104A898D001AE9E3 /* TMScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F58216104A898D001AE9E3 /* TMScaleView.m */; };
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		E78653500FD7CF0A00FF66E9 /* CLIController.m in Sources */ = {isa = PBXBuildFile; fileRef = E786534F0FD7CF0A00FF66E9 /* CLIController.m */; };
+		E7A9D5F50DDD6A5300FB11C0 /* TMTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = E7A9D5F30DDD6A5300FB11C0 /* TMTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E7A9D5F60DDD6A5300FB11C0 /* TMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A9D5F40DDD6A5300FB11C0 /* TMTextField.m */; };
+		E7D05A000D9CDFF800C4ED4A /* TMGradientClassification.h in Headers */ = {isa = PBXBuildFile; fileRef = E7D059FE0D9CDFF800C4ED4A /* TMGradientClassification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E7D05A010D9CDFF800C4ED4A /* TMGradientClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D059FF0D9CDFF800C4ED4A /* TMGradientClassification.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		82D020350D97F8E100D85115 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = ThemaMap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		2A49D1341622189B00D8F2B2 /* FScript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FScript.framework; path = ../../lib/FScript/FScript.framework; sourceTree = "<group>"; };
+		32DBCF5E0370ADEE00C91783 /* ThemaMap_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemaMap_Prefix.pch; sourceTree = "<group>"; };
+		8273045210ADBEC50080F41C /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		82D01E070D97AFE200D85115 /* ThemaMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemaMap.h; sourceTree = "<group>"; };
+		82D01E090D97AFEF00D85115 /* TMSymbolStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMSymbolStyle.m; path = Classes/TMSymbolStyle.m; sourceTree = "<group>"; };
+		82D01E0A0D97AFEF00D85115 /* TMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMView.m; path = Classes/TMView.m; sourceTree = "<group>"; };
+		82D01E0B0D97AFEF00D85115 /* TMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMView.h; path = Classes/TMView.h; sourceTree = "<group>"; };
+		82D01E0C0D97AFEF00D85115 /* TMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTextView.m; path = Classes/TMTextView.m; sourceTree = "<group>"; };
+		82D01E0D0D97AFEF00D85115 /* TMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTextView.h; path = Classes/TMTextView.h; sourceTree = "<group>"; };
+		82D01E0E0D97AFEF00D85115 /* TMStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMStyle.m; path = Classes/TMStyle.m; sourceTree = "<group>"; };
+		82D01E0F0D97AFEF00D85115 /* TMStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMStyle.h; path = Classes/TMStyle.h; sourceTree = "<group>"; };
+		82D01E100D97AFEF00D85115 /* TMShapefile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMShapefile.m; path = Classes/TMShapefile.m; sourceTree = "<group>"; };
+		82D01E110D97AFEF00D85115 /* TMShapefile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMShapefile.h; path = Classes/TMShapefile.h; sourceTree = "<group>"; };
+		82D01E120D97AFEF00D85115 /* TMProportionalSymbolStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMProportionalSymbolStyle.m; path = Classes/TMProportionalSymbolStyle.m; sourceTree = "<group>"; };
+		82D01E130D97AFEF00D85115 /* TMProportionalSymbolStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMProportionalSymbolStyle.h; path = Classes/TMProportionalSymbolStyle.h; sourceTree = "<group>"; };
+		82D01E140D97AFEF00D85115 /* TMPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMPolygon.m; path = Classes/TMPolygon.m; sourceTree = "<group>"; };
+		82D01E150D97AFEF00D85115 /* TMPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPolygon.h; path = Classes/TMPolygon.h; sourceTree = "<group>"; };
+		82D01E160D97AFEF00D85115 /* TMPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMPoint.m; path = Classes/TMPoint.m; sourceTree = "<group>"; };
+		82D01E170D97AFEF00D85115 /* TMPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPoint.h; path = Classes/TMPoint.h; sourceTree = "<group>"; };
+		82D01E180D97AFEF00D85115 /* TMPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMPage.m; path = Classes/TMPage.m; sourceTree = "<group>"; };
+		82D01E190D97AFEF00D85115 /* TMPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMPage.h; path = Classes/TMPage.h; sourceTree = "<group>"; };
+		82D01E1A0D97AFEF00D85115 /* TMMultiPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMMultiPolygon.m; path = Classes/TMMultiPolygon.m; sourceTree = "<group>"; };
+		82D01E1B0D97AFEF00D85115 /* TMMultiPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMMultiPolygon.h; path = Classes/TMMultiPolygon.h; sourceTree = "<group>"; };
+		82D01E1C0D97AFEF00D85115 /* TMMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMMapView.m; path = Classes/TMMapView.m; sourceTree = "<group>"; };
+		82D01E1D0D97AFEF00D85115 /* TMMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMMapView.h; path = Classes/TMMapView.h; sourceTree = "<group>"; };
+		82D01E1E0D97AFEF00D85115 /* TMLinearRing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMLinearRing.m; path = Classes/TMLinearRing.m; sourceTree = "<group>"; };
+		82D01E1F0D97AFEF00D85115 /* TMLinearRing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMLinearRing.h; path = Classes/TMLinearRing.h; sourceTree = "<group>"; };
+		82D01E200D97AFEF00D85115 /* TMLineString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMLineString.m; path = Classes/TMLineString.m; sourceTree = "<group>"; };
+		82D01E210D97AFEF00D85115 /* TMLineString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMLineString.h; path = Classes/TMLineString.h; sourceTree = "<group>"; };
+		82D01E220D97AFEF00D85115 /* TMLegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMLegendView.m; path = Classes/TMLegendView.m; sourceTree = "<group>"; };
+		82D01E230D97AFEF00D85115 /* TMLegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMLegendView.h; path = Classes/TMLegendView.h; sourceTree = "<group>"; };
+		82D01E240D97AFEF00D85115 /* TMLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMLayer.m; path = Classes/TMLayer.m; sourceTree = "<group>"; };
+		82D01E250D97AFEF00D85115 /* TMLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMLayer.h; path = Classes/TMLayer.h; sourceTree = "<group>"; };
+		82D01E260D97AFEF00D85115 /* TMGeometryCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMGeometryCollection.m; path = Classes/TMGeometryCollection.m; sourceTree = "<group>"; };
+		82D01E270D97AFEF00D85115 /* TMGeometryCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMGeometryCollection.h; path = Classes/TMGeometryCollection.h; sourceTree = "<group>"; };
+		82D01E280D97AFEF00D85115 /* TMGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMGeometry.m; path = Classes/TMGeometry.m; sourceTree = "<group>"; };
+		82D01E290D97AFEF00D85115 /* TMContinuousClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMContinuousClassification.h; path = Classes/TMContinuousClassification.h; sourceTree = "<group>"; };
+		82D01E2A0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMColoredProportionalSymbolStyle.m; path = Classes/TMColoredProportionalSymbolStyle.m; sourceTree = "<group>"; };
+		82D01E2B0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMColoredProportionalSymbolStyle.h; path = Classes/TMColoredProportionalSymbolStyle.h; sourceTree = "<group>"; };
+		82D01E2C0D97AFEF00D85115 /* TMColorTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMColorTable.m; path = Classes/TMColorTable.m; sourceTree = "<group>"; };
+		82D01E2D0D97AFEF00D85115 /* TMColorTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMColorTable.h; path = Classes/TMColorTable.h; sourceTree = "<group>"; };
+		82D01E2E0D97AFEF00D85115 /* TMClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMClassification.m; path = Classes/TMClassification.m; sourceTree = "<group>"; };
+		82D01E2F0D97AFEF00D85115 /* TMClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMClassification.h; path = Classes/TMClassification.h; sourceTree = "<group>"; };
+		82D01E300D97AFEF00D85115 /* TMChoroplethStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMChoroplethStyle.m; path = Classes/TMChoroplethStyle.m; sourceTree = "<group>"; };
+		82D01E310D97AFEF00D85115 /* TMChoroplethStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMChoroplethStyle.h; path = Classes/TMChoroplethStyle.h; sourceTree = "<group>"; };
+		82D01E320D97AFEF00D85115 /* TMSymbolStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSymbolStyle.h; path = Classes/TMSymbolStyle.h; sourceTree = "<group>"; };
+		82D01E330D97AFEF00D85115 /* TMDiscreteClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMDiscreteClassification.h; path = Classes/TMDiscreteClassification.h; sourceTree = "<group>"; };
+		82D01E340D97AFEF00D85115 /* TMContinuousClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMContinuousClassification.m; path = Classes/TMContinuousClassification.m; sourceTree = "<group>"; };
+		82D01E350D97AFEF00D85115 /* TMGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMGeometry.h; path = Classes/TMGeometry.h; sourceTree = "<group>"; };
+		82D01E360D97AFEF00D85115 /* TMFillStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFillStyle.m; path = Classes/TMFillStyle.m; sourceTree = "<group>"; };
+		82D01E370D97AFEF00D85115 /* TMFillStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMFillStyle.h; path = Classes/TMFillStyle.h; sourceTree = "<group>"; };
+		82D01E380D97AFEF00D85115 /* TMFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMFeature.m; path = Classes/TMFeature.m; sourceTree = "<group>"; };
+		82D01E390D97AFEF00D85115 /* TMFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMFeature.h; path = Classes/TMFeature.h; sourceTree = "<group>"; };
+		82D01E3A0D97AFEF00D85115 /* TMEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMEnvelope.m; path = Classes/TMEnvelope.m; sourceTree = "<group>"; };
+		82D01E3B0D97AFEF00D85115 /* TMEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMEnvelope.h; path = Classes/TMEnvelope.h; sourceTree = "<group>"; };
+		82D01E3C0D97AFEF00D85115 /* TMDiscreteClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMDiscreteClassification.m; path = Classes/TMDiscreteClassification.m; sourceTree = "<group>"; };
+		82D01EAE0D97ECF600D85115 /* dbf_api.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dbf_api.html; sourceTree = "<group>"; };
+		82D01EAF0D97ECF600D85115 /* dbfopen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dbfopen.c; sourceTree = "<group>"; };
+		82D01EB00D97ECF600D85115 /* shapefil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shapefil.h; sourceTree = "<group>"; };
+		82D01EB10D97ECF600D85115 /* shapelib.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shapelib.html; sourceTree = "<group>"; };
+		82D01EB20D97ECF600D85115 /* shp_api.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shp_api.html; sourceTree = "<group>"; };
+		82D01EB30D97ECF600D85115 /* shpopen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shpopen.c; sourceTree = "<group>"; };
+		82D01F1E0D97F3CB00D85115 /* ThemaMapCLI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThemaMapCLI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		82D01F200D97F3CB00D85115 /* ThemaMapCLI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThemaMapCLI-Info.plist"; sourceTree = "<group>"; };
+		82D01FC10D97F56A00D85115 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ThemaMapCLI/main.m; sourceTree = "<group>"; };
+		82D01FDD0D97F63D00D85115 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = MainMenu.nib; path = ThemaMapCLI/MainMenu.nib; sourceTree = "<group>"; };
+		82F58215104A898D001AE9E3 /* TMScaleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMScaleView.h; path = Classes/TMScaleView.h; sourceTree = "<group>"; };
+		82F58216104A898D001AE9E3 /* TMScaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMScaleView.m; path = Classes/TMScaleView.m; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* ThemaMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThemaMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E786534E0FD7CF0A00FF66E9 /* CLIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLIController.h; path = ThemaMapCLI/CLIController.h; sourceTree = "<group>"; };
+		E786534F0FD7CF0A00FF66E9 /* CLIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLIController.m; path = ThemaMapCLI/CLIController.m; sourceTree = "<group>"; };
+		E7A9D5F30DDD6A5300FB11C0 /* TMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMTextField.h; path = Classes/TMTextField.h; sourceTree = "<group>"; };
+		E7A9D5F40DDD6A5300FB11C0 /* TMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMTextField.m; path = Classes/TMTextField.m; sourceTree = "<group>"; };
+		E7D059FE0D9CDFF800C4ED4A /* TMGradientClassification.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = TMGradientClassification.h; path = Classes/TMGradientClassification.h; sourceTree = "<group>"; };
+		E7D059FF0D9CDFF800C4ED4A /* TMGradientClassification.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; name = TMGradientClassification.m; path = Classes/TMGradientClassification.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		82D01F1C0D97F3CB00D85115 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D020900D97FA5A00D85115 /* ThemaMap.framework in Frameworks */,
+				2A49D1361622189B00D8F2B2 /* FScript.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				2A49D1351622189B00D8F2B2 /* FScript.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* ThemaMap.framework */,
+				82D01F1E0D97F3CB00D85115 /* ThemaMapCLI.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* ThemaMap */ = {
+			isa = PBXGroup;
+			children = (
+				82D01F200D97F3CB00D85115 /* ThemaMapCLI-Info.plist */,
+				82D01E070D97AFE200D85115 /* ThemaMap.h */,
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				82D01EAD0D97ECF600D85115 /* shapelib */,
+				82D01F280D97F4B100D85115 /* ThemaMapCLI */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = ThemaMap;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				2A49D1341622189B00D8F2B2 /* FScript.framework */,
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				82D01E310D97AFEF00D85115 /* TMChoroplethStyle.h */,
+				82D01E300D97AFEF00D85115 /* TMChoroplethStyle.m */,
+				82D01E2F0D97AFEF00D85115 /* TMClassification.h */,
+				82D01E2E0D97AFEF00D85115 /* TMClassification.m */,
+				82D01E2B0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.h */,
+				82D01E2A0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.m */,
+				82D01E2D0D97AFEF00D85115 /* TMColorTable.h */,
+				82D01E2C0D97AFEF00D85115 /* TMColorTable.m */,
+				82D01E290D97AFEF00D85115 /* TMContinuousClassification.h */,
+				82D01E340D97AFEF00D85115 /* TMContinuousClassification.m */,
+				82D01E330D97AFEF00D85115 /* TMDiscreteClassification.h */,
+				82D01E3C0D97AFEF00D85115 /* TMDiscreteClassification.m */,
+				82D01E3B0D97AFEF00D85115 /* TMEnvelope.h */,
+				82D01E3A0D97AFEF00D85115 /* TMEnvelope.m */,
+				82D01E390D97AFEF00D85115 /* TMFeature.h */,
+				82D01E380D97AFEF00D85115 /* TMFeature.m */,
+				82D01E370D97AFEF00D85115 /* TMFillStyle.h */,
+				82D01E360D97AFEF00D85115 /* TMFillStyle.m */,
+				82D01E350D97AFEF00D85115 /* TMGeometry.h */,
+				82D01E280D97AFEF00D85115 /* TMGeometry.m */,
+				82D01E270D97AFEF00D85115 /* TMGeometryCollection.h */,
+				82D01E260D97AFEF00D85115 /* TMGeometryCollection.m */,
+				E7D059FE0D9CDFF800C4ED4A /* TMGradientClassification.h */,
+				E7D059FF0D9CDFF800C4ED4A /* TMGradientClassification.m */,
+				82D01E250D97AFEF00D85115 /* TMLayer.h */,
+				82D01E240D97AFEF00D85115 /* TMLayer.m */,
+				82D01E230D97AFEF00D85115 /* TMLegendView.h */,
+				82D01E220D97AFEF00D85115 /* TMLegendView.m */,
+				82D01E1F0D97AFEF00D85115 /* TMLinearRing.h */,
+				82D01E1E0D97AFEF00D85115 /* TMLinearRing.m */,
+				82D01E210D97AFEF00D85115 /* TMLineString.h */,
+				82D01E200D97AFEF00D85115 /* TMLineString.m */,
+				82D01E1D0D97AFEF00D85115 /* TMMapView.h */,
+				82D01E1C0D97AFEF00D85115 /* TMMapView.m */,
+				82D01E1B0D97AFEF00D85115 /* TMMultiPolygon.h */,
+				82D01E1A0D97AFEF00D85115 /* TMMultiPolygon.m */,
+				82D01E190D97AFEF00D85115 /* TMPage.h */,
+				82D01E180D97AFEF00D85115 /* TMPage.m */,
+				82D01E170D97AFEF00D85115 /* TMPoint.h */,
+				82D01E160D97AFEF00D85115 /* TMPoint.m */,
+				82D01E150D97AFEF00D85115 /* TMPolygon.h */,
+				82D01E140D97AFEF00D85115 /* TMPolygon.m */,
+				82D01E130D97AFEF00D85115 /* TMProportionalSymbolStyle.h */,
+				82D01E120D97AFEF00D85115 /* TMProportionalSymbolStyle.m */,
+				82F58215104A898D001AE9E3 /* TMScaleView.h */,
+				82F58216104A898D001AE9E3 /* TMScaleView.m */,
+				82D01E110D97AFEF00D85115 /* TMShapefile.h */,
+				82D01E100D97AFEF00D85115 /* TMShapefile.m */,
+				82D01E0F0D97AFEF00D85115 /* TMStyle.h */,
+				82D01E0E0D97AFEF00D85115 /* TMStyle.m */,
+				82D01E320D97AFEF00D85115 /* TMSymbolStyle.h */,
+				82D01E090D97AFEF00D85115 /* TMSymbolStyle.m */,
+				E7A9D5F30DDD6A5300FB11C0 /* TMTextField.h */,
+				E7A9D5F40DDD6A5300FB11C0 /* TMTextField.m */,
+				82D01E0D0D97AFEF00D85115 /* TMTextView.h */,
+				82D01E0C0D97AFEF00D85115 /* TMTextView.m */,
+				82D01E0B0D97AFEF00D85115 /* TMView.h */,
+				82D01E0A0D97AFEF00D85115 /* TMView.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* ThemaMap_Prefix.pch */,
+				8273045210ADBEC50080F41C /* common.h */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		82D01EAD0D97ECF600D85115 /* shapelib */ = {
+			isa = PBXGroup;
+			children = (
+				82D01EAE0D97ECF600D85115 /* dbf_api.html */,
+				82D01EAF0D97ECF600D85115 /* dbfopen.c */,
+				82D01EB00D97ECF600D85115 /* shapefil.h */,
+				82D01EB10D97ECF600D85115 /* shapelib.html */,
+				82D01EB20D97ECF600D85115 /* shp_api.html */,
+				82D01EB30D97ECF600D85115 /* shpopen.c */,
+			);
+			path = shapelib;
+			sourceTree = "<group>";
+		};
+		82D01F280D97F4B100D85115 /* ThemaMapCLI */ = {
+			isa = PBXGroup;
+			children = (
+				82D01FC10D97F56A00D85115 /* main.m */,
+				82D01FDD0D97F63D00D85115 /* MainMenu.nib */,
+				E786534E0FD7CF0A00FF66E9 /* CLIController.h */,
+				E786534F0FD7CF0A00FF66E9 /* CLIController.m */,
+			);
+			name = ThemaMapCLI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D01E080D97AFE200D85115 /* ThemaMap.h in Headers */,
+				82D01E3F0D97AFEF00D85115 /* TMView.h in Headers */,
+				82D01E410D97AFEF00D85115 /* TMTextView.h in Headers */,
+				82D01E430D97AFEF00D85115 /* TMStyle.h in Headers */,
+				82D01E450D97AFEF00D85115 /* TMShapefile.h in Headers */,
+				82D01E470D97AFEF00D85115 /* TMProportionalSymbolStyle.h in Headers */,
+				82D01E490D97AFEF00D85115 /* TMPolygon.h in Headers */,
+				82D01E4B0D97AFEF00D85115 /* TMPoint.h in Headers */,
+				82D01E4D0D97AFEF00D85115 /* TMPage.h in Headers */,
+				82D01E4F0D97AFEF00D85115 /* TMMultiPolygon.h in Headers */,
+				82D01E510D97AFEF00D85115 /* TMMapView.h in Headers */,
+				82D01E530D97AFEF00D85115 /* TMLinearRing.h in Headers */,
+				82D01E550D97AFEF00D85115 /* TMLineString.h in Headers */,
+				82D01E570D97AFEF00D85115 /* TMLegendView.h in Headers */,
+				82D01E590D97AFEF00D85115 /* TMLayer.h in Headers */,
+				82D01E5B0D97AFEF00D85115 /* TMGeometryCollection.h in Headers */,
+				82D01E5D0D97AFEF00D85115 /* TMContinuousClassification.h in Headers */,
+				82D01E5F0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.h in Headers */,
+				82D01E610D97AFEF00D85115 /* TMColorTable.h in Headers */,
+				82D01E630D97AFEF00D85115 /* TMClassification.h in Headers */,
+				82D01E650D97AFEF00D85115 /* TMChoroplethStyle.h in Headers */,
+				82D01E660D97AFEF00D85115 /* TMSymbolStyle.h in Headers */,
+				82D01E670D97AFEF00D85115 /* TMDiscreteClassification.h in Headers */,
+				82D01E690D97AFEF00D85115 /* TMGeometry.h in Headers */,
+				82D01E6B0D97AFEF00D85115 /* TMFillStyle.h in Headers */,
+				82D01E6D0D97AFEF00D85115 /* TMFeature.h in Headers */,
+				82D01E6F0D97AFEF00D85115 /* TMEnvelope.h in Headers */,
+				82D01EB60D97ECF600D85115 /* shapefil.h in Headers */,
+				E7D05A000D9CDFF800C4ED4A /* TMGradientClassification.h in Headers */,
+				E7A9D5F50DDD6A5300FB11C0 /* TMTextField.h in Headers */,
+				82F58217104A898D001AE9E3 /* TMScaleView.h in Headers */,
+				8273045310ADBEC50080F41C /* common.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		82D01F1D0D97F3CB00D85115 /* ThemaMapCLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82D01F230D97F3CC00D85115 /* Build configuration list for PBXNativeTarget "ThemaMapCLI" */;
+			buildPhases = (
+				82D01F1A0D97F3CB00D85115 /* Resources */,
+				82D01F1B0D97F3CB00D85115 /* Sources */,
+				82D01F1C0D97F3CB00D85115 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82D020360D97F8E100D85115 /* PBXTargetDependency */,
+			);
+			name = ThemaMapCLI;
+			productName = ThemaMapCLI;
+			productReference = 82D01F1E0D97F3CB00D85115 /* ThemaMapCLI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DC2EF4F0486A6940098B216 /* ThemaMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "ThemaMap" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThemaMap;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = ThemaMap;
+			productReference = 8DC2EF5B0486A6940098B216 /* ThemaMap.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ThemaMap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* ThemaMap */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* ThemaMap */,
+				82D01F1D0D97F3CB00D85115 /* ThemaMapCLI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82D01F1A0D97F3CB00D85115 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D01FE70D97F6B300D85115 /* MainMenu.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				82D01EB40D97ECF600D85115 /* dbf_api.html in Resources */,
+				82D01EB70D97ECF600D85115 /* shapelib.html in Resources */,
+				82D01EB80D97ECF600D85115 /* shp_api.html in Resources */,
+				82D01FDE0D97F63D00D85115 /* MainMenu.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		82D01F1B0D97F3CB00D85115 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D01FE80D97F6BA00D85115 /* main.m in Sources */,
+				E78653500FD7CF0A00FF66E9 /* CLIController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D01E3D0D97AFEF00D85115 /* TMSymbolStyle.m in Sources */,
+				82D01E3E0D97AFEF00D85115 /* TMView.m in Sources */,
+				82D01E400D97AFEF00D85115 /* TMTextView.m in Sources */,
+				82D01E420D97AFEF00D85115 /* TMStyle.m in Sources */,
+				82D01E440D97AFEF00D85115 /* TMShapefile.m in Sources */,
+				82D01E460D97AFEF00D85115 /* TMProportionalSymbolStyle.m in Sources */,
+				82D01E480D97AFEF00D85115 /* TMPolygon.m in Sources */,
+				82D01E4A0D97AFEF00D85115 /* TMPoint.m in Sources */,
+				82D01E4C0D97AFEF00D85115 /* TMPage.m in Sources */,
+				82D01E4E0D97AFEF00D85115 /* TMMultiPolygon.m in Sources */,
+				82D01E500D97AFEF00D85115 /* TMMapView.m in Sources */,
+				82D01E520D97AFEF00D85115 /* TMLinearRing.m in Sources */,
+				82D01E540D97AFEF00D85115 /* TMLineString.m in Sources */,
+				82D01E560D97AFEF00D85115 /* TMLegendView.m in Sources */,
+				82D01E580D97AFEF00D85115 /* TMLayer.m in Sources */,
+				82D01E5A0D97AFEF00D85115 /* TMGeometryCollection.m in Sources */,
+				82D01E5C0D97AFEF00D85115 /* TMGeometry.m in Sources */,
+				82D01E5E0D97AFEF00D85115 /* TMColoredProportionalSymbolStyle.m in Sources */,
+				82D01E600D97AFEF00D85115 /* TMColorTable.m in Sources */,
+				82D01E620D97AFEF00D85115 /* TMClassification.m in Sources */,
+				82D01E640D97AFEF00D85115 /* TMChoroplethStyle.m in Sources */,
+				82D01E680D97AFEF00D85115 /* TMContinuousClassification.m in Sources */,
+				82D01E6A0D97AFEF00D85115 /* TMFillStyle.m in Sources */,
+				82D01E6C0D97AFEF00D85115 /* TMFeature.m in Sources */,
+				82D01E6E0D97AFEF00D85115 /* TMEnvelope.m in Sources */,
+				82D01E700D97AFEF00D85115 /* TMDiscreteClassification.m in Sources */,
+				82D01EB50D97ECF600D85115 /* dbfopen.c in Sources */,
+				82D01EB90D97ECF600D85115 /* shpopen.c in Sources */,
+				82D01FC40D97F56A00D85115 /* main.m in Sources */,
+				E7D05A010D9CDFF800C4ED4A /* TMGradientClassification.m in Sources */,
+				E7A9D5F60DDD6A5300FB11C0 /* TMTextField.m in Sources */,
+				82F58218104A898D001AE9E3 /* TMScaleView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		82D020360D97F8E100D85115 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* ThemaMap */;
+			targetProxy = 82D020350D97F8E100D85115 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib/FScript\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ThemaMap_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = ThemaMap;
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib/FScript\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ThemaMap_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = ThemaMap;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx10.7;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx10.7;
+			};
+			name = Release;
+		};
+		82D01F210D97F3CC00D85115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib/FScript\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "ThemaMapCLI-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = ThemaMapCLI;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		82D01F220D97F3CC00D85115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib/FScript\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "ThemaMapCLI-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = ThemaMapCLI;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "ThemaMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ThemaMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82D01F230D97F3CC00D85115 /* Build configuration list for PBXNativeTarget "ThemaMapCLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82D01F210D97F3CC00D85115 /* Debug */,
+				82D01F220D97F3CC00D85115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

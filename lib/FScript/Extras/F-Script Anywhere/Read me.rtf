@@ -1,0 +1,71 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf290
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14960\viewh13320\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 \
+The classic version of F-Script Anywhere does not work on Mac OS X 10.6, but we have a simple workaround. You can inject F-Script into any Cocoa application at run time using the automated F-Script Anywhere injection service provided in the F-Script distribution. \
+\
+Alternatively, you can use the following technique:\
+\
+1) Locate the F-Script framework on your disk. The F-Script framework is part of this distribution and is named "FScript.framework". In the following instructions, we assume you put it in /Library/Frameworks/\
+\
+2) Launch the application into which you want to inject F-Script.\
+\
+3) Open the UNIX terminal and launch gdb by typing:\
+\
+      
+\b gdb
+\b0 \
+\
+Note that if gdb is not on your system, you can get it by installing the developer tools package provided on the installation DVD of Mac OS X.\
+\
+3) Attach gdb to the target application, using the "attach" instruction. For example, to attach to TextEdit type:\
+\
+      
+\b attach TextEdit
+\b0 \
+\
+4) Load the F-Script framework into the target application by typing the following (we assume the F-Script framework is located at /Library/Frameworks/FScript.framework. Modify the instruction if this is not the case): \
+\
+      
+\b p (char)[[NSBundle bundleWithPath:@"/Library/Frameworks/FScript.framework"] load]
+\b0 \
+\
+5) Add an F-Script menu to the target application by typing:\
+\
+      
+\b p (void)[FScriptMenuItem insertInMainMenu]
+\b0 \
+\
+6) Let the application run by typing:\
+\
+      
+\b continue
+\b0 \
+\
+7) An F-Script menu should now appear in the menu bar of the target application. Using it, you can access the injected F-Script environment and explore the target application. \
+\
+Note that those steps are easy to automate, by defining a new gdb command. To have this new command permanently available in gdb, you can add its definition to a .gdbinit file (a text file) that you put in your home directory. Your .gdbinit file will be automatically executed each time gdb is launched. Here is the command definition that you can put in a .gdbinit file:\
+\
+
+\b       define loadfs \
+          attach $arg0\
+          p (char)[[NSBundle bundleWithPath:@"/Library/Frameworks/FScript.framework"] load]\
+          p (void)[FScriptMenuItem insertInMainMenu]\
+          continue \
+      end\
+\
+
+\b0 This defines a command named "loadfs" that takes the name of the application you want to inject into as argument.\
+\
+For example, to inject F-Script into TextEdit you can type the following in gdb:\
+\
+      
+\b loadfs TextEdit
+\b0 \
+
+\b \
+
+\b0 This automates steps 3 to 6.}

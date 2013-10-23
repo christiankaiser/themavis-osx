@@ -1,0 +1,733 @@
+<html>
+	<head>
+		<title>
+			Embedding F-Script into Cocoa Applications
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+		<style type="text/css" media="all"> 
+
+</style>
+	</head>
+	<body bgcolor="#FFFFFF">
+		<br>
+		<H1 align="center">
+			Embedding F-Script into Cocoa Applications
+		</H1>
+		<p>
+			<font color=#326fa3>
+			Revised April 2010</font>
+		</p>
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+
+
+		<H2>
+			Introduction
+		</H2>
+		<p>
+			As we already saw in the previous articles in this series, F-Script can be used as a standalone application which dynamically loads your Objective-C classes and enables you to access them either interactively or using scripts. In this article, we will explore another possibility, i.e. including F-Script in your own applications.
+		</p>
+		<p>
+			All F-Script functionalities are available through components which can be integrated into applications. This enables you to:
+		</p>
+		<ul style="margin: 12px 60px 12px 60px;">
+			<li>Program all or part of an application using the F-Script language.</li>
+			<li>Offer a scripting environment within your applications, allowing users to manipulate your business objects and to automate processes.</li>
+			<li>Interface F-Script with other tools.
+		</ul>
+		<p>
+			Because F-Script and Cocoa share the same object model, integration is easy and advanced.
+		</p>
+		<p>
+			F-Script can be downloaded at <a href=http://www.fscript.org>http://www.fscript.org</a>.
+		</p>
+		<p>
+			Note: This article is an updated version of <i>Embedding F-Script into Cocoa</i>, which is published on the O'Reilly MacDevcenter <a href=http://www.macdevcenter.com/pub/a/mac/2002/07/12/embed_fscript.html >here</a>.
+		</p>
+		<h2>
+			The Main Classes in the F-Script Integration API
+		</h2>
+		<p>
+			The F-Script runtime is integrated into an application via a certain number of Objective-C classes, which are provided with F-Script in the form of a framework (FScript.framework). The following table illustrates the main characteristics of these classes in terms of integration.
+		</p>
+		<table cellspacing="2" cellpadding="10" border="0" bgcolor="#ffffff">
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FSInterpreter
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					Each instance of this class represents a complete F-Script interpreter (workspace included). An application may instantiate any number of interpreters.
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li> Executes the F-Script code contained in an NSString. </li>
+						<li> Searches for the object associated with a certain identifier in the workspace. </li>
+						<li> Assigns an object to an identifier in the workspace. </li>
+						<li> Lets you know the identifiers defined in the workspace. </li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" bgcolor="#ffffff">
+				</td>
+			</tr>
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FSInterpreterResult
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					Represents the result of an execution of F-Script code by an FSInterpreter.
+					<p>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li> Lets you know the execution status of the F-Script code, i.e. syntax error, execution error or success. </li>
+						<li> In the event of an error, lets you retrieve information on this error: human readable description, location in the code, block call-stacks. </li>
+						<li> If successful, lets you get the result of the execution. </li>
+					</ul>
+				</td>
+			</tr>
+
+
+			<tr>
+				<td colspan="2" bgcolor="#ffffff">
+				</td>
+			</tr>
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FScriptMenuItem
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					A graphical component, a subclass of NSMenuItem, for embedding a complete F-Script environement and letting users acess it.
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li>Displays a menu providing access to F-Script functionalities.</li>
+					</ul>
+				</td>
+			</tr>
+
+
+
+			<tr>
+				<td colspan="2" bgcolor="#ffffff">
+				</td>
+			</tr>
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FSInterpreterView
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					A graphical component, a subclass of NSView, which provides F-Script with a command line interface. An FSInterpreterView has its own interpreter and F-Script workspace and can thus be used directly without requiring any other configuration.
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li>Can be integrated into a Cocoa view hierarchy.</li>
+						<li>Manages user interaction in command line mode. Various functions: copy/paste, command history, choice of fonts, graphical signaling of errors, etc.</li>
+						<li>Lets you insert an F-Script command programmatically.</li>
+						<li>Lets you transmit a message to the user.</li>
+						<li>Lets you retrieve the associated interpreter (an FSInterpreter instance).</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" bgcolor="#ffffff">
+				</td>
+			</tr>
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FSSystem
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					Enables access (from both Objective-C and F-Script) to various services of the F-Script interpreter. In interactive sessions, the runtime creates a FSSystem instance and associates it with the identifier "sys" in the session's workspace.
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li> Can build a block object in the associated workspace from an NSString containing F-Script code. </li>
+						<li> Lets you open a graphical F-Script object browser. </li>
+						<li> Obtains the list of all the variables defined in the associated workspace. </li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" bgcolor="#ffffff">
+				</td>
+			</tr>
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FSBlock
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					A block represents a script (in other words, a piece of F-Script code that can have arguments, local variables and bindings to other objects).
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li> Executes itself. </li>
+						<li> Manages a graphical interface for code editing. </li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" bgcolor="#ffffff">
+				</td>
+			</tr>
+			<tr>
+				<th bgcolor=#F1F1F1 align="right">
+					Name
+				</th>
+				<td bgcolor=#FCFCFC>
+					<code>
+						FSNSString
+					</code>
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Role
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					A category of NSString.
+				</td>
+			</tr>
+			<tr>
+				<th valign="top" bgcolor=#F1F1F1 align="right">
+					Main&nbsp;Features
+				</th>
+				<td valign="top" bgcolor=#FCFCFC>
+					<ul>
+						<li> Builds a block from F-Script code represented by the NSString object. </li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+		<p>
+			A program wishing to use this API should use FScript.framework (with Xcode: select "Add to Project..." in the project menu and add FScript.framework to your project) and the following import directive:
+			<code>
+				#import &lt;FScript/FScript.h&gt;
+			</code>
+		</p>
+		<p>
+			In order to use the F-Script framework from your own applications you will likely need to put it into a standard locations for frameworks on Mac OS X, like ~/Library/Frameworks (where ~ stands for your home directory) or /Library/Frameworks.
+		</p>
+		<p>
+			You can also directly bundle the framework into your application. This way, you will be able to ship a self-contained solution. To learn how to do that, see the excellent movie by Jonathan 'Wolf' Rentzsch available <a href=http://rentzsch.com/cocoa/embeddedFrameworks>here</a>.
+		</p>
+		<p>
+			You'll find more information on frameworks in the documentation provided by Apple in the <a href=http://developer.apple.com/documentation/MacOSX/Conceptual/BPFrameworks/index.html> Introduction to Framework Programming Guide</a>.
+		</p>
+		<h2>
+			Using the asBlock method
+		</h2>
+		<p>
+			This method offers the simplest means of creating and executing F-Script code from Objective-C. Invoked on an NSString containing the source code for an F-Script block, it creates a FSBlock instance which can then be executed. We can pass it parameters and retrieve the product of the execution. This technique enables us to unify the usage of blocks as, once created, they are manipulated in the same way from both F-Script and Objective-C. In particular, they are executed by sending them a <code>value...</code> message.
+		</p>
+		<p>
+			<b>Example 1: hello world</b>
+		</p>
+        
+        <p>
+			Here is a simple F-Script block that, when executed, print "hello world" on the standard output:
+		</p>
+
+        <pre class="codebox"><code>[<span class="identifier">stdout</span> <span class="selector">print:</span><span class="string">'hello world'</span>]
+</code></pre>
+        
+		<p>
+			And here's how we embed it and execute it in Objective-C:
+		</p>
+        
+        <pre class="codebox"><code><span class="comment">// Create a string containing the F-Script code</span>
+NSString *<span class="identifier">fscriptCode</span> = <span class="string">@"[stdout print:'hello world']"</span>;
+						
+<span class="comment">// Create a block object from the string</span>
+FSBlock *<span class="identifier">myBlock</span> = [<span class="identifier">fscriptCode</span> <span class="selector">asBlock</span>];
+						
+<span class="comment">// Execute the block</span>
+[<span class="identifier">myBlock</span> <span class="selector">value</span>];
+</code></pre>
+
+		<p>
+			It is possible to combine these instructions into one line:
+		</p>
+
+<pre class="codebox"><code>[[<span class="string">@"[stdout print:'hello world']"</span> <span class="selector">asBlock</span>] <span class="selector">value</span>];
+</code></pre>
+
+		<p>
+			Note: in Objective-C, brackets (i.e.
+			<code>
+				[
+			</code>
+			and
+			<code>
+				]
+			</code>
+			) denote a message send, while in F-Script they denote a block.
+			<p>
+			<p>
+			In the example, the character string containing the F-Script code is hardcoded, although it is possible to use a string dynamically built at run time.
+		</p>
+		<p>
+			<b>Example 2: passing parameters and retrieving the result</b>
+		</p>
+		<p>
+			Let us now turn our attention to parameter passing between Objective-C and F-Script and retrieval of results. As we have already seen, with blocks everything is done in the same way as with F-Script, even though we are now manipulating them from Objective-C. In the folowing example, we define a simple F-Script block that takes two strings and returns their concatenation. Here is how it looks in pure F-Script:
+            
+            <pre class="codebox"><code>[:<span class="identifier">s1</span> :<span class="identifier">s2</span>| <span class="identifier">s1</span> <span class="selector">++</span> <span class="identifier">s2</span>]
+</code></pre>
+            
+            And here's how we embed it and execute it in Objective-C:
+        
+<pre class="codebox"><code>NSString *<span class="identifier">result</span> = [[<span class="string">@"[:s1 :s2| s1 ++ s2]"</span> <span class="selector">asBlock</span>] <span class="selector">value:</span><span class="string">@"first part"</span> <span class="selector">value:</span><span class="string">@"second part"</span>]; 
+</code></pre>
+       </p>
+       
+		<p>
+			<b>Example 3: object graph</b>
+		</p>
+		<p>
+			As F-Script blocks are objects, they can be referenced by other objects. In this example, a block will be the target of an NSButton. In addition, F-Script variables, inside the block code, may reference external objects. In this example, the F-Script code will reference an NSTextField.
+		</p>
+		<p>
+			Let's suppose that in an Objective-C program we have an NSButton and an NSTextField. We wish to use an F-Script block to display the current date and time in the text field when the button is pressed.
+		</p>
+		<img src="artwork/fig1.png"/>
+		<p class="legend">
+			Fig. 1. The mini-application we'll build
+		</p>
+		<p>
+			But how do you establish a link between an F-Script variable and the external text field? All that is required is the mother block technique: our block is produced by another block which is responsible for establishing the link with the NSTExtField, which it will be given as an argument, using the fact that the blocks are closures (you'll find more on this in the Smalltalk literature).
+		</p>
+		<p>
+			The following is the complete program for the example.
+		</p>
+
+<pre class="codebox"><code>#import &lt;Cocoa/Cocoa.h&gt;
+#import &lt;FScript/FScript.h&gt;
+
+<span class="signature">int main(int argc, const char *argv[])</span>
+{
+    [<span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span>];
+    
+    <span class="comment">// Configure GUI components</span>
+    NSButton *<span class="identifier">button</span>        = [[<span class="identifier">NSButton</span> <span class="selector">alloc</span>] <span class="selector">initWithFrame:</span><span class="selector">NSMakeRect</span>(<span class="literal">100</span>, <span class="literal">20</span>, <span class="literal">100</span>, <span class="literal">30</span>)];
+    NSTextField *<span class="identifier">textField</span>  = [[<span class="identifier">NSTextField</span> <span class="selector">alloc</span>] <span class="selector">initWithFrame:</span><span class="selector">NSMakeRect</span>(<span class="literal">50</span>, <span class="literal">100</span>, <span class="literal">200</span>, <span class="literal">20</span>)];
+    NSWindow *<span class="identifier">mainWindow</span>    = [[<span class="identifier">NSWindow</span> <span class="selector">alloc</span>] <span class="selector">initWithContentRect:</span><span class="selector">NSMakeRect</span>(<span class="literal">100</span>, <span class="literal">100</span>, <span class="literal">300</span>, <span class="literal">160</span>) 
+                                                          <span class="selector">styleMask:</span><span class="identifier">NSClosableWindowMask</span> <span class="selector">|</span> <span class="identifier">NSTitledWindowMask</span> 
+                                                            <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span> 
+                                                              <span class="selector">defer:</span><span class="literal">NO</span>];
+    [[<span class="identifier">mainWindow</span> <span class="selector">contentView</span>] <span class="selector">addSubview:</span><span class="identifier">button</span>];
+    [[<span class="identifier">mainWindow</span> <span class="selector">contentView</span>] <span class="selector">addSubview:</span><span class="identifier">textField</span>];
+    [<span class="identifier">button</span> <span class="selector">setBezelStyle:</span><span class="identifier">NSRoundedBezelStyle</span>];
+    [<span class="identifier">mainWindow</span> <span class="selector">orderFront:</span><span class="literal">nil</span>];
+    
+    <span class="comment">// Create the mother block</span>
+    FSBlock *<span class="identifier">motherBlock</span> = [<span class="string">@"[:textField| [textField setStringValue:NSDate date description]]"</span> <span class="selector">asBlock</span>];
+    
+    <span class="comment">// Use the mother block to create the block that will display the current date and time</span>
+    FSBlock *<span class="identifier">printDate</span> = [<span class="identifier">motherBlock</span> <span class="selector">value:</span><span class="identifier">textField</span>];
+    
+    <span class="comment">// Set the printDate block as the target of our button</span>
+    [<span class="identifier">button</span> <span class="selector">setTarget:</span><span class="identifier">printDate</span>];
+    [<span class="identifier">button</span> <span class="selector">setAction:</span><span class="literal">@selector(value:)</span>];
+     
+    return <span class="selector">NSApplicationMain</span>(<span class="identifier">argc</span>, (const char **) <span class="identifier">argv</span>);
+}
+</code></pre>
+
+		<h2>
+			Error management
+		</h2>
+		<p>
+			In the above examples, the possibility of errors is not considered, as the F-Script code is fully known here, and we know that the syntax is correct and there is no risk of F-Script generating an error on execution. In more complex cases, errors may appear on two occasions:
+		</p>
+		<ul style="margin: 12px 60px 12px 60px;" >
+			<li>When a block is created from an NSString. The syntax of the F-Script code is checked and an error may be detected.</li>
+			<li>When the block is executed. For example, a division by zero will cause an error at run time.</li>
+		</ul>
+		<p>
+			When such an error occurs, F-Script throws an exception (using the native Objective-C exception model). The
+			<code>
+				asBlock
+			</code>
+			and
+			<code>
+				value...
+			</code>
+			methods do not catch exceptions, so the exception will be propagated to the caller.
+		</p>
+		<p>
+			As an alternative to a
+			<code>
+				value...
+			</code>
+			method, you can use the
+			<code>
+				executeWithArguments:
+			</code>
+			method to execute a block. This method catches exceptions and returns an FSInterpreter object which gives you complete information about the error and help you present it to the user. Example:
+		</p>
+        
+<pre class="codebox"><code><span class="comment">// Create a block</span>
+FSBlock *<span class="identifier">myBlock</span> = [<span class="string">@"[:a :b| a / b]"</span> <span class="selector">asBlock</span>];
+
+<span class="comment">// Prepare the arguments for block execution</span>
+NSArray *<span class="identifier">arguments</span> = [<span class="identifier">NSArray</span> <span class="selector">arrayWithObjects:</span>[<span class="identifier">NSNumber</span> <span class="selector">numberWithInt:</span><span class="literal">10</span>], [<span class="identifier">NSNumber</span><span class="selector"> numberWithInt:</span><span class="literal">0</span>], <span class="literal">nil</span>];
+
+<span class="comment">// Execute the block and get back an FSInterpreterResult instance</span>
+FSInterpreterResult *<span class="identifier">interpreterResult</span> = [<span class="identifier">myBlock</span> <span class="selector">executeWithArguments:</span><span class="identifier">arguments</span>];
+
+<span class="comment">// Deal with the result of the execution</span>
+if ([<span class="identifier">interpreterResult</span> <span class="selector">isOK</span>])
+    <span class="selector">NSLog</span>(<span class="string">@"Execution OK. Result = %@"</span>, [<span class="identifier">interpreterResult</span> <span class="selector">result</span>]);
+else
+    <span class="selector">NSLog</span>([<span class="identifier">interpreterResult</span> <span class="selector">errorMessage</span>]);
+}
+</code></pre>
+
+		<p>
+			When executed, this code will log "error: division by zero".
+		</p>
+		<p>
+			You will learn more about the FSInterpreterResult class in the next section.
+		</p>
+		<h2>
+			Using the FSInterpreter class
+		</h2>
+		<p>
+			The techniques described above are very easy to use and suitable for numerous situations. Nonetheless, certain cases require more control and additional functionalities. In such cases we can look to the FSInterpreter class, which offers total control of the F-Script interpreter. Among other things, this class offers context conservation, in other words, the possibility of executing different bits of F-Script code at different times in the same workspace.
+		</p>
+		<p>
+			An FSInterpreter instance represents an F-Script interpreter associated with a workspace. It is easily created in Objective-C:
+		</p>
+        
+<pre class="codebox"><code>FSInterpreter *<span class="identifier">myInterpreter</span> = [[<span class="identifier">FSInterpreter</span> <span class="selector">alloc</span>] <span class="selector">init</span>];
+</code></pre>
+
+		<p>
+			An interpreter enables you to add variables in the associated workspace or to modify the value of existing variables:
+		</p>
+<pre class="codebox"><code>[<span class="identifier">myInterpreter</span> <span class="selector">setObject:</span>[<span class="identifier">NSDate</span> <span class="selector">date</span>] <span class="selector">forIdentifier:</span><span class="string">@"myDate"</span>];
+</code></pre>		<p>
+			An interpreter enables you to consult the value of a variable in the workspace:
+		</p>
+<pre class="codebox"><code>BOOL <span class="identifier">found</span>;
+
+id <span class="identifier">result</span> = [<span class="identifier">myInterpreter</span> <span class="selector">objectForIdentifier:</span><span class="string">@"myDate"</span> <span class="selector">found:</span>&<span class="identifier">found</span>];
+</code></pre>		<p>
+			It is also possible to retrieve the list of names of variables defined in the workspace, in the form of an array of NSStrings:
+		</p>
+<pre class="codebox"><code>NSArray *<span class="identifier">identifiers</span> = [<span class="identifier">myInterpreter</span> <span class="selector">identifiers</span>];
+</code></pre>		<p>
+			To execute F-Script code, pass a character string containing this code to the
+			<code>
+				execute:
+			</code>
+			method of the interpreter. You will get back an FSInterpreterResult object. The following example uses the F-Script "hello world" code:
+		</p>
+<pre class="codebox"><code>FSInterpreterResult *<span class="identifier">result</span> = [<span class="identifier">myInterpreter</span> <span class="selector">execute:</span><span class="string">@"stdout print:'hello world'"</span>];
+</code></pre>		<p>
+			The FSInterpreterResult object offers complete control over the execution result. The
+			<code>
+				isSyntaxError
+			</code>
+			,
+			<code>
+				isExecutionError
+			</code>
+			and
+			<code>
+				isOK
+			</code>
+			methods return a boolean which enables us to know the status of the result. In the event of an error, the
+			<code>
+				errorMessage
+			</code>
+			and
+			<code>
+				errorRange
+			</code>
+			methods enable us to obtain the error message and relevant location in the F-Script source code. The
+			<code>
+				inspectBlocksInCallStack
+			</code>
+			method lets us open the graphical inspector of the blocks present in the callstack corresponding to the error. If execution does not throw an error, the
+			<code>
+				result
+			</code>
+			method enables us to get the result of the evaluation of the F-Script code.
+		</p>
+		<p>
+			To illustrate this API, here is a complete program, to be compiled in Xcode like a Foundation Tool and launched from the Xcode or a UNIX terminal window. It is a command line interface for F-Script: the program reads a command from its standard input, executes it, prints the result on its standard output and then starts again. Note that this is a non-graphical program (does not use the application kit). It therefore does not allow the F-Script graphic functionalities to be used.
+		</p>
+
+
+<pre class="codebox"><code>#import &lt;stdio.h&gt;
+#import &lt;Foundation/Foundation.h&gt;
+#import &lt;FScript/FScript.h&gt;
+
+<span class="signature">int main (int argc, char **argv, char **env)</span>
+{ 
+    <span class="comment">// Create the interpreter</span>
+    FSInterpreter *<span class="identifier">interpreter</span> = [[<span class="identifier">FSInterpreter</span> <span class="selector">alloc</span>] <span class="selector">init</span>]; 
+  
+    while(<span class="literal">1</span>)
+    {    
+        char <span class="identifier">c_command</span>[<span class="literal">10000</span>];
+        NSString *<span class="identifier">command</span> = [<span class="identifier">NSString</span>  <span class="selector">stringWithUTF8String:</span><span class="selector">fgets</span>(<span class="identifier">c_command</span>, <span class="literal">10000</span>, <span class="identifier">stdin</span>)];
+
+        <span class="comment">// Execute the F-Script command</span>    
+        FSInterpreterResult *<span class="identifier">execResult</span> = [<span class="identifier">interpreter</span> <span class="selector">execute:</span><span class="identifier">command</span>]; 
+
+        if ([<span class="identifier">execResult</span> <span class="selector">isOK</span>]) <span class="comment">// test status of the result</span>
+        {
+            id <span class="identifier">result</span> = [<span class="identifier">execResult</span> <span class="selector">result</span>]; 
+
+            <span class="comment">// Print the result</span>
+            if (<span class="identifier">result</span> == <span class="literal">nil</span>) 
+                <span class="selector">puts</span>(<span class="string">"nil"</span>);
+            else               
+                <span class="selector">puts</span>([[<span class="identifier">result</span> <span class="selector">printString</span>] <span class="selector">UTF8String</span>]);
+      
+            if (![<span class="identifier">result</span> <span class="selector">isKindOfClass:</span>[<span class="identifier">FSVoid</span> <span class="selector">class</span>]]) 
+                <span class="selector">putchar</span>(<span class="literal">'\n'</span>); 
+        }
+        else
+        { 
+            <span class="comment">// Print an error message</span>
+            <span class="selector">puts</span>([[<span class="identifier">NSString</span> <span class="selector">stringWithFormat:</span><span class="string">@"%@ , character %d\n"</span>, [<span class="identifier">execResult</span> <span class="selector">errorMessage</span>], [<span class="identifier">execResult</span> <span class="selector">errorRange</span>].location] <span class="selector">UTF8String</span>]);
+        }
+    } 
+
+    return <span class="literal">0</span>;      
+}
+</code></pre>
+
+
+		<h2>
+			The FSInterpreterView graphical component
+		</h2>
+		<p>
+			The FSInterpreterView class is a subclass of NSView that offers an interactive, command line interface-type F-Script graphical component. The component has its own F-Script interpreter and is ready to use. It may be instantiated and manipulated by program.
+		</p>
+		<img src="artwork/fig2.png"/>
+		<p class="legend">
+			Fig. 2. An FSInterpreterView
+		</p>
+		<p>
+			This object has methods that allow you to modify the font size, display a service message for the user, insert a command or retrieve the associated FSInterpreter object.
+		</p>
+		<p>
+			The following simple Objective-C program opens a window containing an FSInterpreter View.
+		</p>
+
+<pre class="codebox"><code>#import &lt;Cocoa/Cocoa.h&gt;
+#import &lt;FScript/FScript.h&gt;
+
+<span class="signature">int main(int argc, const char *argv[])</span>
+{
+    <span class="comment">// Initialize the Cocoa application environment</span>
+    [<span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span>];
+    
+    <span class="comment">// Create a window</span>
+    NSWindow *<span class="identifier">mainWindow</span>  = [[<span class="identifier">NSWindow</span> <span class="selector">alloc</span>] <span class="selector">initWithContentRect:</span><span class="selector">NSMakeRect</span>(<span class="literal">100</span>, <span class="literal">100</span>, <span class="literal">500</span>, <span class="literal">400</span>) 
+                                                        <span class="selector">styleMask:</span><span class="identifier">NSClosableWindowMask</span> | <span class="identifier">NSTitledWindowMask</span> 
+                                                          <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span> 
+                                                            <span class="selector">defer:</span><span class="literal">NO</span>];
+
+    <span class="comment">// Create an FSInterpreterView</span>
+    FSInterpreterView *<span class="identifier">fscriptView</span> = [[<span class="identifier">FSInterpreterView</span> <span class="selector">alloc</span>] <span class="selector">initWithFrame:</span><span class="selector">NSMakeRect</span>(<span class="literal">0</span>, <span class="literal">0</span>, <span class="literal">0</span>, <span class="literal">0</span>)];
+  
+    <span class="comment">// Put the FSInterpreterView inside the window</span>
+    [<span class="identifier">mainWindow</span> <span class="selector">setContentView:</span><span class="identifier">fscriptView</span>];
+  
+    <span class="comment">// We want big fonts !</span>
+    [<span class="identifier">fscriptView</span> <span class="selector">setFontSize:</span><span class="literal">16</span>]; 
+  
+    <span class="comment">// Put the window onscreen</span>
+    [<span class="identifier">mainWindow</span> <span class="selector">orderFront:</span><span class="literal">nil</span>];
+    
+    <span class="comment">// Run the application</span>
+    return <span class="selector">NSApplicationMain</span>(<span class="identifier">argc</span>, (const char **) <span class="identifier">argv</span>);
+}
+</code></pre>
+
+
+		<h2>
+			The FScriptMenuItem graphical component
+		</h2>
+		<p>
+			FScriptMenuItem, a subclass of NSMenuItem, lets you easily embed a complete F-Script environment into an application. Each FScriptMenuItem instance has its own F-Script interpreter and contains a menu that provides access to the standard F-Script user interface elements. From an FScriptMenuItem, the user can access an F-Script console, open object browsers and open the F-Script preference panel.
+		</p>
+
+		<img src="artwork/fig3.png" />
+		<p class="legend">
+			Fig. 3. An FScriptMenuItem
+		</p>
+		<p>
+			Typically, an FScriptMenuItem is initialized with the init method. Then, it can be inserted into an existing menu. For instance, the following Objective-C instruction adds an F-Script menu to the main menu of the application:
+		</p>
+        
+<pre class="codebox"><code>[[<span class="identifier">NSApp</span> <span class="selector">mainMenu</span>] <span class="selector">addItem:</span>[[<span class="identifier">FScriptMenuItem</span> <span class="selector">alloc</span>] <span class="selector">init</span>]];
+</code></pre>
+
+		<p>An FScriptMenuItem is associated with an FSInterpreterView (which is used by the console window). You use the <code>interpreterView</code> method to access the FSInterpreterView. From the FSInterpreterView, you can programmatically access the associated FSInterpreter, using the <code>interpreter</code> method.</p>
+		
+<h2>The F-Script Interface Builder Plugin</h2>
+
+<p>FSInterpreterView and FScriptMenuItem objects can be manipulated directly from Interface Builder using the F-Script plugin for Interface Builder (FScriptIBPlugin.ibplugin).</p>
+
+		<img src="artwork/fig4.png">
+		<p class="legend">
+			Fig. 4. The F-Script plugin for Interface Builder
+		</p>
+
+<p>The palette and plugin enable FScriptMenuItem and FSInterpreterView objects to be placed in a graphical interface using a simple drag and drop movement.</p> 
+
+<h2>F-Script Anywhere</h2>
+
+<p>In this article we showed how Objective-C developers could embed F-Script into their applications. But what about existing, third party, applications? Here comes F-Script Anywhere. Originaly created by Nicholas Riley, F-Script Anywhere lets you dynamically inject F-Script into any Cocoa application. F-Script injection brings amazing capabilities: it lets you explore applications from the inside, interactively navigating and manipulating the internal Objective-C objects they are made of. And it is all done live, while the applications are running.</p>
+
+<p>For example, <a href=http://pmougin.wordpress.com/2009/10/28/ultimate-proof-that-the-finder-is-now-a-cocoa-application/>here is how the Finder looks like from the inside</a> and <a href=http://blog.hyperjeff.net/?p=162>here is a fun video clip</a> showing how you can reprogram an application on the fly.</p>
+
+<p>On Mac OS X 10.6, F-Script injection is provided by the F-Script Anywhere injection service developed by Silvio H. Ferreira. It adds an automated F-Script injection procedure in the Services menu, meaning that injecting a whole F-Script environment in an application is now just two mouse clicks away: one to go to the Services menu, and one to select the "Inject F-Script into application" item.</p>
+
+		<img src="artwork/fig5.png">
+		<p class="legend">
+			Fig. 5. Injecting F-Script into the Finder using the F-Script Anywhere injection service
+		</p>
+
+Once injected (which can take a few seconds), F-Script will make itself available by adding an F-Script menu in the menu bar of the target application.
+
+</p>
+
+<br>
+<br>
+<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2006-2010 Philippe Mougin</font>
+		</p>
+		<br>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

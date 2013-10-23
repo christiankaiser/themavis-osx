@@ -1,0 +1,45 @@
+
+table {font: 12px 'Lucida Grande', Geneva, Verdana, Arial, sans-serif;  text-align: justify;}
+
+body { margin: 12px 70px 12px 70px; font: 12px 'Lucida Grande', Geneva, Verdana, Arial, sans-serif;  text-align: justify;}
+
+ul {list-style-type: square;}
+
+a:link {text-decoration: none; color : #326fa3}
+a:visited {text-decoration: none;  color : #326fa3}
+a:active {text-decoration: none; color: #666666}
+a:hover {text-decoration: underline} 
+
+h1 { color: #326fa3; font: 30px  'Lucida Grande', Geneva, Verdana, Arial, sans-serif; font-weight: bold;}
+
+h2 { color: #326fa3; font: 16px   'Lucida Grande', Geneva, Verdana, Arial, sans-serif; font-weight: bold;} 
+
+img { display: block; margin-left: auto; margin-right: auto;}
+
+.legend {text-align: center;}
+
+blockquote
+{
+	color:#666;
+	margin: 1em;
+	padding: 0 0 10px 50px;
+	background: url(blockquote.gif) no-repeat left top;	
+}
+
+.codebox {
+	background-color:#FFFFFF;
+	border-color:lightgray;
+	border-style:solid;
+	border-width:1px;
+	padding:4px;
+    overflow:auto;
+}
+
+.signature {color: #336699;}
+.identifier {color: #307D7E;}
+.selector {color: #6698FF;}
+.comment {color: #6D7B8D;}
+.literal {color: #A74AC7}
+.string {color: #A74AC7}
+.keyword {color: #A74AC7;}
+.result {color: #336699;}

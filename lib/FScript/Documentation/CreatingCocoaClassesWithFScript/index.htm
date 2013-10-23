@@ -1,0 +1,484 @@
+<html>
+	<head>
+		<title>
+			Creating Cocoa Classes with F-Script
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+
+	</head>
+	<body bgcolor="#FFFFFF">
+		<br>
+		<H1 align="center">
+			Creating Cocoa Classes with F-Script
+		</H1>
+		<p>
+			<font color=#326fa3>Revised April 2010</font>
+		</p>
+
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+
+
+		<H2>
+			Introduction
+		</H2>
+<p>
+<a href="http://www.fscript.org">F-Script</a> provides a handy syntax for dynamically creating Cocoa classes on the fly. This is useful for quickly experimenting, prototyping and using Cocoa interactively, as well as for developing sophisticated programs. You can type a class definition in the F-script console, hit return and immediately start playing with your new class. This article provides a quick introduction to this feature.   
+</p>
+
+<h2>A simple class</h2>
+<p>
+In order to define a class, we must give it a name and specify a superclass. Here is an example where we define <code>Buddy</code> as a subclass of <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html">NSObject</a>. You can type this code in F-Script and get the <code>Buddy</code> class dynamically created:
+</p>
+
+<pre class="codebox"><code><span class="signature">Buddy : NSObject</span> {}
+</code></pre> 
+
+<p>
+As is, this definition is very simple, but not very useful: our new class doesn&#39;t define any instance variable or method (though it inherits some from <code>NSObject</code>, its superclass).   
+</p>
+
+<h2>Class redefinition</h2>
+
+<p>
+Fortunately, we can dynamically <i>redefine</i> our class. This time, we will specify some instance variables (say <code>firstName</code> and <code>lastName</code>) along with an initialization method and a description method:
+</p>
+
+<pre class="codebox"><code><span class="signature">Buddy : NSObject</span>
+{
+   <span class="identifier">firstName</span> <span class="identifier">lastName</span>
+ 
+   <span class="signature">- initWithFirstName:first lastName:last</span>
+   {
+      <span class="identifier">self</span> := <span class="identifier">super</span> <span class="selector">init</span>.
+      <span class="identifier">self</span> <span class="selector">~~</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>
+      [
+         <span class="identifier">firstName</span> := <span class="identifier">first</span>.
+         <span class="identifier">lastName</span> := <span class="identifier">last</span>
+      ].
+      ^ <span class="identifier">self</span>
+   }
+
+   <span class="signature">- description</span>
+   {
+      ^ <span class="string">'Hello, I am your buddy '</span> <span class="selector">++</span> <span class="identifier">firstName</span> <span class="selector">++</span> <span class="string">' '</span> <span class="selector">++</span> <span class="identifier">lastName</span>  
+   }
+}
+</code></pre>
+
+<p>
+The class definition contains the list of instance variables, followed by method definitions. <code>self</code> and <code>super</code> have the same meaning as in Objective-C and Smalltalk. The caret (<code>^</code>) is the return instruction.</p>
+
+<h2>Using the Buddy class</h2>
+<p>
+Let&#39;s play with our class. We will instantiate it and assign the newly created instance to a variable that we will then evaluate. The interactive session in the F-Script console looks like this:
+</p>
+
+<pre class="codebox"><code>> <span class="identifier">john</span> := <span class="identifier">Buddy</span> <span class="selector">alloc</span> <span class="selector">initWithFirstName:</span><span class="string">'John'</span> <span class="selector">lastName:</span><span class="string">'Doe'</span>
+
+> <span class="identifier">john</span>
+
+<span class="result">Hello, I am your buddy John Doe</span>
+</code></pre>
+
+
+<h2>Class methods</h2>
+
+<p>
+As in Objective-C, the name of an instance methods is preceded by a minus sign and the name of a class methods is marked with a plus sign. For example we can add the following class method to our <code>Buddy</code> class:
+<p>
+
+<pre class="codebox"><code><span class="signature">+ buddyWithFirstName:first lastName:last</span>
+{
+   ^ <span class="identifier">self</span> <span class="selector">alloc</span> <span class="selector">initWithFirstName:</span><span class="identifier">first</span> <span class="selector">lastName:</span><span class="identifier">last</span> 
+}
+</code></pre>
+
+<p>
+We can then use it as follows:
+<pre class="codebox"><code>> <span class="identifier">mary</span> := <span class="identifier">Buddy</span> <span class="selector">buddyWithFirstName:</span><span class="string">'Mary'</span> <span class="selector">lastName:</span><span class="string">'Doe'</span>
+
+> <span class="identifier">mary</span>
+
+<span class="result">Hello, I am your buddy Mary Doe</span>
+</code></pre>
+
+<h2>Local variables in methods</h2>
+
+<p>
+Local variables in methods are defined enclosed by vertical bars and separated by spaces. For example, <code>|foo bar|</code> defines two local variables named foo and bar. Such variables are automatically initialized to nil. We can rewrite our <code>description</code> method to show the use of a temporary local variable:
+</p>
+
+<pre class="codebox"><code><span class="signature">- description</span>
+{
+   |<span class="identifier">fullName</span>|
+   <span class="identifier">fullName</span> := <span class="identifier">firstName</span> <span class="selector">++</span> <span class="string">' '</span> <span class="selector">++</span> <span class="identifier">lastName</span>.
+   ^ <span class="string">'Hello, I am your buddy '</span> <span class="selector">++</span> <span class="identifier">fullName</span> 
+}
+</code></pre>
+
+<h2>Browsing</h2>
+
+<p>
+Since our newly defined class is automatically registered in the Cocoa runtime, we can use it with all our standard tools. For instance, entering <code><span style="color:#6698FF;">sys</span> <span style="color:#307D7E;">browse:</span><span style="color:#6698FF;">john</span></code> in F-Script will open the graphical object browser on the instance we created earlier.
+</p>
+
+		<img src="artwork/fig1.png"/>
+		<p class="legend">
+			Figure1. Browsing an instance of the Buddy class.
+		</p>
+
+<p>
+As usual, class methods will appear when browsing class objects (e.g. typing <code><span style="color:#6698FF;">sys</span> <span style="color:#307D7E;">browse:</span><span style="color:#6698FF;">Buddy</span></code>).
+</p>
+
+		<img src="artwork/fig2.png"/>
+		<p class="legend">
+			Figure 2. Browsing the Buddy class object.
+		</p>
+
+
+<h2>Categories</h2>
+
+<p>Sometimes, we don't want to define or redefine a class from scratch, but just incrementally add methods to an existing class. To do that, we just have to specify the name of the class followed by an opening brace, the list of methods and a closing brace. For example, here is how we add a <code>print</code> method to the NSObject class.</p>
+
+<pre class="codebox"><code><span class="signature">NSObject</span>
+{
+   <span class="signature">- (void)print</span>
+   {
+      <span class="identifier">stdout</span> <span class="selector">print:</span><span class="identifier">self</span> <span class="selector">description</span>
+   }
+}
+</code></pre>
+
+<p>If a method being added already exists in the class, it will be replaced by the new method.</p>
+
+<h2>Class instance variables</h2>
+
+<p>In addition to instance variables, we can also define class instance variables. Class instance variables are to classes what instance variables are to instances (breathe calmly and read this sentence again). They represent private data associated with class objects. They can only be accessed in class methods. The defining class and each subclass get their own storage.<br>
+To define a class instance variable, we put the annotation "<code>(class instance variable)</code>" after its name. In the following example, we use a class instance variable to define a class that keeps track of how many times it has been sent an <code>alloc</code> message:
+</p>
+
+<pre class="codebox"><code><span class="signature">MyClass : NSObject</span>
+{
+   <span class="comment">"Define the class instance variable that will keep track of allocations"</span>
+   <span class="identifier">allocationCount</span> (class instance variable)
+
+   <span class="comment">"The +initialize method is handy to initialize class instance variables"</span>
+   <span class="signature">+ (void)initialize</span>
+   {
+      <span class="identifier">allocationCount</span> := <span class="literal">0</span>
+   }
+
+   <span class="comment">"Perform the allocation"</span>
+   <span class="signature">+ alloc</span>
+   {
+      <span class="identifier">allocationCount</span> := <span class="identifier">allocationCount</span> <span class="selector">+</span> <span class="literal">1</span>.
+      ^ <span class="identifier">super</span> <span class="selector">alloc</span> 
+   }
+
+   <span class="comment">"Return how many times the class has been sent an alloc message"</span>
+   <span class="signature">+ allocationCount</span>
+   {
+      ^ <span class="identifier">allocationCount</span>
+   }
+}
+</code></pre>
+
+<h2>More on methods</h2>
+<p>
+When we define a method, it gets automatically registered in the Objective-C runtime. Indeed, from the point of view of the runtime, the new method is just like any other Objective-C method. Among other things, this means that it can be invoked from Objective-C code.  
+</p>
+
+<p>
+This also manifests in the syntax of F-Script itself. From the outside, nothing looks more like an Objective-C method than a F-Script method:
+</p>
+
+<p>
+<b>Objective-C method</b>
+<pre class="codebox"><code><span class="signature">- (float) doSomethingWithFoo:(int)x bar:(Bar *)y</span>
+{
+  ... Objective-C code ...
+} 
+</code></pre>
+</p>
+
+<p>
+<b>F-Script method</b>
+<pre class="codebox"><code><span class="signature">- (float) doSomethingWithFoo:(int)x bar:(Bar *)y</span>
+{
+  ... F-Script code ...
+} 
+</code></pre>
+</p>
+
+<p>
+In the example above, we make use of explicit typing in the method signature. This is particularly useful when we want to hand out a F-Script object to some Objective-C code that call us back by invoking a method taking or returning non-object values. Indeed, the method we define must know what are the types of its arguments and return value in order to handle them correctly when invoked.<br>
+<br>
+Of course, since F-Script is a pure object language, actual values passed as arguments are automatically mapped to objects, and the returned object is automatically mapped to the data type promised to the caller by the signature. The F-Script code inside our methods only has to deal with objects.    
+</p>
+
+<p>
+Here is a list of types currently supported: 
+
+<code>
+<ul>
+  <li> id </li>
+  <li> Class </li>
+  <li> SEL </li>
+  <li> BOOL </li>
+  <li> _Bool </li>
+  <li> char </li>
+  <li> unsigned char </li>
+  <li> short </li>
+  <li> unsigned short </li>
+  <li> int </li>
+  <li> unsigned int </li>
+  <li> long </li>
+  <li> unsigned long </li>
+  <li> long long </li>
+  <li> unsigned long long</li>
+  <li> NSInteger </li>
+  <li> NSUInteger</li>
+  <li> float </li>
+  <li> double </li>
+  <li> CGFloat </li>
+  <li> NSRange</li>
+  <li> NSPoint </li>
+  <li> NSRect </li>
+  <li> NSSize </li>
+  <li> CGPoint </li>
+  <li> CGRect </li>
+  <li> CGSize </li>
+  <li> CGAffineTransform </li>
+  <li> void * </li>
+</ul>
+</code>
+
+We can also use a class name followed by a <code>*</code>, as in Objective-C (e.g. <code>NSString *</code>). To specify pointers we can put as many <code>*</code> as needed after a type (e.g. <code>unsigned int **</code>). Finally, we use <code>void</code> to indicate that a method returns nothing.<br>
+<br>
+By default, in the absence of an explicit type, <code>id</code> is assumed, as in Objective-C.
+</p>
+
+<p>If you dynamically replace an existing method by a new one (by redefining a class or by using a category), the signature of the new method must be compatible with the signature of the existing one (an exception signaling a programming error will be raised if this is not the case). That is, they must have the same return type and argument types. Note that all object types are considered similar; for example, an argument declared as an <code>NSString *</code> can be declared as an <code>NSNumber *</code> in the new signature.</p>
+
+
+<h2>Example: The Rectangle class</h2>
+
+<p>
+We define a Rectangle class. A rectangle can be initialized with a color and asked to draw itself. This example demonstrates subclassing an Objective-C class (here, NSObject), defining an instance variable (color), a class method and two instance methods. This dynamically creates a native Cocoa class that can then be used from F-Script and Objective-C. 
+</p>
+
+<pre class="codebox"><code><span class="signature">Rectangle : NSObject</span>
+{
+   <span class="identifier">color</span>
+
+   <span class="signature">+ rectangleWithColor:aColor</span>
+   {
+      ^ <span class="identifier">self</span> <span class="selector">alloc</span> <span class="selector">initWithColor:</span><span class="identifier">aColor</span>
+   }
+   
+   <span class="signature">- (void)draw</span>
+   {
+      <span class="identifier">color</span> <span class="selector">set</span>.
+      (<span class="identifier">NSBezierPath</span> <span class="selector">bezierPathWithRect:</span>(<span class="literal">400</span><span class="selector"><></span><span class="literal">100</span> <span class="selector">extent:</span><span class="literal">100</span><span class="selector"><></span><span class="literal">100</span>)) <span class="selector">fill</span>
+   }
+ 
+   <span class="signature">- initWithColor:aColor</span>
+   {
+      <span class="identifier">self</span> := <span class="identifier">super</span> <span class="selector">init</span>.
+      <span class="identifier">self</span> <span class="selector">~~</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>
+      [
+         <span class="identifier">color</span> := <span class="identifier">aColor</span>
+      ].
+      ^ <span class="identifier">self</span>
+   }
+}
+</code></pre>
+
+<p>
+We can then instantiate a rectangle and draw it:
+</p>
+
+<pre class="codebox"><code><span class="identifier">r</span> := <span class="identifier">Rectangle</span> <span class="selector">rectangleWithColor:</span><span class="identifier">NSColor</span> <span class="selector">magentaColor</span>.
+
+<span class="identifier">r</span> <span class="selector">draw</span>
+</code></pre>
+
+<p>
+Here is what it looks like in the F-Script console:
+</p>
+
+		<img src="artwork/fig3.png"/>
+		<p class="legend">
+			Figure 3. Defining and using the Rectangle class.
+		</p>
+
+
+<h2>Example: Expansion of consiousness</h2>
+
+<p>
+The following program illustrates subclassing the NSView class. It displays a circle that can generate psychedelic effects by displaying flashes of colors. Here is a screenshot of the application:
+</p>
+
+		<img src="artwork/fig4.png"/>
+		<p class="legend">
+          Figure 4. A PsychedelicCircleView in action.
+		</p> 
+
+<p>
+The main component of the program is <code>PsychedelicCircleView</code>, a subclass of <code><a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSView_Class/Reference/NSView.html">NSView</a></code>. This graphical component takes care of displaying the animated circle and handles mouse events, allowing the user to start and stop the psychedelic process. To that end, it implements the standards <code>drawRect:</code> and <code>mouseDown:</code> methods.<p>
+
+<p>Below is the code for our NSView&#39;s subclass. To execute it, all you have to do is to copy/paste it in the F-Script console. Then copy/paste the code in charge of putting the component on screen (provided further below).  
+</p>
+
+<pre class="codebox"><code><span class="comment">"Define the PsychedelicCircleView class, a subclass of Cocoa's NSView"</span>
+<span class="signature">PsychedelicCircleView : NSView</span>
+{
+   <span class="comment">"Instance variables"</span> 
+   <span class="identifier">timer</span>       <span class="comment">"A NSTimer object used to animate the view"</span> 
+   <span class="identifier">message</span>     <span class="comment">"The message to display"</span> 
+   <span class="identifier">attributes</span>  <span class="comment">"A dictionary holding drawing attributes"</span> 
+
+   <span class="comment">"Define the designated initializer"</span>
+   <span class="signature">- initWithFrame:(NSRect)frame</span>
+   {
+      <span class="identifier">self</span> := <span class="identifier">super</span> <span class="selector">initWithFrame:</span><span class="identifier">frame</span>.
+      <span class="identifier">self</span> <span class="selector">~~</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>
+      [
+         |<span class="identifier">font</span>| <span class="comment">"A local variable to hold the font object"</span>
+
+         <span class="comment">"Determine the font to use. We use Synchro LET if available, the default user font otherwise"</span>
+         <span class="identifier">font</span> := <span class="identifier">NSFont</span> <span class="selector">fontWithName:</span><span class="string">'Synchro LET'</span> <span class="selector">size:</span><span class="literal">40</span>.
+         <span class="identifier">font</span> <span class="selector">==</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>[ <span class="identifier">font</span> := <span class="identifier">NSFont</span> <span class="selector">userFontOfSize:</span><span class="literal">40</span> ].
+         
+         <span class="comment">"Initialize the attributes dictionary used to draw the message"</span>
+         <span class="identifier">attributes</span> := #{<span class="identifier">NSFontAttributeName</span> <span class="selector">-></span> <span class="identifier">font</span>}.
+
+         <span class="comment">"Initialize the message to display"</span>
+         <span class="identifier">message</span> := <span class="string">'       Click to start/stop\nexpansion of consciousness'</span>.
+      ].
+      ^ <span class="identifier">self</span>
+   }
+
+   <span class="comment">"Define the method invoked by Cocoa to draw the view"</span>
+   <span class="signature">- (void) drawRect:(NSRect)aRect</span>
+   {
+      <span class="comment">"Define local variables"</span>
+      |<span class="identifier">red</span> <span class="identifier">green</span> <span class="identifier">blue</span> <span class="identifier">size</span> <span class="identifier">x</span> <span class="identifier">y</span>|  
+
+     <span class="comment"> "Generate random values for color components"</span>
+      <span class="identifier">red</span>   := <span class="literal">10</span> <span class="selector">random</span> <span class="selector">/</span> <span class="literal">9</span>.
+      <span class="identifier">green</span> := <span class="literal">10</span> <span class="selector">random</span> <span class="selector">/</span> <span class="literal">9</span>.
+      <span class="identifier">blue</span>  := <span class="literal">10</span> <span class="selector">random</span> <span class="selector">/</span> <span class="literal">9</span>.
+   
+      <span class="comment">"Set the color and draw the circle"</span>
+      (<span class="identifier">NSColor</span> <span class="selector">colorWithCalibratedRed:</span><span class="identifier">red</span> <span class="selector">green:</span><span class="identifier">green</span><span class="selector"> blue:</span><span class="identifier">blue</span> <span class="selector">alpha:</span><span class="literal">1</span>) <span class="selector">set</span>.
+      (<span class="identifier">NSBezierPath</span> <span class="selector">bezierPathWithOvalInRect:</span><span class="identifier">self</span> <span class="selector">bounds</span>) <span class="selector">fill</span>.
+
+      <span class="comment">"If the psychedelic mode is not active, draw a message"</span>  
+      <span class="identifier">timer</span> <span class="selector">==</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>
+      [
+         <span class="comment">"Compute coordinates of the message in order to have it centered"</span>
+         <span class="identifier">size</span> := <span class="identifier">message</span> <span class="selector">sizeWithAttributes:</span><span class="identifier">attributes</span>.
+         <span class="identifier">x</span> := <span class="identifier">self</span> <span class="selector">bounds</span> <span class="selector">extent</span> <span class="selector">x</span> <span class="selector">/</span> <span class="literal">2</span> <span class="selector">-</span> (<span class="identifier">size</span> <span class="selector">width</span>  <span class="selector">/</span> <span class="literal">2</span>).
+         <span class="identifier">y</span> := <span class="identifier">self</span> <span class="selector">bounds</span> <span class="selector">extent</span> <span class="selector">y</span> <span class="selector">/</span> <span class="literal">2</span> <span class="selector">-</span> (<span class="identifier">size</span> <span class="selector">height</span> <span class="selector">/</span> <span class="literal">2</span>).
+      
+         <span class="comment">"Draw the message"</span>
+         <span class="identifier">message</span> <span class="selector">drawAtPoint:</span><span class="identifier">x</span><span class="selector">&lt;&gt;</span><span class="identifier">y</span> <span class="selector">withAttributes:</span><span class="identifier">attributes</span>.
+      ].
+   }
+
+   <span class="comment">"Define the method invoked by Cocoa when the view is clicked"</span>
+   <span class="signature">- (void) mouseDown:(NSEvent *)theEvent</span>
+   {
+      <span class="identifier">timer</span> <span class="selector">==</span> <span class="literal">nil</span> <span class="selector">ifTrue:</span>
+      [
+         <span class="comment">"Create a NSTimer object to put the psychedelic process in motion"</span>
+         <span class="identifier">timer</span> := <span class="identifier">NSTimer</span> <span class="selector">scheduledTimerWithTimeInterval:</span><span class="literal">0.01</span> <span class="selector">target:</span>[<span class="identifier">self</span> <span class="selector">setNeedsDisplay:</span><span class="literal">YES</span>] <span class="selector">selector:</span><span class="literal">#value</span> <span class="selector">userInfo:</span><span class="literal">nil</span> <span class="selector">repeats:</span><span class="literal">YES</span>
+      ]
+      <span class="selector">ifFalse:</span>
+      [
+         <span class="comment">"Stop the psychedelic process"</span>
+         <span class="identifier">timer</span> <span class="selector">invalidate</span>.
+         <span class="identifier">timer</span> := <span class="literal">nil</span>.
+         <span class="identifier">self</span> <span class="selector">setNeedsDisplay:</span><span class="literal">YES</span>.
+      ]     
+   }
+}.
+</code></pre>
+
+<p>
+Now that our view class is defined, we can put it in a window and play with it: 
+</p>
+
+<pre class="codebox"><code><span class="comment">"Instantiate and configure a window"</span>
+<span class="identifier">window</span> := <span class="identifier">NSWindow</span> <span class="selector">alloc</span> <span class="selector">initWithContentRect:</span>(<span class="literal">0</span><span class="selector">&lt;&gt;</span><span class="literal">0</span> <span class="selector">extent:</span><span class="literal">700</span><span class="selector">&lt;&gt;</span><span class="literal">700</span>)
+                                   <span class="selector">styleMask:</span><span class="identifier">NSTitledWindowMask</span> <span class="selector">+</span> <span class="identifier">NSClosableWindowMask</span> <span class="selector">+</span> <span class="identifier">NSMiniaturizableWindowMask</span> <span class="selector">+</span> <span class="identifier">NSResizableWindowMask</span>
+                                     <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span>
+                                       <span class="selector">defer:</span><span class="literal">NO</span>.
+
+<span class="identifier">window</span> <span class="selector">setBackgroundColor:</span><span class="identifier">NSColor</span> <span class="selector">blackColor</span>; <span class="selector">setReleasedWhenClosed:</span><span class="literal">NO</span>; <span class="selector">setTitle:</span><span class="string">'Psychedelic Circle'</span>; <span class="selector">center</span>.
+
+<span class="comment">"Instantiate and configure a psychedelic circle"</span>
+<span class="identifier">circle</span> := <span class="identifier">PsychedelicCircleView</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span><span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">bounds</span>.
+<span class="identifier">circle</span> <span class="selector">setAutoresizingMask:</span><span class="identifier">NSViewWidthSizable</span> <span class="selector">+</span> <span class="identifier">NSViewHeightSizable</span>.
+
+<span class="comment">"Put the circle view in the window"</span>
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:</span><span class="identifier">circle</span>.
+
+<span class="comment">"Put the window onscreen"</span>
+<span class="identifier">window</span> <span class="selector">makeKeyAndOrderFront:</span><span class="literal">nil</span>.
+</code></pre>
+
+<p>
+The code above should open a window and display the psychedelic circle.
+</p>
+
+<p>
+This is a good opportunity to experiment with <b>live class redefinition</b>. While the psychedelic circle is flashing, you can modify the program and see your modifications take effect immediately. For example, in the <code>drawRect:</code> method, replace the call to <code>bezierPathWithOvalInRect:</code> by a call to <code>bezierPathWithRect:</code>. Now, if you look at the flashing circle, you&#39;ll notice that it has turned into a flashing rectangle.
+</p>
+
+<p>
+Note that, at the time of this writing, all the users of this program (i.e. me and my cat) are not experiencing an expansion of their consciousness by looking at the psychedelic circle. In fact, 50% of the users declare that the only thing this program expands is their headaches. The other 50% try compulsively to catch flies while producing strange sounds, just as usual.
+</p>
+
+
+		<br>
+		<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2009-2010 Philippe Mougin</font>
+		</p>
+		<br>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

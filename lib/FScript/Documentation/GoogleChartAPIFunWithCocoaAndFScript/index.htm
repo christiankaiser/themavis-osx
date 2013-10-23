@@ -1,0 +1,255 @@
+<html>
+	<head>
+		<title>
+			Google Chart API Fun with Cocoa and F-Script
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+
+	</head>
+	<body bgcolor="#FFFFFF">
+		<br>
+		<H1 align="center">
+			Google Chart API Fun with Cocoa and F-Script
+		</H1>
+		<p>
+			<font color=#326fa3>Revised August 2009</font>
+		</p>
+
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+
+
+		<H2>
+			Introduction
+		</H2>
+<p>
+The Web is abuzz with a <a href="http://code.google.com/apis/chart/">new Google service</a>: a Web API for creating charts.
+<blockquote>
+<p>The Google Chart API returns a PNG-format image in response to a URL. Several types of image can be generated: line, bar, and pie charts for example. For each image type you can specify attributes such as size, colors, and labels.</p>
+</blockquote>
+
+<p>Accessing it with F-Script is easy, as we will interactively experiment. In the process we will learn how to call the Google Chart API from Cocoa, how to pass data stored in Cocoa arrays, how to apply special effects using Core Image, and a few other cool things...</p>
+
+<p></p>
+
+<h2>Charting &quot;Hello World&quot;</h2>
+
+<p>First, let&#39;s start with a very simple example, the &quot;Hello World&quot; chart, which is described in the Google Chart API <a href="http://code.google.com/apis/chart/">documentation</a>:</p>
+
+<blockquote>
+
+<p>To see the Chart API in action, open up a browser window and copy the following URL into it:
+<code>http://chart.apis.google.com/chart?cht=p3&amp;chd=s:hW&amp;chs=250x100&amp;chl=Hello|World</code><br>
+<br>
+Press the Enter or Return key and - presto! - you should see the following image:</p>
+
+<p><img src="http://chart.apis.google.com/chart?cht=p3&amp;chd=s:hW&amp;chs=250x100&amp;chl=Hello|World" border="0" width="250" height="100" align="top" /></p>
+
+</blockQuote>
+
+<p>The URL contains all the data needed to describe the chart. We&#39;ll examine that further, but, for now, let&#39;s see how we can generate an <a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSImage_Class/index.html"><code>NSImage</code></a> for this chart in Cocoa, using <a href=http://www.fscript.org>F-Script</a>.</p>
+
+<p>Cocoa provides us with the <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/index.html"><code>NSURL</code></a> class to manipulate URLs. We&#39;ll use it to retrieve our chart from the Google Chart API and generates an <code>NSImage</code> object. We start by defining an <code>NSString</code> that contains our URL:</p>
+
+<pre class="codebox"><code><span class="identifier">chartString</span> := <span class="string">&#39;http://chart.apis.google.com/chart?cht=p3&amp;chd=s:hW&amp;chs=250x100&amp;chl=Hello|World&#39;</span>.
+</code></pre>
+
+<p>There is a little caveat: for creating our <code>NSURL</code> object, we need to provide the <code>NSURL</code> class with a percent-escaped URL string. Such a string is easy to generate using the <code> stringByAddingPercentEscapesUsingEncoding:</code> method:</p>
+
+<pre class="codebox"><code><span class="identifier">escapedChartString</span> := <span class="identifier">chartString</span> <span class="selector">stringByAddingPercentEscapesUsingEncoding:</span><span class="identifier">NSASCIIStringEncoding</span>.
+</code></pre>
+
+<p>All we have to do now is to instantiate an <code>NSURL</code> object and to create our <code>NSImage</code> using the <code> initWithContentsOfURL:</code> method:</p>
+
+<pre class="codebox"><code><span class="identifier">url</span> := <span class="identifier">NSURL</span> <span class="selector">URLWithString:</span><span class="identifier">escapedChartString</span>.
+
+<span class="identifier">image</span> := <span class="identifier">NSImage</span> <span class="selector">alloc</span> <span class="selector">initWithContentsOfURL:</span><span class="identifier">url</span>.
+</code></pre>
+
+<p>That&#39;s it. The <code>initWithContentsOfURL:</code> method takes care of issuing the HTTP request and to initialize our newly allocated <code>NSImage</code> instance with the result. To look at our image, we can send it the <code>inspect</code> message. It opens an inspector that displays the image in a window:</p>
+
+<pre class="codebox"><code><span class="identifier">image</span> <span class="selector">inspect</span></code></pre>
+
+<img src="artwork/fig1.png"/>
+
+<p>Or we can directly use a Cocoa drawing method. For example:</p>
+
+<pre class="codebox"><code><span class="identifier">image</span> <span class="selector">compositeToPoint:</span><span class="literal">20</span><span class="selector">&lt;&gt;</span><span class="literal">20</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span></code></pre>
+
+<p>Of course, we can directly copy and paste all the code shown here in the F-Script shell, in order to interactively experiment with it. Here is what our F-Script session may look like:</p>
+
+<img src="artwork/fig2.png"/>
+
+<p>As with any Cocoa object, we can further explore our <code>NSImage</code> object with the object browser:</p>
+
+<pre class="codebox"><code><span class="identifier">sys</span> <span class="selector">browse:</span><span class="identifier">image</span></code></pre>
+
+<img src="artwork/fig3.png"/>
+
+<h2>Charting our Disk Space</h2>
+ 
+<p>Generating the &quot;Hello World&quot; pie chart is fun (that&#39;s how you know you are a geek) but this would be better with actual meaningful values. For instance, let&#39;s try to generate a pie chart that shows the proportion of free and used space of our startup disk. The first step is to get at those values. To do that we can use the Mac OS X Scripting Bridge, which allows manipulating other applications as if they were Cocoa objects (see <a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a> for more on this topic). 
+
+<pre class="codebox"><code><span class="identifier">Finder</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.finder'</span>.
+
+<span class="identifier">capacity</span>  := <span class="identifier">Finder</span> <span class="selector">startupDisk</span> <span class="selector">capacity</span>.
+
+<span class="identifier">freeSpace</span> := <span class="identifier">Finder</span> <span class="selector">startupDisk</span> <span class="selector">freeSpace</span>.
+</code></pre>
+
+<p>Now we need to compute the proportions of free space and used space:</p>
+<pre class="codebox"><code><span class="identifier">percentFree</span> := <span class="identifier">freeSpace</span> <span class="selector">*</span> <span class="literal">100</span> <span class="selector">/</span> <span class="identifier">capacity</span>.
+
+<span class="identifier">percentUsed</span> := <span class="literal">100</span> <span class="selector">-</span> <span class="identifier">percentFree</span>.
+</code></pre>
+
+<p>We can then call the Google Chart API. As you can see below, we construct the URL using F-Script&#39;s string concatenation operator (i.e., <code>++</code>) to specify values in the URL. As described in the <a href="http://code.google.com/apis/chart/">Google Chart API documentation</a>, the data points must be provided with the <code>chd</code> parameter. Also, we are using the <code>chco</code> parameter to specify other colors for the chart, and the <code>chf</code> to specify a background color. We have also modified the <code>chs</code> parameter to make the chart bigger, and added a title using the <code>chtt</code> parameter.</p>
+
+<pre class="codebox"><code><span class="identifier">chartString</span> := <span class="string">'http://chart.apis.google.com/chart?cht=p3&amp;chs=400x200&amp;chco=00AA00&amp;chf=bg,s,F5F5F5&amp;chl=free|used&amp;chtt=Startup disk space&amp;chd=t:'</span>
+               <span class="selector">++</span> <span class="identifier">percentFree</span> <span class="selector">printString</span> <span class="selector">++</span> <span class="string">','</span> <span class="selector">++</span> <span class="identifier">percentUsed</span> <span class="selector">printString</span>.
+
+<span class="identifier">escapedChartString</span> := <span class="identifier">chartString</span> <span class="selector">stringByAddingPercentEscapesUsingEncoding:</span><span class="identifier">NSASCIIStringEncoding</span>.
+
+<span class="identifier">url</span> := <span class="identifier">NSURL</span> <span class="selector">URLWithString:</span><span class="identifier">escapedChartString</span>.
+
+<span class="identifier">image</span> := <span class="identifier">NSImage</span> <span class="selector">alloc</span> <span class="selector">initWithContentsOfURL:</span><span class="identifier">url</span>.
+
+<span class="identifier">image</span> <span class="selector">inspect</span>.
+</code></pre>
+
+<img src="artwork/fig4.png"/>
+
+<p>In our code, the <code>cht</code> parameter is used to specify the chart type. By changing its value from <code>p3</code> to <code>p</code>, we can get a 2D pie chart:</p>
+
+<img src="artwork/fig5.png"/>
+
+<h2>Adding Special Effects with Core Image</h2>
+
+<p>Our chart is nice but what about making it shiner with some special effect? To do that, we are going to use the Core Image framework provide by Mac OS X. Core Image provides a powerful model for image processing and comes with dozens of built-in effects, in the form of <code>CIFilter</code> objects. To make use of Core Image, we must first create a <code>CIImage</code> object from our chart. <code>CIImage</code> provides various creation methods, including <code>imageWithContentsOfURL:</code> which is well suited in our case (for more on using Core Image filters with F-Script, you can read <a href="../LearnFScriptIn20Minutes/index.htm">Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a>).</p>
+
+<pre class="codebox"><code><span class="identifier">ciimage</span> := <span class="identifier">CIImage</span> <span class="selector">imageWithContentsOfURL:</span><span class="identifier">url</span>.</code></pre>
+
+<p>Then we create two Core Image filters. The first one, a <code>CIStarShineGenerator</code>, is used to generate a &quot;star shine&quot; image that we compose over our chart image using the second one, a <code>CISourceOverCompositing</code>.<code></code></p>
+
+<pre class="codebox"><code><span class="identifier">starShineGenerator</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CIStarShineGenerator'</span>.
+<span class="identifier">starShineGenerator</span> <span class="selector">setDefaults</span>.
+<span class="identifier">starShineGenerator</span> <span class="selector">setValue:</span><span class="literal">4</span> <span class="selector">forKey:</span><span class="string">'inputRadius'</span>.
+<span class="identifier">starShineGenerator</span> <span class="selector">setValue</span>:(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="literal">167</span> <span class="selector">Y:</span><span class="literal">24</span>) <span class="selector">forKey:</span><span class="string">'inputCenter'</span>.
+
+<span class="identifier">starShineImage</span> := <span class="identifier">starShineGenerator</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+
+<span class="identifier">sourceOverCompositing</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CISourceOverCompositing'</span>.
+<span class="identifier">sourceOverCompositing</span> <span class="selector">setValue:</span><span class="identifier">starShineImage</span> <span class="selector">forKey:</span><span class="string">'inputImage'</span>.
+<span class="identifier">sourceOverCompositing</span> <span class="selector">setValue:</span><span class="identifier">ciimage</span>        <span class="selector">forKey:</span><span class="string">'inputBackgroundImage'</span>.
+
+<span class="identifier">finalImage</span> := <span class="identifier">sourceOverCompositing</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+</code></pre>
+
+<p>We can then look at the result by drawing <code>finalImage</code> (F-Script does not yet provide an <code>inspect</code> method for <code>CIImage</code> objects):</p>
+
+<pre class="codebox"><code><span class="identifier">finalImage</span> <span class="selector">drawAtPoint:</span><span class="literal">150</span><span class="selector">&lt;&gt;</span><span class="literal">150</span> <span class="selector">fromRect:</span><span class="identifier">ciimage</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+</code></pre>
+
+<img src="artwork/fig6.png"/>
+
+<h2>Charting Cocoa Arrays</h2>
+
+<p>We often want to chart tabular data. For instance, supose that, using F-Script, you recently created an awesome application and now want to look at the evolution of your sales over the last few months.</p>
+
+<p>We will first create <code>NSArray</code> objects that contain our sales data. This will serve to illustrate a common need: charting data stored in arrays.</p>
+
+<pre class="codebox"><code><span class="identifier">months</span> := {<span class="string">'May'</span>, <span class="string">'June'</span>, <span class="string">'July'</span>, <span class="string">'August'</span>, <span class="string">'September'</span>, <span class="string">'October'</span>, <span class="string">'November'</span>}.
+
+<span class="identifier">sales</span> := {<span class="literal">2400</span>, <span class="literal">6800</span>, <span class="literal">6205</span>, <span class="literal">9365</span>, <span class="literal">15000</span>, <span class="literal">24206</span>, <span class="literal">41034</span>}.
+</code></pre>
+
+<p>As you can see, there were 2400 licenses sold in May, 6800 in June and so on...</p>
+
+<p>The Google Chart API expects data points to be expressed on a scale that goes from 0 to 100. Therefore, we are going to scale the data from our <code>sales</code> array (our <code>month</code> array is only used to provide labels on the x axis). To do that, we first find the biggest number in our array (it will also be used to specify the range associated to the y axis), using an operation called reduction that is carried on by the <code>\</code> method. This method takes one argument, a block, and cumulatively evaluates it on the elements of the receiver. You can learn more about reduction and other array programming operations in the <a href="http://www.fscript.org/documentation/FScriptGuide.pdf">F-Script Guide</a> (pdf file). </p>
+
+<pre class="codebox"><code><span class="identifier">salesMax</span> := <span class="identifier">sales</span> <span class="selector">\</span> <span class="literal">#max:</span>.
+</code></pre>
+
+<p>Then we project our data set on a scale from 0 to 100:</p>
+
+<pre class="codebox"><code><span class="identifier">salesScaled</span> := <span class="identifier">sales</span> <span class="selector">*</span> <span class="string">100</span> <span class="selector">/</span> <span class="identifier">salesMax</span>.
+</code></pre>
+
+<p>We can now prepare the strings that we will put in our Google Chart URL. Data points must be separated by comas, and labels must be separated by pipes:</p>
+
+<pre class="codebox"><code><span class="identifier">salesString</span> := <span class="identifier">salesScaled</span> <span class="selector">componentsJoinedByString:</span><span class="string">','</span>.
+
+<span class="identifier">monthsString</span> := <span class="identifier">months</span> <span class="selector">componentsJoinedByString:</span><span class="string">'|'</span>.
+</code></pre>
+
+<p><code>componentsJoinedByString:</code> is a standard Cocoa method provided by NSArray which constructs and returns an NSString object that is the result of interposing a given separator between the elements of the receiver&rsquo;s array. Alternatively, we could have used reduction to construct our strings: </p>
+
+<pre class="codebox"><code><span class="identifier">salesString</span> := <span class="identifier">salesScaled</span> <span class="selector">\</span> [:<span class="identifier">a</span> :<span class="identifier">b</span>| <span class="identifier">a</span> <span class="selector">description</span> <span class="selector">++</span> <span class="string">','</span> <span class="selector">++</span> <span class="identifier">b</span> <span class="selector">description</span>].
+
+<span class="identifier">monthsString</span> := <span class="identifier">months</span> <span class="selector">\</span> [:<span class="identifier">a</span> :<span class="identifier">b</span>| <span class="identifier">a</span> <span class="selector">++</span> <span class="string">'|'</span> <span class="selector">++</span> <span class="identifier">b</span>].
+</code></pre>
+
+
+<p>Finally, we can construct our ULR, call the Chart API and inspect the resulting image:</p>
+
+<pre class="codebox"><code><span class="identifier">chartString</span> := <span class="string">'http://chart.apis.google.com/chart?cht=bvs&chs=470x320&chf=bg,s,F0F0F0&chtt=Sales&chbh=30,30&chg=0,25,1,0&chco=4E6B9A&chxt=x,y&chxl=0:|'</span> <span class="selector">
+                ++</span> <span class="identifier">monthsString</span> <span class="selector">++</span> <span class="string">'&chxr=1,0,'</span> ++ <span class="identifier">salesMax</span> <span class="selector">description</span> <span class="selector">++</span><span class="string">'&chd=t:'</span> <span class="selector">++</span> <span class="identifier">salesString</span>.
+
+<span class="identifier">escapedChartString</span> := <span class="identifier">chartString</span> <span class="selector">stringByAddingPercentEscapesUsingEncoding:</span><span class="identifier">NSASCIIStringEncoding</span>.
+
+<span class="identifier">image</span> := <span class="identifier">NSImage</span> <span class="selector">alloc</span> <span class="selector">initWithContentsOfURL:</span>(<span class="identifier">NSURL</span> <span class="selector">URLWithString:</span><span class="identifier">escapedChartString</span>).
+
+<span class="identifier">image</span> <span class="selector">inspect</span>.
+</code></pre>
+
+<img src="artwork/fig7.png"/>
+
+<p>Modifying the various parameters in the URL (which are all documented by Google in the <a href="http://code.google.com/apis/chart/">developer&#39;s guide</a>), we change the appearance of the chart. For example, setting the <code>cht</code> (chart type) parameter to <code>lc</code> produces a line chart:</p>
+
+<img src="artwork/fig8.png"/>
+
+<p>Finally, saving the image on disk is easy using standard Cocoa methods. For instance the following code saves our image in our Desktop folder using the TIFF format:</p>
+
+<pre class="codebox"><code><span class="identifier">image</span> <span class="selector">TIFFRepresentation</span> <span class="selector">writeToFile:</span><span class="string">'~/Desktop/sales.tiff'</span> <span class="selector">stringByExpandingTildeInPath</span> <span class="selector">atomically:</span><span class="literal">YES</span>
+</code></pre>
+
+<p>Happy charting!</p>
+
+		<br>
+		<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2009 Philippe Mougin</font>
+		</p>
+		<br>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

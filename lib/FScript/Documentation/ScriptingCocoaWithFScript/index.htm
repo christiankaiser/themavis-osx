@@ -1,0 +1,363 @@
+<html>
+	<head>
+		<title>
+			Scripting Cocoa with F-Script
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+		<style type="text/css" media="all"> 
+
+</style>
+	</head>
+	<body bgcolor="#FFFFFF">
+		<br>
+		<H1 align="center">
+			Scripting Cocoa With F-Script
+		</H1>
+		<p>
+			<font color=#326fa3>
+			Revised August 2009</font>
+		</p>
+
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+
+
+		<H2>
+			Introduction
+		</H2>
+		<p>
+			Thanks to Objective-C, Cocoa is built upon a highly dynamic, reflexive and open object model. Among other things, this makes it possible to build visual object graph editors, run-time monitoring tools, object browsers and numerous other programs making use of the capabilities of the Cocoa run-time. One important application of Cocoa&#39;s openness is its integration with scripting languages. This is very useful because it allows for interactive use and easy gluing of Cocoa components.
+		</p>
+		<p>
+			In this article I want to give you a taste of Cocoa scripting, and to show you the level of integration that you can expect. We will use F-Script, an open source scripting language for Cocoa, to build a little graphical application. Using F-Script, we will directly program against the Application Kit, which is the Cocoa object framework for graphical user interfaces. Note that one can build this kind of application using Interface Builder, but in this article we will use the Application Kit programmatically, in order to illustrate Cocoa scripting.
+		</p>
+		<p>
+			F-Script can be downloaded at <a href=http://www.fscript.org>http://www.fscript.org</a>.
+		</p>
+		<p>
+			Note: This article is an updated version of <i>Scripting Cocoa with F-Script</i>, which is published on the O&#39;Reilly MacDevcenter <a href=http://www.oreillynet.com/pub/a/mac/2001/11/30/scripting_fscript.html >here</a>.
+		</p>
+		<H2>
+			Yet another currency converter
+		</H2>
+		<p>
+			Our application is a "currency converter" similar to the one found in <a href=http://developer.apple.com/documentation/Cocoa/Conceptual/ObjCTutorial/index.html>Apple tutorials</a>.
+		</p>
+		<img src="artwork/fig1.png"/>
+		<p class="legend">
+			The currency converter we will build using F-Script and Cocoa.
+		</p>
+		<H2>
+			F-Script
+		</H2>
+		<p>
+			F-Script is a pure object-oriented scripting language with Smalltalk-like syntax and concepts. You can interact with F-Script through the <b>FScript.app</b> application, which gives you an interactive shell into which you can type instructions.
+		</p>
+		<p>
+			Some pointers on the F-Script syntax:
+			<ul>
+				<li>Instructions are separated by a dot.</li><br>
+				<li>
+				<code>
+					:=
+				</code>
+				denotes an assignment.</li><br>
+				<li>Strings use simple quotes:
+				<code>
+					'A string'
+				</code>
+				.</li><br>
+				<li>Comments use double quotes:
+				<code>
+					"A comment"
+				</code></li><br>
+				<li><code>(125<>513 extent:383<>175)</code> denotes a rectangle. It is equivalent to <code>NSMakeRect(125, 513, 383, 175)</code> in Objective-C.
+				</li>
+			</ul>
+		</p>
+		<H2>
+			The currency converter script: first version
+		</H2>
+		<p>
+			The following script can be entered into the F-Script shell using a simple copy/paste. You can also enter the intructions step by step: you will then see the currency converter interface appearing bit by bit. Of course, you can change the values of arguments used in the script or omit some instructions in order to see what happens. You can even interact with the objects after you have built the currency converter.
+            
+<pre class="codebox"><code><span class="comment">"F-SCRIPT CURRENCY CONVERTER (VERSION 1)"</span>
+
+<span class="comment">"Instantiate and configure a window"</span>
+<span class="identifier">window</span> := <span class="identifier">NSWindow</span> <span class="selector">alloc</span> <span class="selector">initWithContentRect:</span>(<span class="literal">125</span><span class="selector"><></span><span class="literal">513</span> <span class="selector">extent:</span><span class="literal">383</span><span class="selector"><></span><span class="literal">175</span>)
+                                   <span class="selector">styleMask:</span><span class="identifier">NSTitledWindowMask</span> <span class="selector">+</span> <span class="identifier">NSClosableWindowMask</span> <span class="selector">+</span> <span class="identifier">NSMiniaturizableWindowMask</span>
+                                     <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span>
+                                       <span class="selector">defer:</span><span class="literal">NO</span>.
+
+<span class="comment">"Put the window onscreen"</span>
+<span class="identifier">window</span> <span class="selector">orderFront:</span><span class="literal">nil</span>.
+
+<span class="comment">"Give a title to the window"</span>
+<span class="identifier">window</span> <span class="selector">setTitle:</span><span class="string">'Currency Converter'</span>.
+
+<span class="comment">"Instantiate a form object"</span>
+<span class="identifier">form</span> := <span class="identifier">NSForm</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">70</span> <span class="selector">extent:</span><span class="literal">348</span><span class="selector"><></span><span class="literal">85</span>).
+
+<span class="comment">"Put the form into the window"</span>
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:</span><span class="identifier">form</span>.
+
+<span class="comment">"Configure the form"</span>
+<span class="identifier">form</span> <span class="selector">addEntry:</span><span class="string">'Exchange Rate per $1'</span>.
+<span class="identifier">form</span> <span class="selector">addEntry:</span><span class="string">'Dollars to Convert'</span>.
+<span class="identifier">form</span> <span class="selector">addEntry:</span><span class="string">'Amount in Other Currency'</span>.
+<span class="identifier">form</span> <span class="selector">setInterlineSpacing:</span><span class="literal">9</span>.
+<span class="identifier">form</span> <span class="selector">setAutosizesCells:</span><span class="literal">YES</span>.
+
+<span class="comment">"Instantiate a decorative line and put it in the window"</span>
+<span class="identifier">line</span> := <span class="identifier">NSBox</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">59</span> <span class="selector">extent:</span><span class="literal">353</span><span class="selector"><></span><span class="literal">2</span>).
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:</span><span class="identifier">line</span>.
+
+<span class="comment">"Instantiate a button, put it in the window and configure it"</span>
+<span class="identifier">button</span> := <span class="identifier">NSButton</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">247</span><span class="selector"><></span><span class="literal">15</span> <span class="selector">extent:</span><span class="literal">90</span><span class="selector"><></span><span class="literal">30</span>).
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:</span><span class="identifier">button</span>.
+<span class="identifier">button</span> <span class="selector">setBezelStyle:</span><span class="identifier">NSRoundedBezelStyle</span>.
+<span class="identifier">button</span> <span class="selector">setTitle:</span><span class="string">'Convert'</span>.
+<span class="identifier">button</span> <span class="selector">setKeyEquivalent:</span><span class="string">'\r'</span>.
+
+<span class="comment">"Create the script that will compute the currency conversion"</span>
+<span class="identifier">conversionScript</span> := [(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">2</span>) <span class="selector">setStringValue:</span>(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">0</span>) <span class="selector">floatValue</span> <span class="selector">*</span> (<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">1</span>) <span class="selector">floatValue</span>].
+
+<span class="comment">"Make the script the target of the form.
+The script will be evaluated when the user presses Return"</span>
+<span class="identifier">form</span> <span class="selector">setTarget:</span><span class="identifier">conversionScript</span>.
+<span class="identifier">form</span> <span class="selector">setAction:</span><span class="literal">#value</span>.
+
+<span class="comment">"Make the script the target of the button.
+The script will be evaluated when the user presses the button"</span>
+<span class="identifier">button</span> <span class="selector">setTarget:</span><span class="identifier">conversionScript</span>.
+<span class="identifier">button</span> <span class="selector">setAction:</span><span class="literal">#value</span>.
+</code></pre>
+
+
+		<p>
+			We note several interesting things straight away:
+		</p>
+		<ul>
+			<li>The syntax for sending messages to objects is similar to the Objective-C syntax, except that we don't use
+			<code>
+				[
+			</code>
+			and
+			<code>
+				]
+			</code>
+			to mark the beginning and end of a message send. This similarity doesn't come as a surprise because Objective-C syntax for message sending is borrowed from Smalltalk.</li><br>
+			<li>We directly reference the Cocoa classes in the code:
+			<code>
+				NSWindow</code>,
+			<code>
+				NSForm</code>,
+			<code>
+				NSButton</code>, and
+			<code>
+				NSBox
+			</code>
+			are Cocoa classes.</li><br>
+			<li>We directly reference Cocoa constants: constants such as
+			<code>
+				NSTitledWindowMask</code>,
+			<code>
+				NSClosableWindowMask</code>, or
+			<code>
+				NSRoundedBezelStyle
+			</code>
+			are symbolic names defined by Cocoa.</li><br>
+			<li>We directly use the Cocoa API. Methods such as
+			<code>
+				alloc</code>,
+			<code>
+				initWithFrame:</code>,
+			<code>
+				setTitle:</code>, and so on are part of the Cocoa frameworks.</li><br>
+			<li> We can pass F-Script objects as arguments to Cocoa methods. Alternatively, we can get Cocoa objects from these calls and further use them from F-Script. As you may know, providing this kind of integration often requires the use of somewhat delicate bridging techniques. With F-Script, things are much simpler in this respect because there is nothing to bridge: The F-Script object model is the Cocoa object model.</li><br>
+		</ul>
+		<p>
+			The actual currency conversion is computed by an object created using the following instruction:
+
+<pre class="codebox"><code><span class="identifier">conversionScript</span> := [(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span>2) <span class="selector">setStringValue:</span>(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">0</span>) <span class="selector">floatValue</span> <span class="selector">*</span> (<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">1</span>) <span class="selector">floatValue</span>].
+</code></pre>                        
+                        
+                        
+			The
+			<code>
+				[...]
+			</code>
+			notation creates an object of class Block which represents a block of code that can be executed later (Block is an Objective-C class provided by the F-Script framework). In our block, we simply get the values of the fields in the user interface objects, perform the computation (simply involves multiplication) and put the result in a UI element.
+		</p>
+		<p>
+			Further on in the code, our block object becomes the target of the form and button objects. Thus, it is evaluated when the user hits Return or clicks on the button.
+		</p>
+		<H2>
+			The currency converter script: second version
+		</H2>
+		<p>
+			Below is the second version of the currency converter. This script is shorter because we use some neat F-Script features that we avoided in the first version for simplicity's sake. We also removed some comments (the code speaks for itself) and reorganized the program a little bit: the interface is now entirely constructed and configured before being put on screen.
+		</p>
+
+<pre class="codebox"><code><span class="comment">"F-SCRIPT CURRENCY CONVERTER (VERSION 2)"</span>
+
+<span class="comment">"Instantiate and configure a window"</span>
+<span class="identifier">window</span> := <span class="identifier">NSWindow</span> <span class="selector">alloc</span> <span class="selector">initWithContentRect:</span>(<span class="literal">125</span><span class="selector"><></span><span class="literal">513</span> <span class="selector">extent:</span><span class="literal">383</span><span class="selector"><></span><span class="literal">175</span>)
+                                   <span class="selector">styleMask:</span><span class="identifier">NSTitledWindowMask</span> <span class="selector">+</span> <span class="identifier">NSClosableWindowMask</span> <span class="selector">+</span> <span class="identifier">NSMiniaturizableWindowMask</span>
+                                     <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span>
+                                       <span class="selector">defer:</span><span class="literal">NO</span>.
+
+<span class="comment">"Create the script that will compute the currency conversion"</span>
+<span class="identifier">conversionScript</span> := [(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">2</span>) <span class="selector">setStringValue:</span>(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">0</span>) <span class="selector">floatValue</span> <span class="selector">*</span> (<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">1</span>) <span class="selector">floatValue</span>].
+  
+<span class="comment">"Instantiate and configure the form"</span>
+<span class="identifier">form</span> := <span class="identifier">NSForm</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">70</span> <span class="selector">extent:</span><span class="literal">348</span><span class="selector"><></span><span class="literal">85</span>).
+<span class="identifier">form</span> <span class="selector">addEntry:@</span>{<span class="string">'Exchange Rate per $1'</span>, <span class="string">'Dollars to Convert'</span>, <span class="string">'Amount in Other Currency'</span>}.
+<span class="identifier">form</span> <span class="selector">setInterlineSpacing:</span><span class="literal">9</span>; <span class="selector">setAutosizesCells:</span><span class="literal">YES</span>; <span class="selector">setTarget:</span><span class="identifier">conversionScript</span>; <span class="selector">setAction:</span><span class="literal">#value</span>.
+
+<span class="comment">"Instantiate and configure the button"</span>
+<span class="identifier">button</span> := <span class="identifier">NSButton</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">247</span><span class="selector"><></span><span class="literal">15</span> <span class="selector">extent:</span><span class="literal">90</span><span class="selector"><></span><span class="literal">30</span>).
+<span class="identifier">button</span> <span class="selector">setBezelStyle:</span><span class="identifier">NSRoundedBezelStyle</span>; <span class="selector">setTitle:</span><span class="string">'Convert'</span>; <span class="selector">setTarget:</span><span class="identifier">conversionScript</span>;
+       <span class="selector">setAction:</span><span class="literal">#value</span>; <span class="selector">setKeyEquivalent:</span><span class="string">'\r'</span>.
+
+<span class="comment">"Instantiate and configure the decorative line"</span>
+<span class="identifier">line</span> := <span class="identifier">NSBox</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">59</span> <span class="selector">extent:</span><span class="literal">353</span><span class="selector"><></span><span class="literal">2</span>).
+  
+<span class="comment">"Put the components in the window and put the window onscreen"</span>
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:@</span>{<span class="identifier">form</span>, <span class="identifier">button</span>, <span class="identifier">line</span>}. 
+<span class="identifier">window</span> <span class="selector">setTitle:</span><span class="string">'Currency Converter'</span>; <span class="selector">orderFront:</span><span class="literal">nil</span>.
+</code></pre>
+
+<p>One of the new things we use in this version is the "<code>;</code>" notation for cascading messages. This notation enables us to send several messages to a single receiver without having to re-specify the receiver each time.</p>
+
+<p>Another interesting thing is the instruction: </p>
+
+<pre class="codebox"><code><span class="identifier">form</span> <span class="selector">addEntry:@</span>{<span class="string">'Exchange Rate per $1'</span>, <span class="string">'Dollars to Convert'</span>, <span class="string">'Amount in Other Currency'</span>}.</code></pre>
+
+<p>One of the innovative features of F-Script is that it allows us to manipulate entire groups of objects at once, even with methods that have not been specifically designed to support objects collections (actually, F-Script provides a full object query language, directly usable on Cocoa objects). This is the case in this instruction, where we add a whole list of entries to the form at once. We use the "messaging pattern" notation (denoted by "<code>@</code>") that allows us to specify potentially complex groups of message sends. A messaging pattern generally involves single or multiple collections of objects: in our example, we use an array of string objects, denoted by "<code>{</code>" and "<code>}</code>". At run-time, the instruction will trigger the generation of these three message sends:</p>
+
+<ol style="margin: 12px 60px 12px 60px;" >
+<li><code><span class="identifier">form</span> <span class="selector">addEntry:</span><span class="string">'Exchange Rate per $1'</span></code></li>
+<li><code><span class="identifier">form</span> <span class="selector">addEntry:</span><span class="string">'Dollars to Convert'</span></code></li>
+<li><code><span class="identifier">form</span> <span class="selector">addEntry:</span><span class="string">'Amount in Other Currency'</span></code></li>
+</ol>
+
+<p>The same pattern is also used in the following instruction, where we put a whole set of views into the window at once: </p>
+
+<pre class="codebox"><code><span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:@</span>{<span class="identifier">form</span>, <span class="identifier">button</span>, <span class="identifier">line</span>}.
+</code></pre>
+
+<p>In these examples, we use a relatively simple pattern. F-Script provides a syntax that makes it possible to express more complex messaging patterns. <br>
+All the specific concepts of F-Script, like messaging patterns, can be used when scripting Cocoa.
+</p>
+
+<p>Our script is designed for use with Objective-C automatic garbage collection. If we run F-Script in reference counting mode we should add a few additional calls to ensure that the various Cocoa objects we create will be destroyed when no longer in use. Specifically, we should add <code>autorelease</code> message sends to the expression that create the form, the expression that create the button and the expression that create the line. So, for instance, the expression that create the form becomes:</p>
+
+<pre class="codebox"><code><span class="identifier">form</span> := (<span class="identifier">NSForm</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">70</span> <span class="selector">extent:</span><span class="literal">348</span><span class="selector"><></span><span class="literal">85</span>)) <span class="selector">autorelease</span>.
+</code></pre>
+
+In reference counting mode, when we assign an object to a script's global or local variable, F-Script automatically retains it, releasing it when we re-assign another object to the variable. Thus, in this particular script, we don't need to add any explicit <code>retain</code> invocations.  
+
+		<H2>
+			The currency converter script: third version
+		</H2>
+		<p>
+As it stands, our script is not very modular: it&#39;s just a set of instructions, using global variables, that we paste into the F-Script console in order to execute them. The following version introduces modularity:
+		</p>
+<ul>
+<li>Our script will become itself an object. </li>
+<li>It will now use local variables instead of global variables, in order to not pollute the top-level environment. </li>
+<li>It will take the window&#39;s title as argument. </li>
+</ul>
+
+
+<pre class="codebox"><code><span class="comment">"F-SCRIPT CURRENCY CONVERTER (VERSION 3)"</span>
+
+<span class="identifier">converter</span> := [:<span class="identifier">title</span> | |<span class="identifier">window</span> <span class="identifier">conversionScript</span> <span class="identifier">form</span> <span class="identifier">button</span> <span class="identifier">line</span>|
+
+    <span class="comment">"Instantiate and configure a window"</span>
+    <span class="identifier">window</span> := <span class="identifier">NSWindow</span> <span class="selector">alloc</span> <span class="selector">initWithContentRect:</span>(<span class="literal">125</span><span class="selector"><></span><span class="literal">513</span> <span class="selector">extent:</span><span class="literal">383</span><span class="selector"><></span><span class="literal">175</span>)
+                                       <span class="selector">styleMask:</span><span class="identifier">NSTitledWindowMask</span> <span class="selector">+</span> <span class="identifier">NSClosableWindowMask</span> <span class="selector">+</span> <span class="identifier">NSMiniaturizableWindowMask</span>
+                                         <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span>
+                                           <span class="selector">defer:</span><span class="literal">NO</span>.
+
+    <span class="comment">"Create the script that will compute the currency conversion"</span>
+    <span class="identifier">conversionScript</span> := [(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">2</span>) <span class="selector">setStringValue:</span>(<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">0</span>) <span class="selector">floatValue</span> <span class="selector">*</span> (<span class="identifier">form</span> <span class="selector">cellAtIndex:</span><span class="literal">1</span>) <span class="selector">floatValue</span>].
+  
+    <span class="comment">"Instantiate and configure the form"</span>
+    <span class="identifier">form</span> := <span class="identifier">NSForm</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">70</span> <span class="selector">extent:</span><span class="literal">348</span><span class="selector"><></span><span class="literal">85</span>).
+    <span class="identifier">form</span> <span class="selector">addEntry:@</span>{<span class="string">'Exchange Rate per $1'</span>, <span class="string">'Dollars to Convert'</span>, <span class="string">'Amount in Other Currency'</span>}.
+    <span class="identifier">form</span> <span class="selector">setInterlineSpacing:</span><span class="literal">9</span>; <span class="selector">setAutosizesCells:</span><span class="literal">YES</span>; <span class="selector">setTarget:</span><span class="identifier">conversionScript</span>; <span class="selector">setAction:</span><span class="literal">#value</span>.
+
+    <span class="comment">"Instantiate and configure the button"</span>
+    <span class="identifier">button</span> := <span class="identifier">NSButton</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">247</span><span class="selector"><></span><span class="literal">15</span> <span class="selector">extent:</span><span class="literal">90</span><span class="selector"><></span><span class="literal">30</span>).
+    <span class="identifier">button</span> <span class="selector">setBezelStyle:</span><span class="identifier">NSRoundedBezelStyle</span>; <span class="selector">setTitle:</span><span class="string">'Convert'</span>; <span class="selector">setTarget:</span><span class="identifier">conversionScript</span>;
+           <span class="selector">setAction:</span><span class="literal">#value</span>; <span class="selector">setKeyEquivalent:</span><span class="string">'\r'</span>.
+
+    <span class="comment">"Instantiate and configure the decorative line"</span>
+    <span class="identifier">line</span> := <span class="identifier">NSBox</span> <span class="selector">alloc</span> <span class="selector">initWithFrame:</span>(<span class="literal">15</span><span class="selector"><></span><span class="literal">59</span> <span class="selector">extent:</span><span class="literal">353</span><span class="selector"><></span><span class="literal">2</span>).
+  
+    <span class="comment">"Put the components in the window and put the window onscreen"</span>
+    <span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">addSubview:@</span>{<span class="identifier">form</span>, <span class="identifier">button</span>, <span class="identifier">line</span>}. 
+    <span class="identifier">window</span> <span class="selector">setTitle:</span><span class="string">'Currency Converter'</span>; <span class="selector">orderFront:</span><span class="literal">nil</span>.
+]
+</code></pre>
+
+
+<p>In this version, we put the instructions between <code>[</code> and <code>]</code> in order to make the F-Script interpreter generates a block object. We also declare, on the first line of the script, the argument and the local variables. Finally, we give the name "converter" to the block object that represents our script.
+
+A block can take an arbitrary number of arguments and can have an arbitrary number of local variables, as well as having access to variables of its enclosing environment. 
+</p>
+
+<p>We can now invoke our script by sending it a "value" message, without forgetting to provide the required argument. For instance:</p>
+
+<pre class="codebox"><code><span class="identifier">converter</span> <span class="selector">value:</span><span class="string">'My Great Converter'</span>
+</code></pre>
+
+<p>Each time we invoke it, a new, fully functional currency converter is created and displayed on screen.</p><p>Since our script is now a block object, we can manipulate it like any other object: put it in a collection, pass it as an argument to methods, archive it on disk etc. There are also several facilities specifically related to blocks, including a graphical code editor. We can open it by sending an <code>inspect</code> message to our block.</p>
+
+<pre class="codebox"><code><span class="identifier">converter</span> <span class="selector">inspect</span>
+</code></pre>
+<p>Finally, since F-Script comes in the form of a framework ready to be embedded into any Cocoa application, it is easy to place our script in a standard Mac OS X executable.</p>
+
+<H2>Final thoughts</H2><p>We have seen what scripting Cocoa with F-Script involves. Clearly, many subjects have not been tackled in this article, such as Cocoa exception handling, Interface Builder integration, usage of custom Objective-C classes or mapping of non-object types, but you can expect a very high level of integration on these aspects. </p>
+
+
+		<br>
+		<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2006-2009 Philippe Mougin</font>
+		</p>
+		<br>
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

@@ -1,0 +1,135 @@
+<html>
+	<head>
+		<title>
+			The game of Reverse in F-Script
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+		<style type="text/css" media="all"> 
+
+
+</style>
+	</head>
+	<body bgcolor="#FFFFFF">
+
+<br>
+			<H1 align=center>
+				The Game of Reverse in F-Script
+			</H1>
+
+
+<p><font color=#326fa3 >
+Revised August 2009</font></p>
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+		<p>
+			Paul Bissex <a href=http://e-scribe.com/news/193>writes</a> about how <a href=http://www.atariarchives.org/basicgames/showpage.php?page=135>the game of Reverse</a> can be implemented in various languages.
+		</p>
+		<p><blockquote>
+			The game of Reverse requires you to arrange a list of numbers in numerical order from left to right. To move, you tell the computer how many numbers (counting from the left) to reverse. For example, if the current list is 2 3 4 5 1 6 7 8 9 and you reverse 4, the result will be 5 4 3 2 1 6 7 8 9. Now if you reverse 5, you win.</font>
+		</blockquote></p>
+		<p>
+			Here is a version in <a href=http://www.fscript.org>F-Script</a>:
+		</p>
+
+<pre class="codebox"><code><span class="identifier">numbers</span> := (<span class="literal">9</span> <span class="selector">random:</span><span class="literal">9</span>) <span class="selector">+</span> <span class="literal">1</span>.
+<span class="identifier">steps</span> := <span class="literal">-1</span>.
+
+<span class="identifier">flip</span> := [:<span class="identifier">flipCount</span>| 
+    <span class="identifier">numbers</span> <span class="selector">at:</span><span class="identifier">flipCount</span> <span class="selector">iota</span> <span class="selector">put:</span>(<span class="identifier">numbers</span> <span class="selector">at:</span><span class="identifier">flipCount</span> <span class="selector">iota</span>) <span class="selector">reverse</span>.
+    <span class="identifier">steps</span> := <span class="identifier">steps</span> <span class="selector">+</span> <span class="literal">1</span>.
+    (<span class="identifier">numbers</span> <span class="selector">isEqual:</span> <span class="literal">9</span> <span class="selector">iota</span> <span class="selector">+</span> <span class="literal">1</span>) <span class="selector">ifTrue:</span>[<span class="string">'Done! That took you '</span> <span class="selector">++</span> <span class="identifier">steps</span> <span class="selector">printString</span> <span class="selector">++</span> <span class="string">' steps.'</span>]
+                                  <span class="selector">ifFalse:</span>[<span class="identifier">numbers</span>]
+].
+
+<span class="identifier">flip</span> <span class="selector">value:</span><span class="literal">0</span>.
+</code></pre>
+
+		<p>
+			Upon execution of this program, F-Script displays the initial list of numbers. In the spirit of F-Script, we interact with the game using F-Script itself. We play by evaluating the
+			<code>
+				flip
+			</code>
+			block, passing it the number of elements to reverse. For example, here is the end of a game:
+
+<pre class="codebox"><code>...
+<span class="result">{3, 1, 2, 4, 5, 6, 7, 8, 9}</span>
+
+> <span class="identifier">flip</span> <span class="selector">value:</span><span class="literal">3</span>
+
+<span class="result">{2, 1, 3, 4, 5, 6, 7, 8, 9}</span>
+
+> <span class="identifier">flip</span> <span class="selector">value:</span><span class="literal">2</span>
+
+<span class="result">'Done! That took you 9 steps.'</span>
+</code></pre>
+
+		<p>
+Now that we have an implementation of the game, we can play with it interactively. We can also have fun writing programs that play automatically (and hopefully win). Below is such a program. Upon completion, it displays the detail of each step of the game and the number of steps it took to win.</p>
+
+<pre class="codebox"><code><span class="identifier">sorted</span> := <span class="identifier">numbers</span> <span class="selector">at:</span><span class="identifier">numbers</span> <span class="selector">sort</span>.
+<span class="identifier">unsortedCount</span> := <span class="identifier">numbers</span> <span class="selector">count</span>.
+<span class="identifier">journal</span> := {<span class="identifier">numbers</span> <span class="selector">copy</span>}.
+
+[<span class="identifier">numbers</span> <span class="selector">isEqual:</span><span class="identifier">sorted</span>] <span class="selector">whileFalse:</span>
+[
+    <span class="identifier">maxIndex</span> := <span class="identifier">numbers</span> <span class="selector">indexOfObject:</span>(<span class="identifier">numbers</span> <span class="selector">at:</span><span class="identifier">unsortedCount</span> <span class="selector">iota</span>) <span class="selector">\</span> <span class="literal">#max:</span> .
+    <span class="identifier">maxIndex</span> <span class="selector">+</span> <span class="literal">1</span> <span class="selector">=</span> <span class="identifier">unsortedCount</span> <span class="selector">ifFalse:</span>
+    [
+        <span class="identifier">maxIndex</span> <span class="selector">=</span> <span class="literal">0</span> <span class="selector">ifFalse:</span>[<span class="identifier">flip</span> <span class="selector">value:</span><span class="identifier">maxIndex</span> <span class="selector">+</span> <span class="literal">1</span>. <span class="identifier">journal</span> <span class="selector">addObject:</span><span class="identifier">numbers</span> <span class="selector">copy</span>].
+        <span class="identifier">result</span> := <span class="identifier">flip</span> <span class="selector">value:</span><span class="identifier">unsortedCount</span>.
+        <span class="identifier">journal</span> <span class="selector">addObject:</span><span class="identifier">numbers</span> <span class="selector">copy</span>.
+    ].
+    <span class="identifier">unsortedCount</span> := <span class="identifier">unsortedCount</span> <span class="selector">-</span> <span class="literal">1</span>.
+].
+
+<span class="identifier">journal</span> <span class="selector">printString</span> <span class="selector">++</span> <span class="string">'\n'</span> <span class="selector">++</span> <span class="identifier">result</span>.
+</code></pre>
+
+			<p>
+			It is based on the following process:
+			<ul style="margin: 12px 60px 12px 60px;" >
+				<li>Find the greatest number in the list.</li>
+				<li>Flip the list in order to put it at the beginning of the list.</li>
+				<li>Flip again in order to put it at the end of the list.</li>
+				<li>Now consider the sub-list ranging from the start of the current list to this number (not including it), and apply the same process.</li>
+			</ul>
+		</p>
+
+<br>
+<p style="text-align:center; font-size:x-small"><font COLOR="slategray">Copyright &copy 2006-2009 Philippe Mougin</font></p>
+<br>
+
+
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+		<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+	</body>
+</html>

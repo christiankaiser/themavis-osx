@@ -1,0 +1,511 @@
+<html>
+<head>
+<title>Learn F-Script in 20 Minutes...and Have Fun Playing with Core Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<br>
+
+<H1 align="center">Learn F-Script in 20 Minutes</H1>
+<H2 align="center">And Have Fun Playing with Core Image</H2>
+
+
+<p><font color=#326fa3 >
+Revised January 2010</font></p>
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7; width:43em" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+<b>Articles in this series</b><br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fundamentals</b><br>
+<ol>
+<li><a href="../ExploringCocoaWithFScript/index.htm">Exploring Cocoa with F-Script</a></li>
+<li><a href="../LearnFScriptIn20Minutes/index.htm"> Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</a></li>
+<li><a href="../ScriptingCocoaWithFScript/index.htm">Scripting Cocoa with F-Script</a></li>
+<li><a href="../CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a></li>
+<li><a href="../SystemWideScriptingWithFScript/index.htm">System-wide Scripting with F-Script</a></li>
+<li><a href="../EmbeddingFScriptIntoCocoa/index.htm">Embedding F-Script into Cocoa Applications</a></li>
+<li><a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Accessing Mac OS X Frameworks with F-Script</a></li>
+</ol>
+
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miscellaneous</b><br>
+<ol>
+<li><a href="../GoogleChartAPIFunWithCocoaAndFScript/index.htm">Google Chart API Fun with Cocoa and F-Script</a></li>
+<li><a href="../TheGameOfReverseInFScript/index.htm">The Game of Reverse in F-Script</a></li>
+</ol>
+				</td>
+			</tr>
+		</table>
+
+<a name="Introduction"></a><H2>Introduction</H2>
+
+<P>F-Script is an open-source scripting layer dedicated to Cocoa. If you aren't using it yet, this is your chance to learn how it can improve your productivity as well as those of the users of your own Cocoa applications. In this article, our goal will be to produce a nice little animation using fancy Core Image effects. In doing so, we will learn the basics of F-Script. So install yourself comfortably in front of your Mac, download the latest F-Script version from <a href="http://www.fscript.org">http://www.fscript.org</a> and enjoy the trip!</P>
+
+<p>Note: this article is an extended version of <i>Learn F-Script in 20 Minutes</i>, originally published in the May 2007 issue of <a href=http://www.mactech.com> MacTech Magazine</a>.
+		</p>
+
+<a name="First Contacts"></a><H2> First contacts </H2>
+
+<P>We are going to learn F-Script by taking advantage of one of its key functionalities: the ability to be used interactively. With its console, you can interactively type commands in order to manipulate Objective-C objects on the fly. The F-Script console opens automatically when you launch F-Script.app. Inside it, you can type F-Script expressions or scripts and have them immediately executed when you press Return. </P>
+
+<img src="artwork/fig1.jpg">
+<p class="legend">Figure 1. The F-Script console, waiting for your input</p>
+
+<P>F-Script is a Smalltalk dialect for Cocoa and should look very familiar to you if you already know Objective-C. Indeed, Brad Cox, who created Objective-C, describes his language as "a hybrid language that contains all of C language plus major parts of Smalltalk". Here is an example of a message sending expression, both in Objective-C and F-Script. In this example, we ask for the current date using the NSDate class provided by Cocoa.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="500">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script (i.e., Smalltalk)</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[<span class="identifier">NSDate</span> <span class="selector">date</span>]</code></td> <td><code><span class="identifier">NSDate</span> <span class="selector">date</span></code></td></tr>
+</table>
+</div>
+
+<P>The expression is similar, except for the fact that, in F-Script, you don't have to put brackets around your message. This is because F-Script is a very simple language and sending messages is nearly the only thing you can do. Therefore, there is no need to have a special syntax to delimit messages. Now, if you type this expression in the console and hit Return, it will be immediately evaluated and the result will be displayed (obviously, the result you'll get will differ from the one shown below):</P>
+
+<pre class="codebox"><code>&gt; <span class="identifier">NSDate</span> <span class="selector">date</span>
+
+<span class="result">2009-01-16 14:08:23 +0100</span>
+</code></pre>
+
+<P>As you can see, F-Script provides an interactive environment with which you can directly interact with your objects, instead of having to develop a specific application each time you want to do something. F-Script provides numerous tools to assist you during such interactive Cocoa sessions. In this first session, you are likely to find the following tips useful:
+<ul>
+<li>The console keeps a history of your commands. You can navigate it using the up and down arrows of your keyboard. For instance, if you mistype something and F-Script signals an error, you can use this feature to get back at your command without having to retype it.</li>
+<br>
+<li>You can insert a line break by pressing the Enter key (usually found on the numeric keypad) or by pressing Return while holding the Control key.</li>
+<br>
+<li>The console also provides a code completion mechanism that you can use by pressing the F5 key. You can then navigate between arguments placeholders with Control-Slash.</li>
+<br>
+<li>A graphical object browser opens automatically at startup. With it, you can explore objects and send them messages.</li>
+</ul>
+
+<a name="The Smalltalk Connection"></a><H2>The Smalltalk connection</H2>
+
+<P>Before continuing to talk about the language itself, let me give you a little bit of the history: Smalltalk was created in the early seventies at the famous Xerox Palo Alto Research Center, the PARC, by a team led by Alan Kay. As you might know, since then, Smalltalk has been having a big influence on the software industry. For instance, you might have heard about a visit that Steve Jobs made at the PARC in 1979. A visit that had a considerable influence on the design of the Lisa and the Macintosh computers. What Steve Jobs was shown there was Smalltalk. It had a graphical interface, was the first object-oriented system, and supported networking. "You guys are sitting on a gold mine here. Why aren't you making this a product?" asked the young Steve Jobs. A short time later, several people from the PARC were working at Apple and the rest is history... </P>
+
+<P>So, what is the basic concept of Smalltalk? The key insight leading to the design of Smalltalk is that we can describe everything in terms of objects. As Alan Kay puts it: "Smalltalk's design is due to the insight that everything we can describe can be represented by the recursive composition of a single kind of behavioral building block that hides its combination of state and process inside itself and can be dealt with only through the exchange of messages". Indeed, in Smalltalk, everything is an object, even numbers and booleans.</P>
+
+<a name="F-Script's Syntax"></a><H2>F-Script syntax</H2>
+
+<P>In a F-Script program the main control structure is message sending. In F-Script, as well as in Objective-C, a message with no argument is called a <b>unary message</b>. A message with one or more colons in its selector is called a <b>keyword message</b>. And, unlike Objective-C, there is a third kind of message in F-Script: a message that is composed of non-alphabetical characters like +, -, etc., is called a <b>binary message</b>. A binary message always has only one argument.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="800">
+<tr align="center" bgcolor="F1F1F1"><th  bgcolor="FFFFFF"></th> <th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><th align="center" bgcolor="F1F1F1">Unary Message</th><td><code>[<span class="identifier">NSDate</span> <span class="selector">date</span>]</code></td> <td><code><span class="identifier">NSDate</span> <span class="selector">date</span></code></td>
+<tr align="left" bgcolor=#FCFCFC><th align="center" bgcolor="F1F1F1">Keyword Message</td><td><code>[<span class="identifier">NSDate</span> <span class="selector">dateWithTimeIntervalSinceNow:</span><span class="literal">10</span>]</code></td> <td><code><span class="identifier">NSDate</span> <span class="selector">dateWithTimeIntervalSinceNow:</span><span class="literal">10</span></code></td>
+<tr align="left" bgcolor=#FCFCFC><th align="center" bgcolor="F1F1F1">Binary Message</td><td>Not available</td> <td><code><span class="identifier">date1</span> <span class="selector">&lt;</span> <span class="identifier">date2</span></code></td>
+
+</tr>
+</table>
+</div>
+
+<P>The Objective-C equivalent to <code>date1 &lt; date2</code> would be <code>[date1 compare:date2] == NSOrderedDescending</code>.</P>
+
+<P>As in Objective-C, messages can be chained together. Expressions are evaluated from left to right, giving us the same semantics, as shown below.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="550">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>[[<span class="identifier">NSDate</span> <span class="selector">date</span>] <span class="selector">description</span>]</code></td> <td><code><span class="identifier">NSDate</span> <span class="selector">date</span> <span class="selector">description</span></code></td></tr>
+</table>
+</div>
+
+<P> But sometimes, we need a way to determine the order of evaluation of messages. F-Script introduces a precedence rule (the only precedence rule in the language): unary messages are evaluated first, then binary messages, and then keyword messages. If you want to change the order of evaluation, you can use parentheses to delimit a message.</P>
+
+<P>The following example shows a few other differences between F-Script and Objective-C:</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="550">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="center" bgcolor=#FCFCFC><td width=50%><code>NSDate *<span class="identifier">date1</span> = [<span class="identifier">NSDate</span> <span class="selector">date</span>];</code></td> <td><code><span class="identifier">date1</span> := <span class="identifier">NSDate</span> <span class="selector">date</span>.</code></td></tr>
+</table>
+</div>
+
+
+
+<P>Everything is an object in F-Script and variable need not be explicitly typed. The assignment syntax uses := instead of just = in Objective-C, and the instruction separator is not the semicolon, but the period symbol. The following table shows other differences. As you can see, strings are enclosed in single quotes, and comments are enclosed in double quotes.</P>
+
+
+<div align="center">
+<table border="0" cellpadding="5" width="700">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=60%><code><span class="string">@&quot;a string&quot;</span></code></td> <td><code><span class="string">'a string'</span></code></td></tr>
+<tr align="left" bgcolor=#FCFCFC><td ><code><span class="comment">/* a comment */</span></code></td> <td><code><span class="comment">&quot;a comment&quot;</span></code></td></tr>
+<tr align="left" bgcolor=#FCFCFC><td ><code><span class="literal">@selector(dateWithTimeIntervalSinceNow:)</span></code></td> <td><code><span class="literal">#dateWithTimeIntervalSinceNow:</span></code></td></tr>
+<tr align="left" bgcolor=#FCFCFC><td ><code><span class="selector">NSMakePoint</span>(<span class="literal">200</span>, <span class="literal">80</span>)</code></td> <td><code><span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">80</span></code></td></tr>
+</table>
+</div>
+
+<p>Finally, F-Script provides handy notations for specifying Cocoa arrays and dictionaries:</p>
+
+<div align="center">
+<table border="0" cellpadding="5" width="790">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td ><code>[<span class="identifier">NSMutableArray</span> <span class="selector">arrayWithObjects:</span><span class="string">@&quot;Hi&quot;</span>, <span class="string">@&quot;mom&quot;</span>, <span class="literal">nil</span>]</code></td> <td><code>{<span class="string">'Hi'</span>, <span class="string">'mom'</span>}</code></td></tr>
+
+<tr align="left" bgcolor=#FCFCFC><td ><pre><code>[<span class="identifier">NSMutableDictionary</span> <span class="selector">dictionaryWithObjectsAndKeys:</span>[<span class="identifier">NSNumber</span> <span class="selector">numberWithInt:</span><span class="literal">1</span>], <span class="string">@"one"</span>,
+                                                  [<span class="identifier">NSNumber</span> <span class="selector">numberWithInt:</span><span class="literal">2</span>], <span class="string">@"two"</span>,
+                                                   <span class="literal">nil</span>]</code></pre></td> <td><code>#{<span class="string">'one'</span><span class="selector">-></span><span class="literal">1</span>, <span class="string">'two'</span><span class="selector">-></span><span class="literal">2</span>}</code></td></tr>
+
+</table>
+</div>
+
+
+<a name="Displaying a picture on screen"></a><H2> Displaying a picture on screen </H2>
+
+<P>We now know enough of F-Script to begin with our Core Image program. We will first create an NSURL object referring to the image we want to display. In this example, we will use an image that is stored on disk in the desktop picture folder. You can type the code below in the F-Script console to have it executed immediately.</P>
+
+<pre class="codebox"><code><span class="identifier">imageLocation</span> := <span class="identifier">NSURL</span> <span class="selector">fileURLWithPath:</span><span class="string">'/Library/Desktop Pictures/Nature/Clown Fish.jpg'</span>.
+</code></pre>
+
+<P>The imageLocation variable now points to our NSURL object. We will now create a CIImage object, initialized with our image on-disk. </P>
+
+<pre class="codebox"><code><span class="identifier">image</span> := <span class="identifier">CIImage</span> <span class="selector">imageWithContentsOfURL:</span><span class="identifier">imageLocation</span>.
+</code></pre>
+
+<P>Note that we are using standard methods provided by the Mac OS X frameworks. Now that we have a CIImage object, we can ask it to draw itself on screen, again using a standard method.</P>
+
+<pre class="codebox"><code><span class="identifier">image</span> <span class="selector">drawInRect:</span>(<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">80</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>) <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+</code></pre>
+
+<P>After executing this code, we should see a beautiful little image displayed in the console, as shown below.</P>
+
+<img src="artwork/fig2.jpg">
+<p class="legend">Figure 2. Loading and displaying an image using Core Image and F-Script</p>
+
+<P>The first argument passed to the drawing method is the rectangle we want to draw in, which is denoted with <code>200&lt;&gt;80 extent:600&lt;&gt;400</code>. This expression actually creates an NSValue object representing a rectangle with an origin at (200, 80), a width of 600 and a height of 400. When passed to the method, the NSValue is automatically mapped by F-Script to an NSRect structure. This kind of automatic mapping between objects and primitives Objective-C types makes it possible to use the Mac OS X Objective-C based frameworks from a pure object language such as F-Script. You can change the rectangle size to make the image bigger or smaller and immediately see the result on-screen.</P> 
+
+<P>The second argument is a rectangle specifying, in the image's own coordinate system, the portion of image we want to draw. In our example, we want to draw the whole image. Consequently, we must pass a rectangle that specify the extent of the image. This data is easily accessible: the CCImage class implements an <code>extent</code> method that returns such a rectangle. Since we will also make use of this data when configuring our image-processing filters in the next sections, let's look at it directly:</P>
+
+<pre class="codebox"><code>&gt; <span class="identifier">image</span> <span class="selector">extent</span>
+
+<span class="result">(0&lt;&gt;0 extent:2560&lt;&gt;1600)</span>
+</code></pre>
+
+
+<P>As we can see, our image has a width of 2560 and a height of 1600. In this tutorial, we draw it in a smaller rectangle of width 600 and height 400 to make it easily viewable. The drawing method takes care of scaling the image to fit our destination rectangle.</P>
+
+<P>The drawing method draws the image in the current graphic context, which, in our example, happens to be the F-Script console. It is possible, of course, to draw elsewhere, using standard Mac OS X techniques. For example, the folowing code creates a window and draws our image inside, using standard methods provided by the NSWindow and NSView classes.</P>
+
+<pre class="codebox"><code><span class="identifier">window</span> := <span class="identifier">NSWindow</span> <span class="identifier">alloc</span> <span class="selector">initWithContentRect:</span>(<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">200</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>)
+                                   <span class="selector">styleMask:</span><span class="identifier">NSTitledWindowMask</span> <span class="selector">+</span> <span class="identifier">NSClosableWindowMask</span>
+                                     <span class="selector">backing:</span><span class="identifier">NSBackingStoreBuffered</span>
+                                       <span class="selector">defer:</span><span class="literal">NO</span>.
+<span class="identifier">window</span> <span class="selector">orderFront:</span><span class="literal">nil</span>.
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">lockFocus</span>.
+<span class="identifier">image</span> <span class="selector">drawInRect:</span>(<span class="literal">0</span><span class="selector">&lt;&gt;</span><span class="literal">0</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>) <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+<span class="identifier">window</span> <span class="selector">contentView</span> <span class="selector">unlockFocus</span>.
+<span class="identifier">window</span> <span class="selector">flushWindow</span>.
+</code></pre>
+
+<img src="artwork/fig3.jpg">
+<p class="legend"> Figure 3. Our image in a new window</p>
+
+<a name="Using core image filters"></a><H2> Using core image filters </H2>
+
+<P>Core Image filters allow us to do all kind of highly optimized image processing. Mac OS X comes bundled with dozens of filters. Going forward with our exploration, we will apply a filter known as CIBumpDistortion, which creates a bump in the image. You are encouraged to try other filters as well. F-Script's interactivity makes it fun and efficient to explore such Mac OS X capabilities. The following F-Script code creates a CIBumpDistortion filter object and configures it to process our image, creating a bump of radius 900 and of scale 0.8.</P>
+
+<pre class="codebox"><code><span class="identifier">bumpFilter</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CIBumpDistortion'</span>.
+
+<span class="identifier">vector</span> := <span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="literal">1200</span> <span class="selector">Y:</span><span class="literal">800</span>.
+
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="identifier">vector</span> <span class="selector">forKey:</span><span class="string">'inputCenter'</span>.
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="literal">900</span>    <span class="selector">forKey:</span><span class="string">'inputRadius'</span>.
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="literal">0.8</span>    <span class="selector">forKey:</span><span class="string">'inputScale'</span>.
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="identifier">image</span>  <span class="selector">forKey:</span><span class="string">'inputImage'</span>.
+</code></pre>
+
+
+<P>Now that the filter is configured, it will apply itself to our image when asked to provides its output, creating a new CIImage object and giving it back to us:</P>
+
+<pre class="codebox"><code><span class="identifier">bumpedImage</span> := <span class="identifier">bumpFilter</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+</code></pre>
+
+<p>At this point, it is important to note that no rendering has happened yet. Indeed, "bumpedImage", our new CIImage object, just stores instructions about how to render our image (something like: "apply a bump centered at (1200,800) with a radius of 900 and a scale of 0.8"). The actual rendering (i.e., the production of the new image) will only happen when needed (e.g. when the image is drawn on screen). This lazy rendering model make it possible for Core Image to apply aggressive optimization strategies to the rendering process, in particular when multiple filters are combined. For now, let's just ask our new image to draw itself on screen:</p>
+
+<pre class="codebox"><code><span class="identifier">bumpedImage</span> <span class="selector">drawInRect:</span>(<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">80</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>) <span class="selector">fromRect:</span><span class="identifier">bumpedImage</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+</code></pre>
+
+<img src="artwork/fig4.jpg">
+<p class="legend"> Figure 4. Our image after processing by a CIBumpDistortion filter </p>
+
+<P>To understand how the filter works, it is interesting to change its configuration (for instance, the values of its radius and its scale) and to regenerate and redisplay the image. If you are sitting behind an F-Script console, you are encouraged to do so! </P>
+
+<P>Core Image provides lots of filters. Each one has a specific set of parameters, that are configured using the <code>setValue:forKey:</code> method, as we've just seen (this is not an F-Script specific technique; it's just the way the Core Image API works). To illustrate this, here is the F-Script code to change the hue using Core Image.</p>  
+
+<pre class="codebox"><code><span class="identifier">hueFilter</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CIHueAdjust'</span>.
+
+<span class="identifier">hueFilter</span> <span class="selector">setValue:</span><span class="literal">2.5</span>   <span class="selector">forKey:</span><span class="string">'inputAngle'</span>.
+<span class="identifier">hueFilter</span> <span class="selector">setValue:</span><span class="identifier">image</span> <span class="selector">forKey:</span><span class="string">'inputImage'</span>.
+
+<span class="identifier">hueImage</span> := <span class="identifier">hueFilter</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+<span class="identifier">hueImage</span> <span class="selector">drawInRect:</span>(<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">80</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>) <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+</code></pre>
+
+<img src="artwork/fig5.jpg">
+<p class="legend"> Figure 5. Our image after processing by a CIHueAdjust filter </p>
+
+<p>In the folowing example, we try yet another filter. This time, we'll apply a gaussian blur effect on our image.</p> 
+
+
+<pre class="codebox"><code><span class="identifier"><span class="identifier">blurFilter</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CIGaussianBlur'</span>.
+
+<span class="identifier">blurFilter</span> <span class="selector">setValue:</span><span class="literal">15</span>    <span class="selector">forKey:</span><span class="string">'inputRadius'</span>. 
+<span class="identifier">blurFilter</span> <span class="selector">setValue:</span><span class="identifier">image</span> <span class="selector">forKey:</span><span class="string">'inputImage'</span>.
+
+<span class="identifier">bluredImage</span> := <span class="identifier">blurFilter</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+<span class="identifier">bluredImage</span> <span class="selector">drawInRect:</span>(<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">80</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>) <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+</code></pre>
+
+<img src="artwork/fig6.jpg">
+<p class="legend"> Figure 6. Our image after processing by a CIGaussianBlur filter </p>
+
+
+<p>Finaly, here is a more complex filter that applies a perspective transformation.</P>
+
+
+<pre class="codebox"><code><span class="identifier">perspectiveFilter</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CIPerspectiveTransform'</span>.
+
+<span class="identifier">perspectiveFilter</span> <span class="selector">setValue:</span>(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="literal">500</span>  <span class="selector">Y:</span><span class="literal">1000</span>) <span class="selector">forKey:</span><span class="string">'inputTopLeft'</span>.
+<span class="identifier">perspectiveFilter</span> <span class="selector">setValue:</span>(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="literal">2000</span> <span class="selector">Y:</span><span class="literal">1000</span>) <span class="selector">forKey:</span><span class="string">'inputTopRight'</span>.
+<span class="identifier">perspectiveFilter</span> <span class="selector">setValue:</span>(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="literal">2560</span> <span class="selector">Y:</span><span class="literal">0</span>)    <span class="selector">forKey:</span><span class="string">'inputBottomRight'</span>.
+<span class="identifier">perspectiveFilter</span> <span class="selector">setValue:</span>(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="literal">0</span>    <span class="selector">Y:</span><span class="literal">0</span>)    <span class="selector">forKey:</span><span class="string">'inputBottomLeft'</span>.
+<span class="identifier">perspectiveFilter</span> <span class="selector">setValue:</span><span class="identifier">image</span>                              <span class="selector">forKey:</span><span class="string">'inputImage'</span>.
+
+<span class="identifier">perspectiveImage</span> := <span class="identifier">perspectiveFilter</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+<span class="identifier">perspectiveImage</span> <span class="selector">drawInRect:</span>(<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">80</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>) <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+</code></pre>
+
+
+<img src="artwork/fig7.jpg">
+<p class="legend"> Figure 7. Our image after processing by a CIPerspectiveTransform filter </p>
+
+<a name="Using blocks to create an animation"></a><H2>Using blocks to create an animation</H2>
+
+<P>Now that we know how to process and display an image, we can create a nice little animation by repeatedly processing the image with a varying filter and displaying the result. To do that we just need to learn how write a loop using F-Script.</P>
+
+<P> But, wait a minute... Isn't F-Script supposed to have a very simple syntax, where everything is expressed by sending messages to objects? Well, this is exact and, in fact, F-Script does not have any special syntax for control structures such as loops or conditionals. So the question here is "How can we express useful programs without such syntax?" To answer that, let me introduce you to the concept of code blocks in F-Script. Below, we see a code block in Objective-C and one in F-Script. Note the use of brackets in F-Script, instead of curly braces.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="400">
+<tr align="center" bgcolor=#F1F1F1><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code>{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction1;<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction2;<br>
+						}</code></td> 
+<td><code>[<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction1.<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction2.<br>
+						]<br></code>
+</td></tr>
+</table>
+</div>
+
+
+<P>The code blocks look similar, but the way they work is quite different. In Objective-C, when the computer executes the code block, it simply executes the instructions in it immediately. In F-Script, the code block is actually a kind of literal notation for an object that contains the instructions. In other words, a block represents a deferred sequence of actions. In F-Script, the presence of a code block does not lead to the execution of its content, but to the creation of a block object, that can then be asked to execute the instructions. To do that, we send the "value" message to the block. The result returned by the execution of a block is the result of the evaluation of its last instruction.</P>
+
+<P>As you can see below, F-Script blocks can have local variables, just like in Objective-C. If the instructions in the block refer to a variable that is not declared as local, F-Script will look for it in the enclosing lexical context of the block, as is the case in Objective-C.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="400">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code>{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;id local1, local2;<br>
+<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction1;<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction2;<br>
+						}</code></td> 
+<td><code>[<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;|local1 local2|<br>
+<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction1.<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;instruction2.<br>
+						]<br></code>
+</td></tr>
+</table>
+</div>
+
+<P>A key point to understand here is that F-Script blocks are objects. Like with any object, you can send messages to a block, you can assign a block to a variable, store a block in a collection, pass a block as an argument to a method, archive a block on-disk, and so on. Blocks are not unique to F-Script (or Smalltalk). They are present in numerous languages (sometimes under the name of "closure" or "lambda expressions") such as Ruby, Python, Lisp, Groovy, or C# 3.</P>
+
+<P>Now that we have blocks, it is easy to do conditional evaluation. Boolean objects provide a method named ifTrue: which takes a block as argument. If the value of the boolean is true, then the block is executed by the method.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="400">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code>if (a > b)
+<br>{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions</i><br>
+						}</code></td> 
+<td><code>a > b ifTrue:
+<br>[<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions</i><br>
+						]<br></code>
+</td></tr>
+</table>
+</div>
+
+<P>Boolean objects also have a method named ifTrue:ifFalse: that lets you have something equivalent to the if/else control structure of Objective-C. This method takes two blocks as arguments. One that gets executed if the boolean is true and the other one that gets executed if the boolean is false.</P>
+
+<div align="center">
+<table border="0" cellpadding="5" width="400">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code>if (a > b)
+<br>{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions</i><br>
+						}<br>
+else<br>
+{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions</i><br>
+						} </code></td> 
+<td><code>a > b ifTrue:<br>
+[<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions</i><br>
+						]<br>
+ifFalse:<br>
+[<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions</i><br>
+						]<br></code>
+</td></tr>
+</table>
+</div>
+
+<P>For performing our animation, we need a way to repeatedly evaluate a block. Let's review how F-Script provides this. </P>
+
+<P>Blocks provide a method named whileTrue:, which takes another block as argument. The receiver of the whileTrue: message evaluates itself, and, if the result of this evaluation is a boolean with a value of true, the argument gets evaluated. This process is repeated as long as the receiver evaluates to true.</P>
+
+<P>Note that in the example with conditionals, the ifTrue: message was sent to a boolean object. In the latest example, the whileTrue: message is sent to a block that returns a boolean. This is very different. Indeed, it would not make sense to implement a whileTrue: method for booleans. This is because the value of a particular boolean never changes; whereas the value returned by the evaluation of a block can change from one evaluation to another.</P>
+
+<P>Now that we know how to express repetitive evaluation, we can finally write our animation:</P>
+
+<pre class="codebox"><code><span class="identifier">keyWindow</span> := <span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span> <span class="selector">keyWindow</span>.
+<span class="identifier">rect</span> := (<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">100</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>).
+
+<span class="identifier">i</span> := <span class="literal">0</span>.
+[<span class="identifier">i</span> <span class="selector">&lt;</span> <span class="literal">2500</span>] <span class="selector">whileTrue:</span>
+[
+    <span class="identifier">bumpFilter</span> <span class="selector">setValue:</span>(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="identifier">i</span> <span class="selector">Y:</span><span class="literal">700</span>) <span class="selector">forKey:</span><span class="literal">'inputCenter'</span>.
+    <span class="identifier">bumpedImage</span> := <span class="identifier">bumpFilter</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+    <span class="identifier">bumpedImage</span> <span class="selector">drawInRect:</span><span class="identifier">rect</span> <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+    <span class="identifier">keyWindow</span> <span class="selector">flushWindow</span>.
+    <span class="identifier">i</span> := <span class="identifier">i</span> <span class="selector">+</span> <span class="literal">5</span>.
+]
+</code></pre>
+
+<P>As you can see, we move the bump across the image, by varying the X component of the CIVector object that define the center of the bump. We use a control variable named "i" that we increment by five at each iteration of our loop until it becomes equal to 2500. We also ask the window to flush itself at each step of our iteration in order to display the new image and produce the animation effect.</P>
+
+<p>
+<embed style="width:400px; height:326px;" id="VideoPlayback" type="application/x-shockwave-flash" src="http://video.google.com/googleplayer.swf?docId=2592330383892271301&hl=fr" flashvars=""> </embed>
+</p>
+<p> <a href=http://video.google.com/videoplay?docid=2592330383892271301>Click here to see the animation on Google Video</a> </p>
+
+
+<P>For such kind of iteration, however, a "for" loop is more appropriate, and you might wonder if F-Script provides it. Well, it does! But in order to master it we must learn another feature of blocks: support for arguments.</P>
+
+
+
+<a name="Blocks with arguments"></a><H2>Blocks with arguments</H2>
+
+<P>Block arguments are declared at the beginning of the block, just after the opening bracket. Each argument name is specified after a colon and a vertical bar ends the argument list. A block must then be executed using an appropriate "value..." message. Here is a block with no argument. We evaluate it by sending it the <code>value</code> message.</P>
+
+
+<pre class="codebox"><code>&gt; [<span class="string">'hello world'</span>] <span class="selector">value</span>
+
+<span class="result">'hello world'</span>
+</code></pre>
+
+<P>Below is a block with one argument. In this case, we send a <code>value:</code> message, specifying the argument that will be passed to the block.</P>
+
+
+<pre class="codebox"><code>&gt; [:<span class="identifier">a</span>| <span class="identifier">a</span> <span class="selector">length</span>] <span class="selector">value:</span><span class="string">'a string'</span>
+
+<span class="result">8</span>
+</code></pre>
+
+<P>Here is a block with two arguments. To evaluate it, we send it a <code>value:value:</code> message.</P>
+
+
+<pre class="codebox"><code>&gt; [:<span class="identifier">a</span> :<span class="identifier">b</span>| <span class="identifier">a</span> <span class="selector">+</span> <span class="identifier">b</span>] <span class="selector">value:</span><span class="literal">2</span> <span class="selector">value:</span><span class="literal">3</span>
+
+<span class="result">5</span>
+</code></pre>
+
+<P>Now that we have blocks with arguments, we can make use of powerful methods. For example, numbers have a method named <code>to:do:</code> which takes an number and a block as arguments. The block is then evaluated by the <code>to:do:</code> method for each integer between the receiver and the first argument (both included).</P>
+
+<div align="left">
+<table border="0" cellpadding="5" width="550">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code> for (int i = 0; i <= 100; i++)
+<br>{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions using i</i><br>
+						}</code></td> 
+<td><code>0 to:100 do:
+<br>[:i|<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions using i</i><br>
+						]<br></code>
+</td></tr>
+</table>
+</div>
+
+<P>F-Script also provides a to:by:do: method that let us specify an iteration step.</P>
+
+<div align="left">
+<table border="0" cellpadding="5" width="550">
+<tr align="center" bgcolor="F1F1F1"><th>Objective-C</th> <th>F-Script</th></tr>
+<tr align="left" bgcolor=#FCFCFC><td width=50%><code> for (int i = 0; i <= 100; i = i+5)
+<br>{<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions using i</i><br>
+						}</code></td> 
+<td><code>0 to:100 by:5 do:
+<br>[:i|<br>
+						  &nbsp;&nbsp;&nbsp;&nbsp;<i>instructions using i</i><br>
+						]<br></code>
+</td></tr>
+</table>
+</div>
+
+<P>We can make use of it in our animation script. Here is the complete F-Script code for loading the image, creating a core image filter and running the animation:</P>
+
+<pre class="codebox"><code><span class="identifier">image</span> := <span class="identifier">CIImage</span> <span class="selector">imageWithContentsOfURL:</span>(<span class="identifier">NSURL</span> <span class="selector">fileURLWithPath:</span><span class="string">'/Library/Desktop Pictures/Nature/Clown Fish.jpg'</span>).
+
+<span class="identifier">bumpFilter</span> := <span class="identifier">CIFilter</span> <span class="selector">filterWithName:</span><span class="string">'CIBumpDistortion'</span>. 
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="literal">900</span>    <span class="selector">forKey:</span><span class="string">'inputRadius'</span>. 
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="literal">0.8</span>    <span class="selector">forKey:</span><span class="string">'inputScale'</span>. 
+<span class="identifier">bumpFilter</span> <span class="selector">setValue:</span><span class="identifier">image</span>  <span class="selector">forKey:</span><span class="string">'inputImage'</span>. 
+ 
+<span class="identifier">keyWindow</span> := <span class="identifier">NSApplication</span> <span class="selector">sharedApplication</span> <span class="selector">keyWindow</span>.
+<span class="identifier">rect</span> := (<span class="literal">200</span><span class="selector">&lt;&gt;</span><span class="literal">100</span> <span class="selector">extent:</span><span class="literal">600</span><span class="selector">&lt;&gt;</span><span class="literal">400</span>).
+
+<span class="literal">0</span> <span class="selector">to:</span><span class="literal">2500</span> <span class="selector">by:</span><span class="literal">5</span> <span class="selector">do:</span>
+[:<span class="identifier">i</span>|
+    <span class="identifier">bumpFilter</span> <span class="selector">setValue:</span>(<span class="identifier">CIVector</span> <span class="selector">vectorWithX:</span><span class="identifier">i</span> <span class="selector">Y:</span><span class="literal">700</span>) <span class="selector">forKey:</span><span class="string">'inputCenter'</span>.
+    <span class="identifier">bumpedImage</span> := <span class="identifier">bumpFilter</span> <span class="selector">valueForKey:</span><span class="string">'outputImage'</span>.
+    <span class="identifier">bumpedImage</span> <span class="selector">drawInRect:</span><span class="identifier">rect</span> <span class="selector">fromRect:</span><span class="identifier">image</span> <span class="selector">extent</span> <span class="selector">operation:</span><span class="identifier">NSCompositeSourceOver</span> <span class="selector">fraction:</span><span class="literal">1</span>.
+    <span class="identifier">keyWindow</span> <span class="selector">flushWindow</span>.
+]
+</code></pre>
+
+<P>You can change the value of the step to see how it makes the animation faster or slower.</P>
+
+<a name="Final thoughts"></a><H2>Final thoughts</H2>
+
+<P>Now that you are familiar with F-Script, you can use it whenever you want to explore a new Objective-C API, interactively prototype code or debug an application. And since you can easily embed it into your own application, you can provide your users with an interactive and scripting layer for your application's functionalities, by just exposing them as Objective-C objects. </P>
+<P>
+
+
+<br>
+<p style="text-align:center; font-size:x-small"><font COLOR="slategray">Copyright &copy; 2007-2010 Philippe Mougin</font></p>
+<br>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+</body>
+</html>

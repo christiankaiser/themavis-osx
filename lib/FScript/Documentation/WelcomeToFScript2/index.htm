@@ -1,0 +1,256 @@
+<html>
+<head>
+<title>Welcome to F-Script 2.0</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+
+<STYLE TYPE="text/css" MEDIA=screen>
+<!--
+h2 {font: 25px 'Lucida Grande', Geneva, Verdana, Arial, sans-serif; font-weight: bold;}
+-->
+</STYLE>
+
+
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<br>
+
+<h1 align="center"> Welcome to F-Script 2.0 </h1>
+
+		<table bgcolor="whitesmoke" style="border: 1px solid #C9D1D7;" CELLPADDING="5" >
+			<tr>
+				<td align="left" >
+F-Script is a set of open source tools for dynamic introspection, manipulation and scripting of Cocoa objects on Mac OS X. This document provides an overview of the main new features in F-Script 2.0. You can also <a href=http://www.fscript.org>go to the F-Script home page</a> or <a href=http://www.fscript.org/download/F-Script20100510.zip onClick="javascript:urchinTracker ('/download/FScript');">download F-Script now</a>.
+				</td>
+			</tr>
+		</table>
+        
+        <h2>Garbage collection</h2>
+<p>New in F-Script 2.0 is a fast, concurrent, generational garbage collector. It was a lot of work to implement. Fortunately, Apple did all of it, as F-Script 2.0 uses the new Objective-C garbage collector. As with Objective-C, when you run F-Script in GC mode you no longer have to manage retain counts and to care for cyclic references. You can still use F-Script in non-GC mode, which is needed if you want to interact with non-GC capable frameworks or libraries. A new option in the F-Script preference panel let you choose your memory management model. Finally, you can embed F-Script in GC or non-GC applications.</p>
+
+<p>Garbage collection is performed concurrently, on its own thread. Another notable aspect is that it works both for objects and for raw memory buffers. Actually, for raw memory buffers, you can either use managed or unmanaged memory. F-Script 2.0 lets you use unmanaged memory as usual (i.e., with the malloc: method) and introduces new methods, in the FSPointer class, for dealing with managed memory. Features such as weak references, explicit GC control, etc. are all available from F-Script using the standard methods provided by Cocoa.</p>
+
+
+<h2>64-bit</h2>
+<p>F-Script 2.0 provides 64-bit support. Benefits include:
+<ul>
+<li>Very large virtual address space</li>
+<li>New Objective-C runtime (optimized message dispatching, zero-cost setup model for exceptions, etc.)</li>
+<li>Ability to load 64-bit frameworks in F-Script and to embed F-Script in 64-bit applications</li>
+</ul>
+You can still run in 32-bit mode and you can use the F-Script framework in 64-bit and 32-bit applications.<br>
+The F-Script API itself now exposes both 64-bit and 32-bit capable interfaces, using Cocoa's NSInteger, NSUInteger and CGFloat macros.<br>
+</p>
+
+<h2>New object browser</h2>
+<p>The graphical object browser gains a new look and a number of enhancements. This includes:
+<ul>
+<li>Introspection of Objective-C 2.0 properties</li>
+<li>Improved introspection of bindings</li>
+<li>Direct access to the view hierarchy</li>
+<li>Visual feedback when selecting graphical components on screen</li>
+<li>Additional information about standards Cocoa objects</li>
+<li>And more...</li>
+</ul>
+</p>
+<p>
+<table>
+  <tr>
+    <td >
+      <a href="../ExploringCocoaWithFScript/index.htm"><IMG BORDER="0" src="artwork/ObjectBrowser.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: Exploring Cocoa with F-Script</b><br>
+      Discover the graphical object browser and object inspectors in this in-depth article.
+      <blockquote>
+      If you are a Cocoa developer, you already know that the dynamic nature of Objective-C and Cocoa is what makes them so flexible and powerful. In terms of development tools, the power of a dynamic object-oriented environment like Cocoa translates into original tools like Interface Builder or F-Script, an open source project that is presented in this article. F-Script is an integrated set of tools that makes it possible to interactively explore and manipulate Cocoa objects as well as script them using new high-level programming techniques. This article shows you how to use some of its most impressive features and demonstrates how it can be a useful addition to your developer toolkit. <a href="../ExploringCocoaWithFScript/index.htm">Read more...</a>
+      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+
+<h2>Dynamic Cocoa class creation</h2>
+<p>
+F-Script 2.0 makes it very easy to dynamically define new classes. At run-time, these dynamically generated classes are regular Cocoa classes that happen to execute F-Script code instead of compiled Objective-C code. They can be used from both F-Script and Objective-C. You can subclass existing Cocoa classes in F-Script and, as in Objective-C, define instance variables, instance methods and class methods. In addition, F-Script also supports defining <a href="http://www.mimuw.edu.pl/~sl/teaching/00_01/Delfin_EC/Glossary.htm#class%20instance%20variable" target="_blank">class instance variables</a>. In F-Script 2.1 you can also add F-Script methods to existing classes (much like with Objective-C categories, but dynamically).</p>
+<p>
+<table>
+  <tr>
+    <td>
+      <a href="../CreatingCocoaClassesWithFScript/index.htm"><IMG BORDER="0" src="artwork/CreatingClasses.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: Creating Cocoa Classes with F-Script</b><br>
+      <blockquote>
+      F-Script 2.0 provides a handy syntax for dynamically creating Cocoa classes on the fly. This is useful for quickly experimenting, prototyping and using Cocoa interactively, as well as for developing sophisticated programs. You can type a class definition in the F-script console, hit return and immediately start playing with your new class. This article provides a quick introduction to this feature. <a href="../CreatingCocoaClassesWithFScript/index.htm">Read more...</a>
+      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+
+
+<h2>System-wide scripting</h2>
+<p>
+F-Script 2.0 is able to control scriptable applications and graphically browse and interact with the applications scripting interfaces. This major new feature is based on the MAC OS X Scripting Bridge technology. For example, here is how you can connect to iTunes:<br>
+
+<pre class="codebox"><code><span class="identifier">iTunes</span> := <span class="identifier">SBApplication</span> <span class="selector">applicationWithBundleIdentifier:</span><span class="string">'com.apple.iTunes'</span></code></pre>
+
+You can then manipulate iTunes from F-script. For example, here is how you make iTunes go to the next track:
+
+<pre class="codebox"><code><span class="identifier">iTunes</span> <span class="selector">nextTrack</span>
+</code></pre>
+
+<table>
+  <tr>
+    <td>
+      <a href="../SystemWideScriptingWithFScript/index.htm"><IMG BORDER="0" src="artwork/SystemWideScripting.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: System-wide Scripting with F-Script</b><br>
+      Learn how to script your applications with this tutorial.
+      <blockquote>
+Like AppleScript, F-Script can communicate with scriptable application, making it possible to automate processes using these applications and to create workflows spanning multiple applications. This system-wide scripting capability relies on a standard Mac OS X technology called the Scripting Bridge.<br>
+Basically, the scripting bridge allows manipulating scriptable applications as if they were Cocoa objects, automatically taking care of the communication details (e.g. creating and sending Apple Events). This allows using F-Script to manipulate other applications through their standard scripting interface. <a href="../SystemWideScriptingWithFScript/index.htm">Read More...</a>
+      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+
+<h2>Updated embedding and injecting capabilities</h2>
+<p>
+F-Script can be easily embedded into your own applications or dynamically injected at runtime into any running Cocoa application. Embedding is great for adding scripting or interactive object querying/manipulation capabilities to your applications, as well as for implementing parts of your apps with F-Script. Injecting is incredibly powerful when it comes to debugging or exploring the innards of applications. F-Script 2 comes with full support for the new plugin model of Interface Builder 3, allowing drag and drop of F-Script graphical components right into your application. F-Script 2 also includes updated injecting tools (aka F-Script Anywhere) which let you inject a complete F-Script environment at run time into any Cocoa application.</p>
+<p>
+<table>
+  <tr>
+    <td>
+      <a href="../EmbeddingFScriptIntoCocoa/index.htm"><IMG BORDER="0" src="artwork/Embedding.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: Embedding F-Script into Cocoa Applications</b><br>
+      <blockquote>
+As we already saw in previous articles, F-Script can be used as a standalone application which dynamically loads your Objective-C classes and enables you to access them either interactively or using scripts. In this article, we will explore another possibility, i.e. including F-Script in your own applications. All F-Script functionalities are available through components which can be integrated into applications. This enables you to:
+<ul>
+<li>Program all or part of an application using the F-Script language.</li>
+<li>Offer a scripting environment within your applications, allowing users to manipulate your business objects and to automate processes.</li>
+<li>Interface F-Script with other tools.</li>
+</ul>
+Because F-Script and Cocoa share the same object model, integration is easy and advanced. <a href="../EmbeddingFScriptIntoCocoa/index.htm">Read more...</a>
+      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+
+<h2>Refined syntax and class library</h2>
+<p>
+F-Script is a Smalltalk dialect. As such, its syntax is well suited to the manipulation of Objective-C objects, since Objective-C itself borrowed its messaging syntax from Smalltalk. F-Script 2.0 introduces several syntax refinements, including a handy notation for specifying dictionaries. Here is how an NSMutableDictionary instance with two entries looks like:
+
+<pre class="codebox"><code>#{key1 -> value1, key2 -> value2}</code></pre>
+
+There are other syntax enhancements including support for Unicode in string literals and a hexadecimal notation for numbers. Besides, the base class library has been refined, with new methods for dealing with collections, new globals for easy access to the standards IO streams, a new facility for comparing objects with the special nil value and some changes in the way test for object equality is performed. It is also worth noting the introduction of a new public class, FSAssociation, which represents associations between two objects, a "key" and a "value", and is primarily used for specifying dictionary entries.<br>
+<br>
+If you are not familiar with the F-Script syntax and fundamental elements, the two articles referenced below will get you up to speed in a breeze.  
+</p>
+<p>
+<table>
+  <tr>
+    <td>
+      <a href="../LearnFScriptIn20Minutes/index.htm"><IMG BORDER="0" src="artwork/LearnFScriptIn20Minutes.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: Learn F-Script in 20 Minutes and Have Fun Playing with Core Image</b><br>
+      <blockquote>
+      In this article, our goal will be to produce a nice little animation using fancy Core Image effects. In doing so, we will learn the basics of F-Script. So install yourself comfortably in front of your Mac, download the latest F-Script version from http://www.fscript.org and enjoy the trip! <a href="../LearnFScriptIn20Minutes/index.htm">Read more...</a>
+      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+<p>
+<table>
+  <tr>
+    <td>
+      <a href="../ScriptingCocoaWithFScript/index.htm"><IMG BORDER="0" src="artwork/ScriptingCocoaWithFScript.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: Scripting Cocoa with F-Script</b><br>
+      <blockquote>
+One important application of Cocoa's openness is its integration with scripting languages. This is very useful because it allows for interactive use and easy gluing of Cocoa components. In this article I want to give you a taste of Cocoa scripting, and to show you the level of integration that you can expect. We will use F-Script, an open source scripting language for Cocoa, to build a little graphical application. Using F-Script, we will directly program against the Application Kit, which is the Cocoa object framework for graphical user interfaces. <a href="../ScriptingCocoaWithFScript/index.htm">Read more...</a>      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+
+<h2>Snow Leopard</h2>
+<p>
+F-Script 2 is compatible with both Leopard and Snow Leopard. It lets you directly access a number of the latest Mac OS X frameworks. And other ones are just a simple loading instruction away.</p>
+<p>
+<table>
+  <tr>
+    <td>
+      <a href="../AccessingMacOSXFrameworksWithFScript/index.htm"><IMG BORDER="0" src="artwork/AccessingMacOSXFrameworksWithFScript.png"></a>
+	</td>
+	<td>
+      &nbsp;&nbsp;&nbsp;
+    </td>
+	<td valign="top">
+      <b>Companion article: Accessing Mac OS X Frameworks with F-Script</b><br>
+      <blockquote>
+F-Script.app, the standalone F-Script environment, is automatically linked with a number of Mac OS X frameworks. This is convenient for quickly exploring Mac OS X's capabilities and directly using the frameworks without any further configuration. <a href="../AccessingMacOSXFrameworksWithFScript/index.htm">Read more...</a>
+      </blockquote>									
+    </td>
+  </tr>
+</table>
+</p>
+
+<h2>New group for support and discussions</h2>
+
+<p><a href=http://groups.google.com/group/f-script>http://groups.google.com/group/f-script/</a></p>
+
+		<br>
+		<p style="text-align:center; font-size:x-small">
+			<font COLOR="slategray">Copyright &copy 2009-2010 Philippe Mougin</font>
+		</p>
+		<br>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+</body>
+</html>
+<script language="javascript"><!--
+
+var wwOpenInstalled;
+if (wwOpenInstalled || parent.wwOpenInstalled) {
+	if (window.Event) {
+		document.captureEvents (Event.MOUSEUP);
+	}
+	document.onmouseup = (parent.wwOpenInstalled) ? parent.wwOnMouseUp : wwOnMouseUp;
+}
+//--></script>

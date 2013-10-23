@@ -1,0 +1,1074 @@
+<html>
+<head>
+<title>F-Script Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="artwork/documentation.css" media="all">
+
+<style type="text/css" media="all"> 
+
+p, h1 {margin: 16px 20px 16px 20px;}
+
+h1 { color: #326fa3; font: 20px  'Lucida Grande', Geneva, Verdana, Arial, sans-serif; font-weight: bold;}
+
+img { display: block; margin-left: auto; margin-right: auto;}
+
+p.legend {text-align: center; font-style: italic;}
+
+ul, ol, table { margin: 12px 20px 12px 20px; }
+
+</style>
+ 
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p>
+F-Script is an open-source interactive and scripting environment for Cocoa. See the project home at <a href=http://www.fscript.org>http://www.fscript.org</a>.<br>
+</p>
+
+<H1>F-Script 2.1 Release Notes</H1>
+
+<ul>
+<li>F-Script 2.1 requires Mac OS X 10.6. For Mac OS X 10.5 and later, use F-Script 2.0.x. For Mac OS X 10.3 and later, use F-Script 1.3.x.</li><br>
+
+<li>The new F-Script Anywhere injection service is included in this distribution</li><br>
+
+<li>It is now possible to add F-Script methods to existing classes, much like we do with categories in Objective-C. For example here is how we add a <code>print</code> method to the NSObject class:
+<pre class="codebox"><code><span class="signature">NSObject</span>
+{
+   <span class="signature">- (void)print</span>
+   {
+      <span class="identifier">stdout</span> <span class="selector">print:</span><span class="identifier">self</span> <span class="selector">description</span>
+   }
+}
+</code></pre>
+See <a href="http://www.fscript.org/documentation/CreatingCocoaClassesWithFScript/index.htm">Creating Cocoa Classes with F-Script</a> for more information.
+</li><br>
+
+<li>Dictionaries get two standard Smalltalk shortcuts:
+    <ul>
+        <li><code>at:</code> (equivalent of <code>objectForKey:</code>)</li>
+        <li><code>at:put:</code> (equivalent of <code>setObject:forKey:</code>)</li>
+    </ul>    
+</li>
+
+<li>The default implementation of the <code>printString</code> method now invokes <code>debugDescrition</code>, when available, instead of <code>description</code>. The <code>printString</code> method is used by the F-Script console to display textual representations of objects.</li><br>
+
+<li>The class method <code>sizeWithWidth:height:</code> defined in the FSNSValue category can now be passed negative numbers as arguments.</li><br>
+
+<li>The F-Script plugin for Interface Builder now supports both the 32 bit and the 64 bit versions of Interface Builder.</li><br>
+
+<li>This version also brings minor UI improvements.</li><br>
+
+<li>Thanks to :
+    <ul>
+    <li>Peter Wood (documentation)</li>
+    <li>Silvio H. Ferreira (F-Script Anywhere injection service)</li>
+    <li>Daniel Jalkut and Michael Bianco (contributions to F-Script Anywhere injection service)</li>
+    </ul>
+</ul>
+
+
+<H1>F-Script 2.0.2 Release Notes</H1>
+
+<ul>
+<li>This version fixes a memory management bug in the F-Script class creation system when running in reference counting mode. You are advised to upgrade.</li><br>
+
+<li>Integration with Snow Leopard has been further improved. New symbolic constants defined in Snow Leopard are now available in F-Script and a number of new frameworks are now automatically loaded at launch time by F-Script.app.</li><br>
+
+<li>The section on memory management in the F-Script guide has been expanded to better describe the memory management model and rules, in particular when running in reference counting mode.</li><br>
+
+<li>This version also brings minor UI improvements.</li><br>
+
+<li>Thanks to Cedric Luthi (contributions).</li>
+
+</ul>
+
+
+<H1>F-Script 2.0.1 Release Notes</H1>
+
+<ul>
+<li>Added support for F-Script injection on Mac OS X 10.6, as the current version of F-Script Anywhere does not work on Mac OS X 10.6. See instructions in "Extras/F-Script Anywhere/For Mac OS X 10.6/Read me". Thanks to Ken Ferry for suggesting the workaround.</li>
+</ul>
+
+<H1>F-Script 2.0 Release Notes</H1>
+
+<ul>
+<li>F-Script 2.0 makes use of several technologies introduced in Mac OS X 10.5. It does not run on earlier versions of Mac OS X. If you need to run on 10.3 and later, you should use the latest 1.3.x F-Script version available from <a href=http://www.fscript.org>http://www.fscript.org</a>.</li>
+<br>
+<li>F-Script is now 64 bit capable. By default, F-Script.app will run in 64 bit mode on 64 bit architectures. You can still run in 32 bit mode and you can use the F-Script framework in 64 bit and 32 bit applications.</li>
+<br>
+<li>A plugin for Interface Builder 3 is provided. It lets you easily embed F-Script components into your application. Note that the F-Script "live" mode for Interface Builder is no longer supported.</li>
+<br>
+<li>F-Script now supports a dedicated syntax for defining classes. When such a class definition is evaluated, F-Script dynamically construct an Objective-C class in memory. See the documentation for a more detailled description of this new feature.</li>
+<br>
+<li>Garbage Collection:
+<ul>
+<li>F-Script can now use the Objective-C 2.0 garbage collector. You can still use F-Script in non-GC mode and you can use the F-Script framework in GC or non-GC mode. You can configure the memory management mode for F-Script.app in the application's preference panel.</li><br>
+<li>As with Objective-C, when you run F-Script in GC mode you no longer have to care for retain cycles and for managing the retain count of your objects with retain/release/autorelease.</li><br>
+
+<li>The methods <code>objectPointer</code> and <code>objectPointer:</code> of class FSPointer have been modified to use the <code>NSAllocateCollectable</code> function, with the <code>NSScannedOption</code> option, instead of <code>malloc</code>. This ensure that, in GC mode, the object(s) pointers stored in the memory zone represented by an FSObjectPointer are considered by the garbage collector as strong references, thus ensuring correct semantic for these methods.<br> The memory zone will be freed on deallocation of the FSObjectPointer (as in previous versions) when running in non-GC mode, and will be freed by the garbage collector when running in GC mode.</li><br>
+
+<li>A method <code>+(FSGenericPointer *)allocateCollectable:(NSUInteger)size options:(NSUInteger)options
+</code> is now available on class FSPointer. This method allocates a collectable memory zone with the <code>NSAllocateCollectable</code> function, then creates and returns an FSGenericPointer instance pointing to this zone, or nil if the memory cannot be allocated. If you want to pass 0 as option (which means that the memory zone is not scanned for pointers by the garbage collector), you might prefer to invoke the shorter convenience method, <code>+(FSGenericPointer *)allocateCollectable:(NSUInteger)size</code>.</li> 
+</ul>
+
+<li>System wide scripting: F-Script 2.0 provides direct access to the Mac OS X scripting bridge technology and is now able to control scriptable applications. For example, here is how you can connect to iTunes:<br>
+<br>
+<code>iTunes := SBApplication applicationWithBundleIdentifier:'com.apple.iTunes'</code><br>
+<br>
+You can then manipulate iTunes from F-script. Here is how to get the name of the current track:<br>
+<br>
+<code>iTunes currentTrack name</code><br>
+</li><br>
+
+<li>Objective-C 2.0 properties: the object browser now displays properties.</li>
+<br>
+<li>Objective-C 2.0 fast enumeration: F-Script arrays provide optimized implementation of the NSFastEnumeration protocol.</li>
+<br>
+<li>New constants defined in the Objective-C-based frameworks of Mac OS X 10.5 are available from F-Script. F-Script used to rely on its own header scanner for providing this feature on previous Mac OS X versions. We now use the new Bridge Support technology included in Mac OS X.</li>
+<br>
+
+<li>The "select view" feature of the object browser has been enhanced:
+<ul> 
+<li> When the view selection mode is active, the color of the view that is under the cursor is temporarily modified to give immediate user feedback as the cursor moves and to show the surface covered by the view on screen.</li><br>
+<li>A little window near the cursor displays information about the view underneath.</li><br>
+<li>You can now exit the view selection mode without actually selecting a view by pressing the ESCAPE key.</li>
+</ul>
+
+<li>The object browser now gives immediate access to the view hierarchy when browsing a view. </li><br>
+
+<li>When possible, the object browser now displays the content of the memory referenced by a pointer (i.e., an FSPointer object).<br>
+Note: For FSGenericPointer objects, we use the <code>malloc_size()</code> function to determine the size of the memory block to display. Thus, we might display memory contents that extend past the end of the memory block actually requested by the application at allocation time. In this case, some items at the end of the displayed content will just be the random values that happen to be there in memory.</li><br>
+
+<li>Support for CGAffineTransform has been added. Structs of type CGAffineTransform are now automatically mapped to NSAffineTransform objects.</li><br>
+
+<li>FSAssociation is a new public class in F-Script 2.0, modeled after the Association class in Smalltalk. An FSAssociation object represents an association between two objects, a "key" and a "value". The <code>-></code> method, provided by the FSNSObject category, creates associations objects (e.g. <code>myKey -> myValue</code>). Association are typicaly used to define dictionary entries (see below).</li><br>
+
+<li>A handy syntax for creating dictionaries is now provided. For example, here is a dictionary with two entries: <code>#{key1 -> value1, key2 -> value2}</code>. This creates an NSMutableDictionary.</li><br>
+
+<li>We now have Unicode support for string literals.</li><br>
+
+<li>A literal syntax for hexadecimal numbers is now supported. It uses the standard Smalltalk syntax, prefixing the hexadecimal value with <code>16r</code>; e.g., <code>16rFF5A</code></li><br>
+
+<li>In previous versions, the journal file used to be reset each time a new session started. Now, the existing content of the journal file is preserved (however, when the size of the journal reach a fixed threshold, older content is automaticaly deleted).</li><br>
+
+<li>In addition to <code>==</code>, <code>nil</code> now supports the <code>~~</code> message. With it, you can test if an object is not nil. So, instead of:<br>
+<br>
+<code>(myObject == nil) not</code><br>
+<br> 
+you can now write:<br>
+<br>
+<code>myObject ~~ nil</code></li><br>
+
+<li>In F-Script 1.x. array compression is done using the standard indexing methods <code>at:</code>, <code>at:put:</code> and <code>removeAt:</code>. These methods perform either indexing or compression depending on the content of the first argument. F-Script 2 introduces dedicated methods for compression. These methods are: <code>where:</code>, <code>where:put:</code> and <code>removeWhere:</code>. You should use them instead of the <code>at...</code> methods. Compressing using the <code>at...</code> methods is, of course, still supported for backward compatibility, but this usage is now deprecated.</li><br>
+
+<li>An <code>inspect</code> method has been added to the <code>FSNSArray</code>, <code>FSNSDictionary</code> and <code>FSNSSet</code> categories.</li><br>
+
+<li>Three globals, <code>stdin</code>, <code>stdout</code> and <code>stderr</code>, give access to the standard IO streams. <code>stdout</code> and <code>stderr</code> provide a method for outputting a string: <code>-(void) print:(NSString *)string</code>. For example:<br>
+<br>
+<code>stdout print:'hello world'</code><br>
+<br>
+You should use it instead of the <code>log:</code> method provided by the <code>sys</code> object, as the sys object is not available when developing F-Script classes.</li><br>
+
+<li>The method <code>do:</code> has been added to the <code>FSNSArray</code> category (a category of <code>NSArray</code>). The argument is a block with one argument. For each element of the receiver, the block is evaluated with the element as the parameter. The operation is evaluated with each element of the receiver in indexed order starting with element at index 0. The folowing example prints each element of an array of strings on the standard output:<br>
+<br>
+<code>
+{'one', 'two', 'three'} do:[:each| stdout print:each]
+</code>
+</li><br>
+
+<li>
+In F-Script 1.x, equality and inequality operators (i.e., <code>=</code> and <code>~=</code>) are provided for all objects. They are implemented in a category of NSObject, and rely on the standard Cocoa <code>isEqual:</code> method to determine equality.<br>
+<br>
+This is convenient but leads to a small amount of added conceptual complexity in a few situations related to array programming. F-Script 2.0 changes this. In F-Script 2.0, <code>=</code> and <code>~=</code> are no longer provided at the NSObject level. The standard NSObject method for testing objects equality in Cocoa is <code>isEqual:</code>, and you can use it with F-Script too.<br>
+<br>
+While <code>=</code> and <code>~=</code> are no longer provided by default for all objects, they are implemented for a number of objects, such as NSString, NSNumber, NSDate, NSValue, FSBoolean... This covers the vast majority of current and desirable usage and you are also encouraged to implement them for your own classes if that make sense.<br>
+<br>
+In addition, F-Script 2.x comes with the magic needed to maintain backward compatibility with existing code in the few remaining cases where your F-Script 1.x code might send <code>=</code> or <code>~=</code> messages to objects that relied on the default implementation provided by the NSObject category in F-Script 1.x. In such cases, all will work as usual and F-Script will log a warning suggesting you change your code to use <code>isEqual:</code>.<br>
+You can turn off this magic backward compatibility system by using the <code>MaintainFScript1EqualityOperatorsSemantics</code> user default, on an per application basis. For instance, to turn it off for the F-Script application, type the following in the Mac OS X terminal:<br>
+<br>
+<code>defaults write org.fscript.fscriptapp MaintainFScript1EqualityOperatorsSemantics NO</code><br>
+<br>
+To reactivate it, type:<br>
+<br>
+<code>defaults write org.fscript.fscriptapp MaintainFScript1EqualityOperatorsSemantics YES</code>
+</li><br>
+
+<li>The deprecated <code>NSString</code> <-> <code>char *</code> mapping has been removed (i.e. the <code>mapCharPointerToNSString</code> user default is no longer effective).</li><br>
+
+<li>Some classes in the public F-Script API were not prefixed. They are now prefixed:
+<ul>
+<li><code>Array</code> has been renamed <code>FSArray</code></li>
+<li><code>Block</code> has been renamed <code>FSBlock</code></li>
+<li><code>Number</code> has been renamed <code>FSNumber</code></li>
+<li><code>System</code> has been renamed <code>FSSystem</code></li>
+</ul>
+The old classes (except <code>System</code>) are still present for backward compatibility, but their usage is deprecated. Note that if you have defined categories or subclasses for these classes, you must port them to the new classes.
+</li><br>
+
+<li>Support for <code>JGType</code> has been removed.</li><br>
+
+<li>The method <code>enableJava</code> has been removed from the FSSystem class.</li><br>
+
+<li>The method <code>throw</code>, introduced in F-Script 1.3.1, is now deprecated. Since Cocoa now specifies that exceptions should be represented by NSException objects, this method is no longer needed (NSException already provides <code>raise...</code> methods).</li><br>
+
+<li>The <code>clone</code> method is now deprecated. With the advent of garbage collection, this convenience method is less useful.</li><br>
+
+<li>The folowing methods provided by FSSystem are deprecated:<code>log:, loadSpace, loadSpace:, saveSpace, saveSpace:</code>.</li><br>
+
+<li>The methods <code>vend:</code> (FSNSObject) and <code>connect</code> (FSNSString) are deprecated.</li><br>
+
+<li>Thanks to Niko Matsakis and Gerriet M. Denkmann (improved Unicode support), Jeff Biggus (encouragements).</li>
+
+<br>
+
+</ul>
+
+<H1>F-Script 1.3.5 Release Notes</H1>
+
+<ul>
+
+<li>F-Script can now be compiled and run on Leopard with Xcode 3 (tested with build 9a410). Advanced Leopard support (including 64 bits support) is being worked on.</li>
+<br>
+
+<li>The new <code>clear</code> and <code>clear:</code> methods, provided by the System class, let you remove (i.e., undefine) variables from your workspace. The <code>clear</code> method removes all user-defined variables. The <code>clear:</code> method lets you specify the name of the variable you want to remove. Example:<br>
+<code>
+<pre>> x := 2. y := 4. 
+
+> {x, y}
+{2, 4}
+
+> sys clear:'y'   "Remove the y variable from the workspace"
+
+> y
+
+error: undefined identifier "y" 
+
+> sys clear       "Remove all user-defined variables from the workspace"
+
+> x 
+
+error: undefined identifier "x"</pre>
+</code>
+
+</li><br>
+
+
+<li>A multiple assignment syntax has been added, as an experimental feature. Example:<br>
+<br>
+<code>{x,y} := {2,4}</code><br>
+<br>
+Now x is equal to 2 and y is equal to 4.<br>
+<br>
+<code>{x,y} := {y,x}</code><br>
+<br>
+Now x is equal to 4 and y is equal to 2.<br>
+<br>
+The right-hand side of the multiple assignment must evaluate to an array. The left-hand side must have the syntactic form of a literal array of identifiers (i.e., a list of identifiers between <code>{</code> and <code>}</code>, separated by commas).<br>
+<br>
+
+<li>New math methods on numbers: 
+<ul>
+  <li><code>arcCosh</code> computes the principle value of the inverse hyperbolic cosine of the receiver.</li>
+  <li><code>arcSinh</code> computes the inverse hyperbolic sine of the receiver.</li>
+  <li><code>arcTanh</code> computes the inverse hyperbolic tangent of the receiver.</li>
+  <li><code>erf</code> computes the error function of the receiver.</li>
+  <li><code>erfc</code> computes the complementary error function of the receiver.</li>
+
+
+</ul>
+</li>
+
+<li>Minor bug fixes.</li><br>
+<li>Thanks to Ken Ferry (multiple assignment support).</li>
+</ul>
+
+
+<H1>F-Script 1.3.4 Release Notes</H1>
+
+<ul>
+<li>A bug in the <code>log</code> method that could lead to incorrect evaluation of logarithms for arrays of numbers has been fixed. You are advised to upgrade.</li><br>
+<li>Updated documentation.</li><br>
+<li>Minor UI improvements.</li><br>
+<li>Minor internal improvements.</li>
+</ul>
+
+<H1>F-Script 1.3.3 Release Notes</H1>
+
+<ul>
+<li>F-Script is now Universal. It runs natively on both PowerPC and Intel-based Macintosh computers.</li><br/>
+<li>The object browser displays Cocoa bindings.</li><br/>
+<li>Rectangles are now printed using their extent (i.e. size) instead of their corner coordinates.</li><br/>
+<li>Minor UI improvements have been implemented.</li><br>
+<li>This distribution of F-Script includes F-Script Anywhere 1.3, an amazing tool developed by Robert Chin and Nicholas Riley. F-Script Anywhere lets you dynamically inject F-Script into any Cocoa application and lets you take control of the objects inside the application and freely play with them. This new version of F-Script Anywhere requires Mac OS X 10.4 or later.
+<br>
+</li>
+</ul>
+
+<H1>F-Script 1.3.2 Release Notes</H1>
+
+<ul>
+<li>The performance of the object browser has been considerably improved.</li><br/>
+<li>The object browser now displays the class hierarchy.</li><br/>
+<li>The code completion system, invoked by pressing F5, now inserts placeholders for method arguments. You can move to the next argument placeholder by typing Control–slash.</li><br>
+<li>The examples in Documentation/EmbeddingFScriptExamples/ have been updated.</li><br>
+<li>This version fixes a serious bug that could lead to a crash in some situations when running F-Script on Intel in native mode.</li>
+</ul>
+
+<H1>F-Script 1.3.1 Release Notes</H1>
+
+<ul>
+<li>F-Script has been modified to compile with GCC 4.0. The F-Script distribution is now built using GCC 4.0 and Xcode 2.2.1.<br>
+<br>
+
+<li>Re-objectification: in F-Script, the value of a managed object's property can now be set by direct message sending (without having to explicitly use KVC) even if the managed object does not implement the corresponding method.<br>
+<br> 
+For instance, if <code>anEmployee</code> is a managed object with a <code>salary</code> property, you can write:<br> 
+<br>
+<code>anEmployee setSalary:2000</code><br>
+<br>
+instead of:<br> 
+<br>
+<code>anEmployee setValue:2000 forKey:'salary'</code><br>
+<br>
+<li>
+It is now possible to throw and handle any Objective-C object as an exception object (you are no more limited to NSException objects). To let you throw an object, the <code>throw</code> method has been added to FSNSObject, a category of NSObject. Example: <br>
+<br>
+<code>
+['hello' throw] onException:[:exception| sys log:exception]
+</code><br>
+<br>
+The F-Script code above is equivalent to the following Objective-C code:
+<br>
+<pre>
+@try
+{
+  @throw @"hello";
+}
+catch (id exception)
+{
+  NSLog(exception);
+}
+</pre>
+</li>
+<li>The <code>executeWithArguments:</code> method has been added to the Block class. This method executes a block and returns an FSInterpreterResult object describing the outcome of the execution. This is primarily useful when you want to use F-Script from Objective-C code. The FSinterpreterResult object lets you access either the result of the execution or a precise description of the error that resulted from the execution. Example:
+<pre>
+// Create an F-Script block
+Block *myBlock = [@"[:a :b| a/b]" asBlock];
+
+// Prepare the arguments for block execution
+NSArray *arguments = [NSArray arrayWithObjects:[NSNumber numberWithInt:10], [NSNumber numberWithInt:0], nil];
+
+// Execute the block and get back an FSInterpreterResult instance
+FSInterpreterResult *interpreterResult = [myBlock executeWithArguments:arguments];
+
+// Deal with the result of the execution  
+if ([interpreterResult isOK])
+  NSLog(@"Execution OK. Result = %@", [interpreterResult result]);
+else
+  NSLog([interpreterResult errorMessage]);
+</pre>
+
+When executed, this code will log "error: division by zero".
+
+</li>
+<br>
+
+<li>It is now possible to call methods that take or return CGPoint, CGSize or CGRect structs. F-Script uses the same mapping rules as the ones used for NSPoint, NSSize and NSRect structs. 
+<ul>
+<li>A CGPoint is automatically mapped to an NSValue containing an NSPoint.</li>
+<li>A CGSize is automatically mapped to an NSValue containing an NSSize. </li>
+<li>A CGRect is automatically mapped to an NSValue containing an NSRect. </li>
+</ul>
+</li>
+<br>
+
+
+<li>Support for AppleScript has been improved. The "eval" command, which can be used to evaluate an F-Script expression from AppleScript, now maps NSNumbers, NSArray, NSDate, NSDictionary, NSData, NSString and NSAttributedString objects to their AppleScript equivalents instead of just returning a text based description of the object.</li>
+<br>
+<img src=artwork/im34.jpg><br>
+<br>
+<li> The key handling model in the F-Script command line interface has been improved. Standard key combinations like ctrl+p or ctrl+n are now supported, and the system integrates better with the standard Mac OS X key bindings system.<br>
+<br>
+<li>The display of dictionaries in the object browser has been improved.</li>
+<br>
+<li>The object browser has been extended to displays more information about several Cocoa classes.</li>
+<br>   
+<li>A descriptive error message is now displayed when an error occurs while processing the latent block.</li>
+<br>
+<li>A number of internal improvements have been made (complete rewrite of the exception system, code refactoring etc.). As part of these internal changes, several deprecated classes and methods have been removed:
+<ul>
+<li>The <code>enclose</code> and <code>enclose:</code> methods in the FSNSObject category.</li>
+<li>The <code>replication:</code> and <code>rotation:</code> methods in the Array class.</li>
+<li>The <code>transposition:</code> and <code>fsmap</code> methods in the FSNSArray category.</li>
+<li>The <code>fsmap</code> method in the FSNSNumber category.</li>
+<li>The <code>asMutableString</code> method in the FSNSString category.</li>
+<li>The <code>mod:</code> method in the Number class.</li>
+<li>The <code>installTutorial</code> method in the System class.</li>
+<li>The FSPoint, FSSize, Range and Rectangle classes.</li>
+</ul>
+</li>
+<br>
+
+<li>Several minor bugs have been fixed.<br>  
+<br>
+<li>F-Script 1.3.1 requires Mac OS X 10.3 or later. F-Script 1.3 is still available for Mac OS X 10.2 users.<br>
+<br> 
+<li>Thanks to:
+<ul>
+<li>Phil Bellalouna for improving the startup sequence.</li>
+<li>Stephen C. Gilardi for his contribution to the key handling model.</li>
+<li>Alykhan Jetha for improving to the AppleScript interface.</li>
+<li>Jonathan 'Wolf' Rentzsch for his help testing F-Script.</li>
+<li>Andy Stark for editing the bookmarked documentation.</li>
+</ul>
+
+</ul>
+
+<H1>F-Script 1.3 Release Notes</H1>
+
+<ul>
+<li>The purpose of this version is to let you make the most out of Mac OS X 10.4. F-Script has been enhanced on many levels to provide interactive access to the new technologies in Mac OS X 10.4. For example, the object browser can now display rich information about new components in the Application Kit, the symbols defined in the Objective-C-based frameworks of Mac OS X 10.4 are available from F-Script, etc. In addition, F-Script.app is now automatically linked with a number of new frameworks found in Mac OS X 10.4. The complete list of frameworks F-Script.app is now automatically linked with is:<br> 
+<br>
+AddressBook<br>
+Automator<br>
+Cocoa<br>
+CoreData<br>
+CoreAudioKit<br>
+ExceptionHandling<br>
+DiscRecording<br>
+InstallerPlugins<br>
+InstantMessage<br>
+IOBluetooth<br>
+IOBluetoothUI<br>
+JavaVM<br>
+OSAKit<br>
+PDFKit<br>
+PreferencePanes<br>
+QTKit<br>
+QuartzCore<br>
+QuartzComposer<br>
+ScreenSaver<br>
+SecurityFoundation<br>
+SecurityInterface<br>
+WebKit<br>
+XgridFoundation<br>
+<br>
+Loading other frameworks or bundles is easy. See section 11 of the F-Script guide.<br>
+<br> 
+<li>Various UI improvements have been implemented (e.g. displaying a sort indicator image in the collection inspector, remembering window size and position etc.)
+</li>
+<br>
+<li>A QTMovie inspector has been implemented.<br>
+<br>
+<img src=artwork/im27.jpg><br>
+</li>
+<br>
+<li>A <code>sign</code> method has been added in the FSNSNumber category. This method answer 1 if the receiver is positive, 0 if the receiver equals 0, and -1 if it is negative.
+</li>
+<br>
+<li>Several bugs have been fixed.
+</li>
+<br>
+<li>Thanks to Andy Stark, this version comes with a convenient bookmarked guide.
+</li>
+<br>
+<li><A NAME="cde"></A><b>Core Data Explorer 1.0.</b><br>
+<br>
+F-Script now includes Core Data Explorer 1.0, a technology providing interactive access to the new <a href=http://developer.apple.com/macosx/coredata.html>Core Data layer</a> in Mac OS X 10.4.<br>
+<br>
+With Core Data Explorer you can:
+<ul>
+<li>Explore whole managed objects graphs with a powerful graphical object browser.</li>
+<li>Delve into collections of managed objects with a graphical collection inspector.</li>
+<li>Enter and evaluate Core Data queries interactively.</li>
+<li>Manipulate managed objects with OOPAL, the high level object-oriented programming model of F-Script.</li>
+<li>Programmatically access the Core Data API interactively from the F-Script environment.</li>
+</ul>
+<br>
+You can use Core Data Explorer from the F-Script application or your own applications. You can also inject it into any third-party Cocoa application by using <a href=http://homepage.mac.com/kenferry/software.html#fsa>F-Script Anywhere</a>.<br>
+<br>
+The object browser let you freely explore and manipulate the object graph and the Core Data stack. In addition, inspecting a collection of managed objects brings up a fully configured collection inspector with which you can further delve into your objects. A managed object context inspector lets you interactively query an NSObjectContext using the predicate language introduced in Mac OS X 10.4.<br>
+<br>
+OOPAL, the <a href=http://www.fscript.org/download/OOPAL.pdf>high-level programming model of F-Script</a>, let you easily manipulate Core Data managed objects. Example: attaching a managed object context to the current F-Script workspace and manipulating it using OOPAL<br>
+<br>
+<img src=artwork/im33.jpg><br>
+</li>
+</ul>
+
+<H1>F-Script 1.2.8 Release Notes</H1>
+
+<ul>
+<li>By default, F-Script now opens an object browser at launch time, in addition to the command line interface. This behavior can be changed from the preference panel.
+</li>
+<br>
+<li>The NSSearchField-based filter in the object browser has been extended to act on every entry in the browser, including entries in the "object info" sections and in the workspace column.
+</li>
+<br>
+<li>The object browser now displays object description, information, properties and methods in the same column. This makes it easier to browse object graphs.
+</li>
+<br>
+<img src=artwork/im26.jpg><br>
+<li>The support for pointers has been improved. This version introduces three new classes for pointer management. These classes are FSPointer, a semi-abstract class, and its two concrete subclasses: FSGenericPointer and FSObjectPointer. The old Pointer class is now deprecated.<br>
+<br>
+Here is an example of how a method taking an NSError** as argument can be used from an F-Script interactive section. In this example, we call the hypothetical -(id)dataWithContentsOfFile:(NSString *)path error:(NSError **)error method and then look at the generated NSError object.<br>
+<br>
+<code>
+> errorPtr := FSPointer objectPointer<br>
+<br>
+> data := myObject dataWithContentsOfFile:'wrongPath' error:errorPtr<br>
+<br>
+> errorPtr at:0<br>
+<br>
+NSError "File “wrongPath” does not exist." Domain=NSCocoaErrorDomain Code=260 UserInfo={<br>
+    NSFilePath = wrongPath;<br> 
+    NSUnderlyingError = NSError "POSIX error: No such file or directory" Domain=NSPOSIXErrorDomain Code=2;<br> 
+}
+</code>
+<br>
+</li>
+<br>
+<li>
+JGType, a new module contributed by Jörg Garbers, provides the ability to create new classes from within F-Script. The support for this feature is experimental in F-Script and is likely to evolve in future versions. <i>(Documentation forthcoming)</i>
+</li>
+<br>
+<li>
+Most of the new symbolic constant names defined in Tiger's Objective-C based frameworks are now available in F-Script. 
+</li>
+<br>
+<li>
+Various minor UI and stability improvements have been implemented. 
+</li>
+<br>
+<li><b>CoreData Explorer</b> (Tiger only) gains the following features:</li>
+<br>
+<ul>
+<li>
+In the object browser, the values of a managed object's properties are now displayed in the same column as the managed object itself. Thus, the entire content of a managed object can be visualized directly. 
+</li>
+<br>
+<li>
+With the introduction of CoreData specific "object info" sections, the object browser lets you easily access and explore the whole CoreData stack (object models, object contexts, predicates etc.)  
+</li>
+<br>
+<li>
+In F-Script, the value of a managed object's property can be obtained by direct message sending (without having to explicitly use KVC) even if the managed object does not implement the corresponding method.<br>
+<br>
+For instance, if <code>anEmployee</code> is a managed object with a <code>salary</code> property, you can write:<br>
+<br>
+<code>anEmployee salary</code><br>
+<br>
+instead of:<br>
+<br>
+<code>anEmployee valueForKey:'salary'</code>   
+</li>
+<br>
+<li>
+The System class provides an instance method, named <code>attach:</code>, which takes a managed object context as argument. For each entity associated with the managed object context, this method defines, in the workspace associated with the receiver, an NSArray which is given the same name as the entity and which contains all the managed objects corresponding to the entity at the time of invocation.<br>
+<br>
+For instance, if <code>myObjectContext</code> is a managed object context associated with an <code>Employee</code> entity and a <code>Department</code> entity, then, after executing:<br>
+<br>
+<code>sys attach:myObjectContext</code><br>
+<br>
+the F-Script workspace will contains two new arrays, named <code>Employee</code> and <code>Department</code>. These arrays will contain the managed objects for their corresponding entities: the <code>Employee</code> array will contain all the employees and the <code>Department</code> array will contain all the departments.<br>
+<br>
+This method is likely to bring in memory the whole persistent object graph associated with the object context. In practice this should not be a problem, unless you deal with very large data-sets. In such cases you should avoid using this method.<br>
+<br>
+Note that <code>attach:</code> is a convenience method. You still have full access to the CoreData framework and can use its various APIs to get access to managed objects.   
+<br>     
+</li>
+<br>
+</ul>
+</ul>
+
+<H1>F-Script 1.2.7 Release Notes</H1>
+
+<ul>
+<li> The collection inspector has been improved in the following ways: <br>
+<br>  
+<ul>
+<li>In order to improve readability, the collection inspector no longer uses enclosing quotes when displaying the value of a string.</li><br>
+<li>Compact blocks attached to columns are now displayed without the starting "#" character in column's headers.</li><br>
+<li>Blocks of the form <code>[:object| object valueForKey:'<i>akey</i>']</code> are displayed as <i>aKey</i> in column's headers.</li><br>
+<li>The collection inspector now provides an easy to use multi-step, multi-criteria searching and sorting facility. A new button in the toolbar, titled "Narrow", creates a new collection containing the selected objects (or all the currently filtered objects if the selection is empty) and opens a new inspector for this collection. It is then possible to further refine the exploration.</li><br>
+</ul>
+<img src=artwork/im19.jpg><br> 
+</li><br>
+
+<li> The NSSearchField-based filter in the object browser will now filter class names (when browsing classes using the "Classes" button), in addition to methods. 
+</li>
+<br>
+
+<li> The object browser is able to display more information about several common 
+Cocoa classes.
+</li><br>
+
+<li> The object browser now automatically fills the argument sheet's form with 
+templates for some argument types (currently including NSRange, NSSize, 
+NSPoint, NSRect, and SEL).
+</li>
+<img src=artwork/im21.jpg><br> 
+<br>
+<br>
+
+<li>A new button, titled "<b>Browse</b>", has been added to the object browser. It opens a new browser for the selected object.<br>
+<br>
+<img src=artwork/im25.jpg><br>
+<br>
+</li>
+
+
+<li><a name="cde"></a>F-Script 1.2.7 introduces <b>CoreData Explorer</b>, a new technology available when running on Mac OS X Tiger. In this version, CoreData Explorer is available through the following features:<br>
+<br>
+<ul>
+<li>The object browser now displays properties of CoreData managed objects and 
+lets you easily interact with and explore the object graph.</li><br>
+<li>When a collection contains CoreData managed objects of the same type, the 
+collection inspector automatically configures itself for displaying the 
+properties of the objects.</li><br>
+</ul></li>
+<li> The Pointer class has been extended and refined in several ways. In particular, Pointer objects can now be dereferenced, using the new <code>at:</code> and <code>at:put:</code> methods. This makes F-Script more effective for dealing with Objective-C APIs involving custom C pointers.
+</li><br>
+
+
+<li>The method <code>at:</code> defined for NSArrays by the FSNSArray category can now be invoked with an NSIndexSet as argument (in addition to the already supported argument types).
+</li><br>
+
+<li>The method <code>at:put:</code> defined for NSMutableArrays by the FSNSMutableArray category now accepts whole arrays of indices, Boolean arrays and NSIndexSets, like the <code>at:</code> method. This makes it easy to replace several elements of the receiver at once. </li><br>
+Examples:
+
+<code>
+<pre>
+> a := {10, 20, 30, 40, 50}
+
+> a at:{0, 2} put:{'hello', 'world'}
+
+> a
+{'hello', 20, 'world', 40, 50}
+
+> a at:{true, false, true, true, false} put:{999, -111, 66}
+
+> a
+{999, 20, -111, 66, 50}
+
+> a at:(a > 40) put:0
+
+> a
+{0, 20, -111, 0, 0}
+
+> indexSet := NSMutableIndexSet indexSet. indexSet addIndex:0. indexSet addIndex:3.
+
+> a at:indexSet put:{'Hi', 'mom'}
+
+> a
+{'Hi', 20, -111, 'mom', 0}
+
+> a at:indexSet put:33
+
+> a
+{33, 20, -111, 33, 0}
+</pre>
+</code>
+
+<li>The method <code>removeAt:</code> defined for NSMutableArrays by the FSNSMutableArray category now accepts whole arrays of indices, Boolean arrays and NSIndexSets, like the <code>at:</code> method. This makes it easy to remove several elements of the receiver at once.</li><br>
+
+<li> New bit manipulation methods, defined for NSNumbers by the FSNSNumber category, are available:<br>
+<br>
+<ul>
+<li>The method <code>bitAnd:</code> returns the result of the bit-wise logical AND of the binary representation of the receiver and the binary representation of the argument.</li><br>
+<li>The method <code>bitOr:</code> returns the result of the bit-wise logical OR of the binary representation of the receiver and the binary representation of the argument.</li><br>
+<li>The method <code>bitXor:</code> returns the result of the bit-wise exclusive OR of the binary representation of the receiver and the binary representation of the argument.</li>
+</ul>
+</li><br>
+
+<li> A <code>timesRepeat:</code> method is now defined for NSNumbers by the FSNSNumber category. This method evaluates the argument, a block, the number of  times represented by the receiver. An example is:<br>
+<br>
+<code>
+> i := 0<br> 
+<br>
+> 10 timesRepeat:[i := i + 1]<br>
+<br>
+> i<br>
+10
+</code> 
+</li><br>
+
+
+<li> A set of new methods for generating random numbers has been defined on 
+NSNumber by the FSNSNumber category:<br>
+<br>
+<ul>
+<li>The method <code>random</code> returns a random integer between 0 and the receiver - 1 (e.g., <code>5 random</code> will return either 0,1, 2, 3, or 4).</li><br>
+<li>The method <code>random:</code> wich takes an number as argument, returns an array of size equal to the argument, of random integers between 0 and the receiver - 1. All the elements of the result have a different value and are returned in a random order.
+</li><br>
+<li>The method <code>seedRandom</code> sets the value of the receiver as the seed for a new sequence of pseudo-random numbers to be used by <code>random</code> and <code>random:</code> to compute their results.</li>
+</ul>
+<bR>
+The old <code>rand</code> method is now deprecated.
+</li><br>
+
+
+
+<li>Performance of the F-Script interpreter has been widely improved when dealing with blocks that take arguments or have local variables, which is a common situation.<br>
+<br> 
+Note that as a result of changes in the implementation, blocks archived using this version of F-Script will not work correctly when loaded in  older versions. However, blocks archived with older version of F-Script will work correctly with this version.      
+</li><br>
+
+<li> Performance of search operations in arrays (e.g., <code>indexOfObject:</code>, <code>containsObject:</code> etc.) has been improved.
+</li><br>
+<li> The display of very large arrays in the object browser has been made faster.
+</li><br>
+<li> F-Script can now be used through the "Services" menu from other applications (code submited by Joerg Garbers).
+</li><br>
+<li> The objects supporting the F-Script "Flight" tutorial have been made KVC compliant and have been extended in order to support the examples used in the OOPAL paper. 
+</li><br>
+
+<li>The "Flight" tutorial is no longer installed automatically at launch time. To install it, one must invoke the method <code>-(void)installFlightTutorial</code> on the predefined <code>sys</code> object (note that this method replaces the <code>-(void)installTutorial</code> method, which is now deprecated).
+</li><br>
+
+<li> One-line Objective-C-like comments (i.e. comments starting with <code>//</code>), which have been deprecated a long time ago, are no longer supported. 
+</li><br>
+
+<li> Messages with selectors starting with "<code>:</code>" are now supported. 
+</li><br>
+
+<li> The following initialization methods have been implemented for the Number class:<br>
+<code>
+- (id)initWithChar:(char)value;<br>
+- (id)initWithUnsignedChar:(unsigned char)value;<br>
+- (id)initWithShort:(short)value;<br>
+- (id)initWithUnsignedShort:(unsigned short)value;<br>
+- (id)initWithInt:(int)value;<br>
+- (id)initWithUnsignedInt:(unsigned int)value;<br>
+- (id)initWithLong:(long)value;<br>
+- (id)initWithUnsignedLong:(unsigned long)value;<br>
+- (id)initWithLongLong:(long long)value;<br>
+- (id)initWithUnsignedLongLong:(unsigned long long)value;<br>
+- (id)initWithFloat:(float)value;<br>
+- (id)initWithBool:(BOOL)value;<br>
+</code>
+These methods come in addition to the existing <code>initWithDouble:</code> method, which is the designated initializer for this class.
+
+</li><br>
+
+
+<li> F-Script.app is no longer automatically linked to the Message framework. 
+</li><br>
+
+<li> The documentation has been improved, consolidated and simplified (in particular, there is no longer any distinction between user and developer sections in the reference documentation).
+</li><br>
+
+<li> Several bugs have been fixed.
+</li><br>
+
+</ul>
+
+<H1>F-Script 1.2.6 Release Notes</H1>
+
+<ul>
+<li> The object browser has been widely improved. In particular:<br>
+<br>
+</li>
+<li>An NSSearchField-based method filter has been added to the toolbar (on Mac OS X 10.3 and later only).<br>
+<br>
+<li>The object browser has more built-in knowledge of common Cocoa classes and design patterns. 
+</li><br> 
+</ul>
+
+<ul>
+
+<li>A collection inspector has been implemented. The inspector lets you graphically inspect NSArray, NSDictionary and NSSet objects. It is based on an evolution of the graphical array inspector introduced in version 1.2.3, and comes with new features (including, on Mac OS X 10.3 and later, an NSSearchField-based row filter). You can open it from the object browser by double clicking on a collection or sending the <code>inspectIn:</code> or <code>inspectIn:with:</code> messages to a collection.<br>
+<br>
+<img src=artwork/im14.jpg><br>
+</li><br>
+
+
+<li>The code completion system has been improved and is now based on Panther's NSTextView completion layer, which provides a better user interface (on Mac OS X 10.3 and later only). Note: code completion is invoked by pressing the F5 key.<br>
+<img src=artwork/im13.jpg><br>
+</li><br>
+
+<li>F-Script now uses the new standard Find panel (on Mac OS X 10.3 and later only).</li><br>
+
+<li>Undo/redo is now available in block inspectors (on Mac OS X 10.3 and later only).</li><br>
+
+<li>An NSAttributedString inspector has been implemented. It shows the interpreted attributed string and also displays the description of the attributed string as returned by the <code> printString </code> method.<br>
+<br>
+<img src=artwork/im15.jpg><br>
+</li><br> 
+
+<li>The block inspector now has a "Run" button in its toolbar. This button makes it possible to evaluate the block from the inspector itself. The result of the evaluation is shown in the object browser.<br>
+<br>
+<img src=artwork/im16.jpg><br> 
+</li><br>
+
+<li> FScriptMenuItem, a new public subclass of NSMenuItem, lets you easily embed a complete F-Script environment into an application. <br>
+<br>
+
+<li>The F-Script palette for Interface Builder now contains an FScriptMenuItem.<br>
+<br>
+
+<li>An NSFont inspector has been implemented. It opens the font panel and shows the font. 
+</li><br>
+
+<li>The F-Script run-time has been made thread safe. It is now possible to use F-Script concurrently from multiple threads in the same process. Note that classes provided by the F-Script framework (e.g. Array, Block, etc.) are generally not thread safe when sharing instances: you should synchronize appropriately if you share instances of these classes between multiple threads. However, note that the following F-Script classes are thread safe: FSBoolean, FSVoid, Number.<br>
+F-Script includes several categories adding methods to standard Cocoa classes. Categories that apply to Cocoa classes documented as thread safe do not break thread safety.<br>
+Note that you should not share workspaces or block environments between multiple threads. If you need to execute multiple chunks of F-Script code concurrently, you should use a different FSInterpreter instance for each one.</li><br>
+
+<li>Local variables in a block are now automatically initialized to <i>nil</i> when the block is evaluated. This is in line with the ANSI Smalltalk standard.</li><br>
+
+<li>Methods taking arguments of type _Bool or returning a value of this type can now be invoked from F-Script. FSBooleans objects are automatically mapped to _Bool values by F-Script. _Bool is a new type introduced by the ISA/IEC 9899 (aka C99) standard and now supported by GCC.</li><br>
+
+<li>In previous versions, the F9 and F10 function keys were used for Parenthesizing and Switching the paste parsing modes. We now use the F8 and F7 function keys instead.</li><br>
+
+<li>The methods enclose and enclose: defined in FSNSObject are deprecated, use enlist and enlist: instead (same semantics).</li><br>
+
+<li>In order to improve integration with Cocoa (in particular, in the context of key-value coding), this version introduces a new way of dealing with the NSRange, NSPoint, NSRect and NSSize data types.<br>
+<br>
+Values of these types are now represented in F-Script using NSValue objects. The wrapping and unwrapping of such values in/from NSValues object is performed automatically by F-Script when needed, allowing one to invoke, from F-Script, methods that take or return such values. <br>
+<br>
+In previous versions, F-Script provided separate classes to represent NSRange, NSPoint, NSRect and NSSize values. These classes (i.e., Range, FSPoint, Rectangle and FSSize) are still provided for backward compatibility, and automatic unwrapping from instances of these classes to corresponding C structs is still performed. The new FSNSValue category adds to the NSValue class a set of methods similar to the methods provided by the four old classes. This provides a good support for backward compatibility and transparent migration. However, a few of the methods implemented by the old classes are not provided by the FSNSValue category. Thus, you may have to modify your code if it makes use of these methods; either by eliminating the need to call these methods or by ensuring your code invokes them on an instance of the correct old class instead of on an NSValue.<br>
+See the F-Script documentation for a complete description of the old classes and the new FSNSValue category.</li><br>
+
+<li>F-Script.app is now automatically linked with the WebKit (on Mac OS X 10.3 and later only). </li><br>
+
+<li>The open source license applying to F-Script has been changed and is now based on the <i>modified BSD license</i>.
+</li>
+</ul>
+<br>
+<H1>F-Script 1.2.5 Release Notes</H1>
+<ul>
+<li>The main new feature in F-Script 1.2.5 is support for Mac OS X 10.3. The previous version would launch on 10.3 but crash on some operations.</li><br>
+<li>A few bugs have been fixed.</li><br>
+<li>The documentation has been improved, with a widely enhanced version of the OOPAL paper.</li><br>
+<li><b>WARNING -> BACKWARD INCOMPATIBLE CHANGE:</b> In the previous version, when a method's return type was char * (or unsigned char *), F-Script automatically mapped the  returned char pointer to an NSString object when this method was invoked from F-Script. Also, in the previous version, when a method's argument type was char * (or unsigned char *), you had to provides an NSString object for this argument when invoking this method from F-Script. Starting with F-Script 1.2.5, this mapping between char * (and unsigned char *) and NSString no longer happens. Now, char * (and unsigned char *) are mapped to Pointers objects.<br>
+<br>
+Example:<br>
+<br>
+<b>F-Script 1.2.4</b><br>
+<br>
+<code>
+> 'foo' cString<br>
+'foo'<br>
+<br>
+> NSString stringWithCString:'foo'<br>
+'foo'<br>
+</code>
+<br>
+<b>F-Script 1.2.5</b><br>
+<br>
+<code>
+> 'foo' cString <br>
+Pointer to 0x1223629<br>
+<br>
+> NSString stringWithCString:'foo' cString<br>
+'foo'<br>
+</code>
+<br>
+This change is not backward compatible. If your current F-Script code calls methods that return or take pointers to characters as arguments, you may have to modify it.<br>
+<br>
+You can use the user default <b>mapCharPointerToNSString</b>, on a per application basis, to restore the old mapping behavior. For instance, in the Mac OS X terminal, type <code>defaults write org.fscript.fscriptapp mapCharPointerToNSString YES</code> to restore the old mapping behavior for the F-Script application, and type <code>defaults write org.fscript.fscriptapp mapCharPointerToNSString NO</code> to get back to the new behavior.<br>
+<br>
+The user default <b>logWhenMappingCharPointerToNSString</b> may help you determine where you are dependent on the old behavior in your current F-Script code.  Setting this default to YES will configure F-Script to log a message (using NSLog()) of the form "Deprecated mapping of char * to NSString when calling method <i>methodName</i>". For instance, in the Mac OS X terminal, type <code>defaults write org.fscript.fscriptapp logWhenMappingCharPointerToNSString YES</code> to activate logging by the F-Script application, and type <code>defaults write org.fscript.fscriptapp logWhenMappingCharPointerToNSString NO</code> to disable logging. This user default is only useful when the mapCharPointerToNSString user default is also set to YES.<br> 
+<br>
+</ul>
+
+
+<H1>F-Script 1.2.4 Release Notes</H1>
+ 
+<ul>
+
+<li>The integration between F-Script and Cocoa has been improved. These changes are backward compatible.<br>
+<br>
+<ul>
+<li>F-Script now uses Cocoa's NSNumber class cluster to represent numbers. All the methods previously defined by the Number class have been added to NSNumber through the FSNSNumber category. All the public APIs previously using the Number class (for argument and/or return values) now use the NSNumber class. The Number class is now a subclass of NSNumber.<br>
+<br>
+<li>F-Script's array programming model can now be used on any NSArray object. All the methods previously implemented by the Array class have been implemented for NSArray and NSMutableArray, through the FSNSArray and FSNSMutableArray categories.
+</ul>
+<br>
+<li>The documentation has been extended with a new paper <i>OOPAL: Integrating Array Programming in Object-Oriented
+Programming</i> (note: this is a preliminary draft. The final version of the paper will be presented at OOPSLA this fall).<br>
+<br>
+<li>Inter-framework dependencies have been greatly reduced for FScript.framework and FScriptPalette.palette. These modules are now only statically linked with the Foundation, AppKit, ExceptionHandling, JavaVM and InterfaceBuilder (FScriptPalette.palette only) frameworks. In the previous version they were statically linked with several other frameworks including AddressBook, DiscRecording, IOBluetooth, etc.<br>
+<br>
+<li>The repository is now created by default at "~/Library/Application Support/F-Script".<br>
+<br>
+<li>The method <code>-(FSSize *)size</code> has been added to class Rectangle. Returns a Rectangle's extent as an FSSize object.<br>
+<br>
+<li>The method <code>-(id)fsmap</code> of category FSNSNumber is deprecated.<br>
+<br>
+<li>The method <code>-(id)fsmap</code> of category FSNSArray is deprecated.<br>
+<br>
+<li>The method <code>-(BOOL)hasFrac_bool</code> of category FSNSNumber is deprecated.<br>
+<br>
+<li>Several bugs have been fixed.<br>
+<br>
+</ul>
+
+
+<H1>F-Script 1.2.3 Release Notes</H1>
+
+<ul>
+
+<li>A graphical array inspector has been implemented. You can open it from the object browser by double clicking on an NSArray or sending the <code>inspectIn:</code> or <code>inspectIn:with:</code> messages to an NSArray.<br>
+<br>
+Example 1:<code> P inspectIn:sys </code><br>
+<br>
+<img src=artwork/im11.jpg><br>
+<br>
+Example 2:<code> P inspectIn:sys with:{#name, #salary, [:pilot | pilot salary >200000]}</code><br>
+<br>
+<img src=artwork/im1.jpg><br>
+<br>
+As you see, each column (except the "index" column) is associated with a one-argument block. Each block is evaluated for each element of the array and the result is displayed in the inspector. <br>
+<br>
+The <b>Add</b> button lets you add and configure a new column. The <b>Modify</b> button lets you modify the block associated with the selected column. You will have the possibility to enter the code of the block through the graphical block inspector.<br> 
+<br>
+The <b>Remove</b> button lets you remove the selected column. The <b>Sort</b> button lets you sort the rows according to the values associated with the selected column. The <b>Inspect</b> button opens an inspector for the array's element associated with the selected row (you can also double click on a row). The <b>Browse</b> button opens an object browser for the array's element associated with the selected row. The <b>Refresh</b> button re-compute and redisplay the table.<br>
+<br>    
+</li>
+
+<li>The stunning "Associate with interface" feature of F-Script Anywhere is now available in F-Script as well. A new button, called "Select View" has been added to the object browser. This button lets you select an NSView graphically by just clicking on it on-screen! The selected view is then displayed in the object browser.<br>
+<br>
+<img src=artwork/im2.jpg><br>
+<br>
+<b>Step 1:</b> Click on the "Select View" button -> the cursor change to a cross.<br>
+<b>Step 2:</b> Click on a visual part of the current application -> F-Script finds the view object that has been clicked on, and selects it in the object browser.<br>
+<br>
+Idea and part of the code borrowed from Nicholas Riley's F-Script Anywhere.<br>
+<br>
+</li>
+
+<li>For easier navigation, the object browser now displays additional information (target, subviews etc.) when browsing some classes like NSView, NSWindows, NSCell and others.<br> 
+<br>
+<br>
+<img src=artwork/im7.jpg><br>
+<br>
+</li>
+
+<li>Whenever possible, the object browser now gives indications about the kind of the arguments you have to provide to the selected method.<br> 
+<br>
+<img src=artwork/im3.jpg><br>
+<br>
+</li>
+<li> An advanced customization feature has been added to the object browser toolbar, implemented from an idea and first prototype by Joerg Garbers. As an F-Script user, you can now completely customize up to ten buttons that can be added to the object browser toolbar. This specific customization process is initiated by the standard toolbar customization process (e.g. selecting the "Customize toolbar" menu item).<br>
+</li><br>
+
+<li>Double-clicking an object in the object browser opens an inspector for this object.<br>
+<br>
+</li>
+
+<li> An NSImage inspector has been added.<br> 
+<br>
+Example: <code>(NSImage alloc initWithContentsOfFile:'/Library/Desktop Pictures/Nature/Ladybug.jpg') inspect</code><br>
+<br>
+<img src=artwork/im6.jpg><br>
+<br>
+</li>
+<li>The preference panel of the F-Script application now allows setting whether F-Script should ask for confirmation when quitting.<br>
+<br>
+</li>
+<li>F-Script is now automatically linked with a number of the new frameworks found in Jaguar. The complete list of frameworks F-Script is now automatically linked with is:<br> 
+<br>
+AddressBook<br>
+AppKit<br>
+ExceptionHandling<br>
+DiscRecording<br>
+Foundation<br>
+IOBluetooth<br>
+IOBluetoothUI<br>
+JavaVM<br>
+Message<br>
+PreferencePanes<br>
+ScreenSaver<br>
+<br>
+APIs in these frameworks can be accessed from F-Script without requiring any configuration. For instance, typing <code>ABAddressBook sharedAddressBook people valueForProperty:kABLastNameProperty</code> returns the names of people registered in your address book.<br> 
+<br>
+Here is another example, using the new array inspector to display the first name, last name and organization of people registered in your address book:<br> 
+<code>
+<pre>
+ABAddressBook sharedAddressBook people inspectIn:sys with:{ [:p| p valueForProperty:kABFirstNameProperty]
+                                                           ,[:p| p valueForProperty:kABLastNameProperty] 
+                                                           ,[:p| p valueForProperty:kABOrganizationProperty]}
+</pre>
+</code><br>
+<br>
+<img src=artwork/im8.jpg><br>
+<br>
+Loading other frameworks or bundles is easy. See section 11 of the F-Script guide.<br> 
+<br>
+</li>
+<li>In previous versions, it was not possible, from F-Script, to call methods taking pointers as arguments or returning a pointer (other than object pointers and char *). F-Script now supports these methods, thanks to the new user class <b>Pointer</b>. C pointers are now automatically mapped to Pointer instances. See the user guide for more about the Pointer class.<br>
+<br>
+</li>  
+<li>The user method <code>guardedValue:</code> has been added to class Block. This method executes the receiver and returns the result. If an error occurs during execution, it displays the block call stack to the user and returns nil. This method is useful when you want a block to be the target of an NSControl (for instance a button). Instead of using value: as the action method, you may use this method in order to have the block inspector pops-up automatically in case of error.<br>
+<br>
+</li>
+<li>The <code>sort</code> method of the Array class has been rewritten. The previous version of sort was not preserving pre-existing order among equal elements (that is, if two elements compared as equal, the order of their indices in the sorted array was undefined). The new version is "stable": it preserves pre-existing order among elements that are equal, which is quite useful in typical data-analysis use-cases.<br> 
+<br>
+</li>
+<li>The class method <code>+(BOOL)validateSyntaxForIdentifier:(NSString *)identifier</code> has been added to FSInterpreter. Returns YES if the argument conforms to the syntax of identifiers in the F-Script language.<br>
+<br>
+</li>
+<li>Support for the new keyed archiving system introduced in Jaguar has been implemented. Archives created by the <code>save</code> and <code>save:</code> method will use keyed archiving. The <code>load</code> and <code>load:</code> methods are able to read keyed archives, as well as old-style archives. F-Script public classes support both archiving styles.<br>
+<br>
+</li>
+<li>A number of goodies from Joerg Garbers have been added -> see the directory JGAdditions in the source code distribution.<br>
+<br>
+</li>
+<li>The user method <code><</code> has been added to class FSBoolean.<br>
+<br>
+</li>
+<li>The user method <code><</code> has been added to class NSNumber (through the FSNSNumber category)<br>
+<br>
+</li>
+<li>The user methods <code>browse</code> and <code>browse:</code> have been added to the FSInterpreter class. Opens an object browser.<br>
+<br>
+</li>
+<li>The user methods <code>browseKV</code> and <code>browseKV:</code> have been added to the FSInterpreter class. Opens a key value object browser.<br>
+<br>
+</li>
+<li>The user method <code>truncated</code> has been added to class Number. Answer an integer equal to the receiver truncated towards zero.<br>
+<br>
+</li>
+<li>The user method <code>prefix</code> of class Array is deprecated. Use the <code>prefixes</code> method instead (same semantics).<br>
+<br>
+</li>
+<li>The user method <code>mod:</code> of class Number is deprecated. Use the <code>rem:</code> method instead (same semantics). <br>
+<br>
+</li>
+<li>The user method <code>replication:</code> is deprecated. Use <code>replicate:</code> instead. (same semantics).<br>
+<br>
+</li>
+<li>The user method <code>\\</code> of class Array and FSNSArray category is deprecated. Use the <code>scan:</code> method instead (same semantics).<br>
+<br>
+</li>
+<li>The user method <code>rotation:</code> of class Array is deprecated. Use <code>rotatedBy:</code> instead (same semantics).<br>
+<br>
+</li>
+<li>The user method <code>transposition:</code> of class Array is deprecated. Use <code>transposedBy:</code> instead (same semantics). <br>
+<br>
+</li>
+<li>The user method <code>asMutableString</code> (provided by FSNSString) is deprecated.<br>
+<br>
+</li>
+<li>Various UI improvements not described here have been implemented.<br>
+<br>
+</li>
+<li>Several bugs have been fixed.<br>
+<br>
+</li>
+<br>
+<br>
+<p style="text-align:center; font-size:xx-small"><font COLOR="slategray">Copyright &copy; 2010 Philippe Mougin</font></p>
+<br>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-278325-1";
+urchinTracker();
+</script>
+
+</body>
+</html>

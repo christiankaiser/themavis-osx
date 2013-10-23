@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>addColor</key>
+				<string>id</string>
+				<key>addColorTable</key>
+				<string>id</string>
+				<key>colorChanged</key>
+				<string>id</string>
+				<key>colorClick</key>
+				<string>id</string>
+				<key>moveColorDown</key>
+				<string>id</string>
+				<key>moveColorUp</key>
+				<string>id</string>
+				<key>openColorTable</key>
+				<string>id</string>
+				<key>removeColor</key>
+				<string>id</string>
+				<key>removeColorTable</key>
+				<string>id</string>
+				<key>saveColorTable</key>
+				<string>id</string>
+				<key>updatePanel</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>TMColorTablePanelController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_colorList</key>
+				<string>NSTableView</string>
+				<key>_colorTableList</key>
+				<string>NSTableView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>
